@@ -1,0 +1,129 @@
+
+.loadingScreen {
+  position: fixed;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  transition: opacity 1.5s;
+  z-index: 1;
+}
+
+.loadingScreen__board {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.04));
+  height: 100%;
+  width: 50%;
+  padding: 4%;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+}
+
+.loadingScreen__title1 {
+  font-size: 1.4rem;
+  color: black;
+  padding: 0.4%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+  font-family: 'Helvetica Light';
+  animation: fadeIn 1s ease-in-out;
+  margin-bottom: 3%;
+}
+.loadingScreen__title2 {
+  font-size: 2rem;
+  color: black;
+  font-family: 'Helvetica Bold';
+  letter-spacing: -0.01rem;
+  animation: fadeIn 2s ease-in-out;
+}
+.loadingScreen__title3 {
+  font-size: 10rem;
+  color: rgb(0, 112, 60); /* Color principal */
+  letter-spacing: 2rem;
+  margin-top: -4%;
+  font-family: 'Eurostile Bold';
+  animation: fadeIn 2.5s ease-in-out;
+}
+.loadingScreen__title4 {
+  font-size: 1.3rem;
+  color: black;
+  font-family: 'Helvetica Light';
+  margin-bottom: 4%;
+  margin-top: -2%;
+  animation: fadeIn 2s ease-in-out;
+}
+.loadingScreen__title5 {
+  font-size: 0.9rem;
+  color: rgb(65, 65, 65);
+  padding: 2% 1%;
+  margin-bottom: 5%;
+  text-justify: auto;
+  font-family: 'Helvetica Light';
+  background-color: rgba(255, 255, 255, 0.7);
+  animation: fadeIn 3s ease-in-out;
+}
+
+.loadingScreen__button {
+  background-color: rgb(255, 255, 255, 0.6);
+  border-radius: 20px;
+  border: 0px;
+  padding: 3%;
+  font-size: 1rem;
+  transform: scale(0.9);
+  font-family: 'Helvetica Bold';
+}
+
+.loadingScreen__button:hover {
+  cursor: pointer;
+  background-color: rgb(255, 255, 255, 1);
+  transform: scale(1);
+  transition:  all 0.3s;
+}
+
+.loadingScreen__button:disabled {
+  cursor: not-allowed;
+}
+
+.loadingScreen__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+}
+
+.loadingScreen__progress__value {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgb(0 0 0 / 60%);
+  transition: width 0.4s;
+}
+
+.loadingScreen--started {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

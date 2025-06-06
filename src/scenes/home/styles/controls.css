@@ -1,0 +1,5 @@
+.controlsGuide {
+    position: absolute;
+    bottom: 6vw;
+    left: calc(50% - 6px);
+  }
