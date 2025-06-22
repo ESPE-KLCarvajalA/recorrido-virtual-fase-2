@@ -38,7 +38,7 @@ export function PisoPrueba(props: ThreeElements['group']) {
 
   return (
     <group {...props} dispose={null}>
-      {/* Visual */}
+    
       <mesh
         name="road009"
         geometry={nodes.road009.geometry}
@@ -46,7 +46,7 @@ export function PisoPrueba(props: ThreeElements['group']) {
         position={position}
       />
 
-      {/* Colisión física */}
+     
       <CollisionMesh geometry={nodes.road009.geometry} position={position} />
     </group>
   )

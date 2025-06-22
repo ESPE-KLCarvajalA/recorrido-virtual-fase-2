@@ -41,11 +41,10 @@ export function PisoArco(props: ThreeElements['group']) {
   return (
     <group {...props} dispose={null}>
       <group name="piso_arco" position={position}>
-        {/* Visuales */}
+      
         <mesh geometry={nodes.Plane.geometry} material={materials['Terrazzo Tiles']} />
         <mesh geometry={nodes.Plane_1.geometry} material={materials['Material.034']} />
 
-        {/* Colisiones físicas */}
         <CollisionMesh geometry={nodes.Plane.geometry} position={position} />
         <CollisionMesh geometry={nodes.Plane_1.geometry} position={position} />
       </group>

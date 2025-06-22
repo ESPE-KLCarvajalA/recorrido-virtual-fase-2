@@ -1,4 +1,4 @@
-import {  Physics } from '@react-three/cannon';
+import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import BaseCharacter from '../../shared/components/BaseCharacter';
 import { PointerLockControls } from '@react-three/drei';
@@ -43,11 +43,11 @@ const BaseSceneEntrada = () => {
 
       <Physics gravity={[0, -100, 0]} iterations={10}>
 
-        {/* <Debug color="black"> */}
+   
 
 
-        <BaseCharacter controls positionCharacter={[9.373, -4, -247.046]} args={[2.2]} altura={20} velocidad={30} salto={20} color="white" />
-dd
+          <BaseCharacter controls positionCharacter={[9.373, -4, -247.046]} args={[2.2]} altura={20} velocidad={30} salto={20} color="white" />
+          
 
           <PisoOctagono />
           <Vereda1 />
@@ -74,9 +74,8 @@ dd
           <Puerta1 />
           <Puerta2 />
 
-  
 
-        {/* </Debug> */}
+
       </Physics>
 
 

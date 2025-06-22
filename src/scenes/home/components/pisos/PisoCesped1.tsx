@@ -18,7 +18,6 @@ export function PisoCesped1(props: ThreeElements['group']) {
 
   const geometry = nodes.piso_cesped_cerca_del_lab001.geometry as THREE.BufferGeometry;
 
-  // Extraer vértices e índices
   const vertices = Array.from(geometry.attributes.position.array as Float32Array);
   const indices = geometry.index ? Array.from(geometry.index.array as Uint16Array | Uint32Array) : [];
 
@@ -30,7 +29,7 @@ export function PisoCesped1(props: ThreeElements['group']) {
 
   return (
     <group {...props} dispose={null}>
-      <group ref={ref} /> {/* Colisión física */}
+      <group ref={ref} /> 
       <mesh
         name="piso_cesped_cerca_del_lab001"
         geometry={geometry}

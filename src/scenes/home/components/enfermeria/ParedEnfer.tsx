@@ -41,11 +41,11 @@ export function ParedEn(props: ThreeElements['group']) {
   return (
     <group {...props} dispose={null}>
       <group name="Room089" position={position}>
-        {/* Visuales */}
+        
         <mesh geometry={nodes.Room028.geometry} material={materials['Material.081']} />
         <mesh geometry={nodes.Room028_1.geometry} material={materials['Material.082']} />
 
-        {/* Colisiones */}
+        
         <CollisionMesh geometry={nodes.Room028.geometry} position={position} />
         <CollisionMesh geometry={nodes.Room028_1.geometry} position={position} />
       </group>
