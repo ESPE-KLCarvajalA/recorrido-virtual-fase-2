@@ -1,4 +1,4 @@
-import { Debug, Physics } from '@react-three/cannon';
+import {  Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import BaseCharacter from '../../shared/components/BaseCharacter';
 import { PointerLockControls } from '@react-three/drei';
