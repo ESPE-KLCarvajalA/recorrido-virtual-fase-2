@@ -11,23 +11,25 @@ const BaseCharacter = ({ positionCharacter, velocidad, altura, args, position }:
   const SPEED = velocidad;
 
   const { camera } = useThree();
+  const velocity = useRef([0, 0, 0]);
 
   const [ref, api] = useSphere(() => ({
     mass: 1,
     type: 'Dynamic',
     position,
     args,
-    sleepSpeedLimit: 0.1,
-    sleepTimeLimit: 1,
+    // ⚠️ Se eliminan fricción, restitución y sleep para evitar problemas de física y colisiones
   }));
 
   const { forward, backward, left, right, run } = usePlayerControls();
-  const velocity = useRef([0, 0, 0]);
 
+  // Suscribirse a cambios de velocidad física
   useEffect(() => {
-    api.velocity.subscribe((v) => (velocity.current = v));
-  }, []);
+    const unsubscribe = api.velocity.subscribe((v) => (velocity.current = v));
+    return () => unsubscribe();
+  }, [api.velocity]);
 
+  // Establecer la posición inicial cuando cambie positionCharacter
   useEffect(() => {
     if (
       Array.isArray(positionCharacter) &&
@@ -40,11 +42,11 @@ const BaseCharacter = ({ positionCharacter, velocidad, altura, args, position }:
     } else {
       console.warn('positionCharacter no es un vector [x, y, z] válido:', positionCharacter);
     }
-  }, []);
-  
+  }, [positionCharacter, api]);
 
+  // Lógica de movimiento
   useFrame(() => {
-    let spherePosition = new THREE.Vector3();
+    const spherePosition = new THREE.Vector3();
     ref.current.getWorldPosition(spherePosition);
     camera.position.set(spherePosition.x, spherePosition.y + altura, spherePosition.z);
 
@@ -55,10 +57,15 @@ const BaseCharacter = ({ positionCharacter, velocidad, altura, args, position }:
 
     if (moving) {
       const speed = run ? SPEED * 3.5 : SPEED;
-      direction.subVectors(frontVector, sideVector).normalize().multiplyScalar(speed).applyEuler(camera.rotation);
+      direction
+        .subVectors(frontVector, sideVector)
+        .normalize()
+        .multiplyScalar(speed)
+        .applyEuler(camera.rotation);
       api.velocity.set(direction.x, velocity.current[1], direction.z);
     } else {
-      api.velocity.set(0, velocity.current[1], 0);
+      // Aplica fricción manual para evitar que se quede "pegado" si está en contacto con algo
+      api.velocity.set(velocity.current[0] * 0.9, velocity.current[1], velocity.current[2] * 0.9);
     }
   });
 

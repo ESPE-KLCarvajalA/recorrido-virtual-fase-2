@@ -1,8 +1,7 @@
 import './App.css'
 import { Link, Outlet, RouteObject, useRoutes } from 'react-router-dom';
 
-// import BaseSceneCancha from './scenes/cancha/BaseSceneCancha';
-import BaseSceneEntrada from './scenes/entrada/BaseSceneEntrada';
+import BaseSceneEntrada from './scenes/home/BaseSceneEntrada';
 
 function App() {
   let routes: RouteObject[] = [
@@ -14,6 +13,7 @@ function App() {
         
 
         { path: "entrada", element: <BaseSceneEntrada /> },
+
 
         { path: "*", element: <NoMatch /> },
       ],
