@@ -14,7 +14,7 @@ type GLTFResult = GLTF & {
 };
 
 export function PisoCesped2(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/pisoCesped2.glb') as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoCesped2.glb') as unknown as GLTFResult;
 
   const geometry = nodes.piso_cesped_cerca_del_lab.geometry;
   const vertices = Array.from(geometry.attributes.position.array as Float32Array);
@@ -41,4 +41,4 @@ export function PisoCesped2(props: ThreeElements['group']) {
   );
 }
 
-useGLTF.preload('models/pisos/pisoCesped2.glb');
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoCesped2.glb');

@@ -36,7 +36,7 @@ function CollisionMesh({
 }
 
 export function ParedE2(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/entrada2/paredE2.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/entrada2/paredE2.glb') as unknown as GLTFResult
   const position: [number, number, number] = [-1.753, 27, 36.382]
 
   return (
@@ -54,4 +54,4 @@ export function ParedE2(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/entrada2/paredE2.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/entrada2/paredE2.glb')

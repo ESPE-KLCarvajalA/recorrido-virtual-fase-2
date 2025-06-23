@@ -16,7 +16,7 @@ type GLTFResult = GLTF & {
 };
 
 export function Vereda1(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/vereda1.glb') as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/vereda1.glb') as unknown as GLTFResult;
 
   const geom1 = nodes.Plane040.geometry as THREE.BufferGeometry;
   const geom2 = nodes.Plane040_1.geometry as THREE.BufferGeometry;
@@ -62,4 +62,4 @@ export function Vereda1(props: ThreeElements['group']) {
   );
 }
 
-useGLTF.preload('models/pisos/vereda1.glb');
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/vereda1.glb');

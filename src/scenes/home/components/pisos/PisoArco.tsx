@@ -35,7 +35,7 @@ function CollisionMesh({
 }
 
 export function PisoArco(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/pisoArco.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoArco.glb') as unknown as GLTFResult
   const position: [number, number, number] = [-1.895,0.5 , 31.141]
 
   return (
@@ -52,4 +52,4 @@ export function PisoArco(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/pisos/pisoArco.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoArco.glb')

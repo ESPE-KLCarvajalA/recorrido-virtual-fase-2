@@ -18,7 +18,7 @@ type GLTFResult = GLTF & {
 };
 
 export function Pared1(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/oficina/pared1.glb') as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/pared1.glb') as unknown as GLTFResult;
 
   const position: [number, number, number] = [72.942, 29.5, -71.785];
 
@@ -75,4 +75,4 @@ export function Pared1(props: ThreeElements['group']) {
   );
 }
 
-useGLTF.preload('models/oficina/pared1.glb');
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/pared1.glb');
