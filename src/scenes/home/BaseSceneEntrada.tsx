@@ -26,7 +26,7 @@ import { PisoPrueba } from './components/pisos/PisoPrueba';
 import { Ventana1 } from './components/ventana/Ventana1';
 import { Ventanas2 } from './components/ventana/Ventana2';
 import { Puerta1 } from './components/puerta/Puerta1';
-import { Puerta2 } from './components/puerta/Puerta2';
+import { InstancedPuerta2 } from './components/puerta/Puerta2';
 
 
 
@@ -72,7 +72,7 @@ const BaseSceneEntrada = () => {
           < Ventana1 />
           <Ventanas2 />
           <Puerta1 />
-          <Puerta2 />
+          <InstancedPuerta2 />
 
 
 
