@@ -7,49 +7,45 @@ import { useTrimesh } from '@react-three/cannon'
 type GLTFResult = GLTF & {
   nodes: {
     road009: THREE.Mesh
+    road016: THREE.Mesh
   }
   materials: {
     ['Material.048']: THREE.MeshStandardMaterial
+    ['Material.061']: THREE.MeshStandardMaterial
   }
 }
 
-function CollisionMesh({
-  geometry,
-  position,
-}: {
-  geometry: THREE.BufferGeometry
-  position: [number, number, number]
-}) {
-  const vertices = geometry.attributes.position.array as Float32Array
-  const indices = geometry.index?.array as Uint16Array | Uint32Array
+export function PisoPrueba(props: ThreeElements['group']) {
+  const { nodes, materials } = useGLTF('models/pisos/pisoprueba.glb') as unknown as GLTFResult
 
-  const [ref] = useTrimesh(() => ({
-    args: [vertices, indices],
+  const [ref1] = useTrimesh(() => ({
     type: 'Static',
-    position,
+    args: [nodes.road009.geometry.attributes.position.array, nodes.road009.geometry.index.array],
+    position: [-65.404, -1.118, -457.82],
   }))
 
-  return <mesh ref={ref} geometry={geometry} visible={false} />
-}
-
-export function PisoPrueba(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoprueba.glb') as unknown as GLTFResult
-  const position: [number, number, number] = [-66.014, -2, -458]
+  const [ref2] = useTrimesh(() => ({
+    type: 'Static',
+    args: [nodes.road016.geometry.attributes.position.array, nodes.road016.geometry.index.array],
+    position: [-100.871, -0.481, -796.902],
+  }))
 
   return (
     <group {...props} dispose={null}>
-    
       <mesh
-        name="road009"
+        ref={ref1}
         geometry={nodes.road009.geometry}
         material={materials['Material.048']}
-        position={position}
+        position={[-65.404, -1.118, -457.82]}
       />
-
-     
-      <CollisionMesh geometry={nodes.road009.geometry} position={position} />
+      <mesh
+        ref={ref2}
+        geometry={nodes.road016.geometry}
+        material={materials['Material.061']}
+        position={[-100.871, -0.481, -796.902]}
+      />
     </group>
   )
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoprueba.glb')
+useGLTF.preload('models/pisos/pisoprueba.glb')

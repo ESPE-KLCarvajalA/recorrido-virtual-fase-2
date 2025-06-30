@@ -4,107 +4,127 @@ import { useEffect, useRef } from 'react';
 import { GLTF } from 'three-stdlib';
 
 type GLTFResult = GLTF & {
-    nodes: {
-        WindowFrane005: THREE.Mesh;
-        WindowFrane005_1: THREE.Mesh;
-    };
-    materials: {
-        ['Material.072']: THREE.MeshStandardMaterial;
-        ['Material.102']: THREE.MeshStandardMaterial;
-    };
+  nodes: {
+    WindowFrane005: THREE.Mesh;
+    WindowFrane005_1: THREE.Mesh;
+  };
+  materials: {
+    ['Material.072']: THREE.MeshStandardMaterial;
+    ['Material.102']: THREE.MeshStandardMaterial;
+  };
 };
 
 type InstanceData = {
-    name: string;
-    position: [number, number, number];
-    rotation: [number, number, number];
-    scale: [number, number, number];
+  name: string;
+  position: [number, number, number];
+  rotation: [number, number, number];
+  scale: [number, number, number];
 };
 
 export function Ventana1() {
-    const { nodes, materials } = useGLTF(
-        'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana1.glb'
-    ) as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF('models/ventana/ventana1.glb') as unknown as GLTFResult;
 
-    const frameRef = useRef<THREE.InstancedMesh>(null);
-    const glassRef = useRef<THREE.InstancedMesh>(null);
+  const frameRef = useRef<THREE.InstancedMesh>(null);
+  const glassRef = useRef<THREE.InstancedMesh>(null);
 
-    const instances: InstanceData[] = [
-        {
-            name: 'VentanaPrincipal',
-            position: [430.901, 32.5174, -351.084], rotation: [0, 0, 0], scale: [1, 1, 1],
-        },
-        {
-            name: 'WindowR001',
-            position: [477.353, 32.834, -363.356], rotation: [0, 0, 0], scale: [1, 1, 1],
-        },
-        {
-            name: 'WindowL001',
-            position: [539.9, 32.517, -382],
-            rotation: [0, -0.07, 0],
-            scale: [0.8, 1, 1],
-        },
-        {
-            name: 'WindowFrane001_1',
-            position: [556.373, 32.857, -368.78],
-            rotation: [0, -1.63, 0],
-            scale: [0.8, 1, 1],
-        },
-        {
-            name: 'WindowFrane001_2',
-            position: [580.481, 32.715, -278.365],
-            rotation: [0, -1.6, 0],
-            scale: [1, 1, 1],
-        },
-        {
-            name: 'WindowFrane001_3',
-            position: [589, 32.758, -245.441],
-            rotation: [0, -1.6, 0],
-            scale: [1, 1, 1],
-        },
-        {
-            name: 'WindowFrane001_4',
-            position: [605, 32.936, -186.448],
-            rotation: [0, -1.6, 0],
-            scale: [1, 1, 1],
-        },
-    ];
+  const allInstances: InstanceData[] = [
+    { name: 'VentanaPrincipal', position: [430.901, 32.5174, -351.084], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { name: 'WindowR001', position: [477.353, 32.834, -363.356], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { name: 'WindowL001', position: [539.9, 32.517, -382], rotation: [0, -0.07, 0], scale: [0.8, 1, 1] },
+    { name: 'WindowFrane001_1', position: [556.373, 32.857, -368.78], rotation: [0, -1.63, 0], scale: [0.8, 1, 1] },
+    { name: 'WindowFrane001_2', position: [580.481, 32.715, -278.365], rotation: [0, -1.6, 0], scale: [1, 1, 1] },
+    { name: 'WindowFrane001_3', position: [589, 32.758, -245.441], rotation: [0, -1.6, 0], scale: [1, 1, 1] },
+    { name: 'WindowFrane001_4', position: [606, 32.936, -187], rotation: [0, -1.6, 0], scale: [1, 1, 1] },
+    { name: 'WindowFrane001_41', position: [400.129, 32.8, -374.283], rotation: [0, -1.56, 0], scale: [1.1, 1, 1] },
+    { name: 'WindowFrane001_42', position: [391.794, 30.338, -427.515], rotation: [0, -0.9, 0], scale: [1, 0.8, 0] },
+    { name: 'WindowFrane001_43', position: [345, 31, -489], rotation: [0, -0.9, 0], scale: [1, 0.8, 0] },
+    {
+        name: 'WindowFrane001_44',position: [-137, 41, -0.946],
+        rotation: [0,2.9,0],scale: [1.19,0.5,1]
+      },
+      {
+        name: 'WindowFrane001_1',
+        position: [-240.959, 37, -177.872],
+        rotation: [0,1.4,0],
+        scale: [0.8, 0.5, 0.5]
+      
+      },
+      {
+        name: 'WindowFrane001_2',
+        position: [-240.959, 37, -153.122],
+        rotation: [0, 1.4, 0],
+        scale: [0.8,0.5,0.5]
+      }
+  ];
 
-    useEffect(() => {
-        instances.forEach((instance, i) => {
-            const position = new THREE.Vector3(...instance.position);
-            const rotation = new THREE.Euler(...instance.rotation);
-            const scale = new THREE.Vector3(...instance.scale);
-            const matrix = new THREE.Matrix4();
-            matrix.compose(position, new THREE.Quaternion().setFromEuler(rotation), scale);
+  // Separar las ventanas especiales
+  const customWindows = allInstances.filter(w =>
+    w.name === 'WindowFrane001_42' || w.name === 'WindowFrane001_43'
+  );
 
-            frameRef.current!.setMatrixAt(i, matrix);
-            glassRef.current!.setMatrixAt(i, matrix);
-        });
+  // El resto sí va como instanced
+  const instancedWindows = allInstances.filter(w =>
+    w.name !== 'WindowFrane001_42' && w.name !== 'WindowFrane001_43'
+  );
 
-        frameRef.current!.instanceMatrix.needsUpdate = true;
-        glassRef.current!.instanceMatrix.needsUpdate = true;
+  // Material personalizado
+  const customBrownMaterial = new THREE.MeshStandardMaterial({ color: '#584346' });
 
-        frameRef.current!.frustumCulled = false;
-        glassRef.current!.frustumCulled = false;
-    }, [instances]);
+  useEffect(() => {
+    instancedWindows.forEach((instance, i) => {
+      const position = new THREE.Vector3(...instance.position);
+      const rotation = new THREE.Euler(...instance.rotation);
+      const scale = new THREE.Vector3(...instance.scale);
+      const matrix = new THREE.Matrix4();
+      matrix.compose(position, new THREE.Quaternion().setFromEuler(rotation), scale);
 
-    return (
-        <group>
-            <instancedMesh
-                ref={frameRef}
-                args={[null, null, instances.length]}
-                geometry={nodes.WindowFrane005.geometry}
-                material={materials['Material.072']}
-            />
-            <instancedMesh
-                ref={glassRef}
-                args={[null, null, instances.length]}
-                geometry={nodes.WindowFrane005_1.geometry}
-                material={materials['Material.102']}
-            />
+      frameRef.current!.setMatrixAt(i, matrix);
+      glassRef.current!.setMatrixAt(i, matrix);
+    });
+
+    frameRef.current!.instanceMatrix.needsUpdate = true;
+    glassRef.current!.instanceMatrix.needsUpdate = true;
+
+    frameRef.current!.frustumCulled = false;
+    glassRef.current!.frustumCulled = false;
+  }, [instancedWindows]);
+
+  return (
+    <group>
+      {/* Ventanas instanciadas (normales) */}
+      <instancedMesh
+        ref={frameRef}
+        args={[null, null, instancedWindows.length]}
+        geometry={nodes.WindowFrane005.geometry}
+        material={materials['Material.072']}
+      />
+      <instancedMesh
+        ref={glassRef}
+        args={[null, null, instancedWindows.length]}
+        geometry={nodes.WindowFrane005_1.geometry}
+        material={materials['Material.102']}
+      />
+
+      {/* Ventanas individuales con color personalizado */}
+      {customWindows.map((win, i) => (
+        <group
+          key={`custom-window-${i}`}
+          position={win.position}
+          rotation={win.rotation}
+          scale={win.scale}
+        >
+          <mesh
+            geometry={nodes.WindowFrane005.geometry}
+            material={customBrownMaterial}
+          />
+          <mesh
+            geometry={nodes.WindowFrane005_1.geometry}
+            material={materials['Material.102']} // Vidrio original
+          />
         </group>
-    );
+      ))}
+    </group>
+  );
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana1.glb');
+useGLTF.preload('models/ventana/ventana1.glb');

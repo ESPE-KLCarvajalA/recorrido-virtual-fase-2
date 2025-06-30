@@ -17,6 +17,7 @@ type GLTFResult = GLTF & {
 
 function CollisionMesh({
   geometry,
+
   position,
 }: {
   geometry: THREE.BufferGeometry
@@ -35,17 +36,17 @@ function CollisionMesh({
 }
 
 export function ParedDo(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/salaDocent/paredDo.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('models/salaDocent/paredDo.glb') as unknown as GLTFResult
   const position: [number, number, number] = [376.43, 24, -459.10]
 
   return (
     <group {...props} dispose={null}>
       <group name="Room094" position={position}>
-    
+
         <mesh geometry={nodes.Room094_1.geometry} material={materials['Material.001']} />
         <mesh geometry={nodes.Room094_2.geometry} material={materials['Material.069']} />
 
-        
+
         <CollisionMesh geometry={nodes.Room094_1.geometry} position={position} />
         <CollisionMesh geometry={nodes.Room094_2.geometry} position={position} />
       </group>
@@ -53,4 +54,4 @@ export function ParedDo(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/salaDocent/paredDo.glb')
+useGLTF.preload('models/salaDocent/paredDo.glb')

@@ -1,7 +1,7 @@
 import * as THREE from 'three'
+import { ThreeElements } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
-import { ThreeElements } from '@react-three/fiber'
 import { useTrimesh } from '@react-three/cannon'
 
 type GLTFResult = GLTF & {
@@ -15,41 +15,74 @@ type GLTFResult = GLTF & {
   }
 }
 
-function CollisionMesh({
-  geometry,
-  position,
-}: {
-  geometry: THREE.BufferGeometry
-  position: [number, number, number]
-}) {
-  const vertices = geometry.attributes.position.array as Float32Array
-  const indices = geometry.index?.array as Uint16Array | Uint32Array
-
-  const [ref] = useTrimesh(() => ({
-    args: [vertices, indices],
-    type: 'Static',
-    position,
-  }))
-
-  return <mesh ref={ref} geometry={geometry} visible={false} />
-}
-
 export function PisoArco(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoArco.glb') as unknown as GLTFResult
-  const position: [number, number, number] = [-1.895,0.5 , 31.141]
+  const { nodes, materials } = useGLTF('models/pisos/pisoArco.glb') as unknown as GLTFResult
+  const groupPosition: [number, number, number] = [-1.895, 0, 31.141]
+
+  const geometriesToCombine: THREE.BufferGeometry[] = [
+    nodes.Plane.geometry,
+    nodes.Plane_1.geometry,
+  ];
+
+  const totalVerticesCount = geometriesToCombine.reduce((sum, geo) => sum + geo.attributes.position.count, 0);
+  const totalIndicesCount = geometriesToCombine.reduce((sum, geo) => sum + (geo.index?.count || geo.attributes.position.count), 0);
+
+  const combinedVertices = new Float32Array(totalVerticesCount * 3);
+  const combinedIndices = new Uint32Array(totalIndicesCount);
+
+  let vertexOffset = 0;
+  let indexOffset = 0;
+
+  geometriesToCombine.forEach((geo) => {
+    const posAttr = geo.attributes.position.array as Float32Array;
+    const idxAttr = geo.index?.array as Uint16Array | Uint32Array | undefined;
+
+    // Copiar vértices
+    combinedVertices.set(posAttr, vertexOffset * 3);
+
+    // Copiar y ajustar índices
+    if (idxAttr) {
+      for (let i = 0; i < idxAttr.length; i++) {
+        combinedIndices[indexOffset + i] = idxAttr[i] + vertexOffset;
+      }
+    } else {
+        console.warn("Geometría sin búfer de índice encontrada en PisoArco.tsx. Podría no ser manejado correctamente para todos los casos sin índices explícitos.");
+        for (let i = 0; i < posAttr.length / 3; i++) {
+            combinedIndices[indexOffset + i] = vertexOffset + i;
+        }
+    }
+
+    // Actualizar offsets para la siguiente geometría
+    vertexOffset += posAttr.length / 3;
+    indexOffset += idxAttr?.length || (posAttr.length / 3);
+  });
+
+  // Crea el cuerpo de física con useTrimesh para la geometría combinada
+  const [ref] = useTrimesh(() => ({
+    type: 'Static',
+    args: [combinedVertices, combinedIndices],
+    position: groupPosition,
+  }));
 
   return (
     <group {...props} dispose={null}>
-      <group name="piso_arco" position={position}>
-      
-        <mesh geometry={nodes.Plane.geometry} material={materials['Terrazzo Tiles']} />
-        <mesh geometry={nodes.Plane_1.geometry} material={materials['Material.034']} />
-
-        <CollisionMesh geometry={nodes.Plane.geometry} position={position} />
-        <CollisionMesh geometry={nodes.Plane_1.geometry} position={position} />
+      {/* Adjunta la referencia del cuerpo de física al grupo visual principal */}
+      <group name="piso_arco" position={groupPosition} ref={ref}>
+        <mesh
+          geometry={nodes.Plane.geometry}
+          material={materials['Terrazzo Tiles']}
+          castShadow
+          receiveShadow
+        />
+        <mesh
+          geometry={nodes.Plane_1.geometry}
+          material={materials['Material.034']}
+          castShadow
+          receiveShadow
+        />
       </group>
     </group>
-  )
+  );
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoArco.glb')
+useGLTF.preload('models/pisos/pisoArco.glb')

@@ -16,7 +16,7 @@ type GLTFResult = GLTF & {
 };
 
 export function Vereda1(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/vereda1.glb') as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF('models/pisos/vereda1.glb') as unknown as GLTFResult;
 
   const geom1 = nodes.Plane040.geometry as THREE.BufferGeometry;
   const geom2 = nodes.Plane040_1.geometry as THREE.BufferGeometry;
@@ -27,7 +27,7 @@ export function Vereda1(props: ThreeElements['group']) {
   const vertices2 = Array.from(geom2.attributes.position.array as Float32Array);
   const indices2 = geom2.index ? Array.from(geom2.index.array as Uint16Array | Uint32Array) : [];
 
-  const position: [number, number, number] = [-89.377, -1, 103.015];
+  const position: [number, number, number] = [-89.377, -1, 103];
 
   const [ref1] = useTrimesh(() => ({
     type: 'Static',
@@ -62,4 +62,4 @@ export function Vereda1(props: ThreeElements['group']) {
   );
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/vereda1.glb');
+useGLTF.preload('models/pisos/vereda1.glb');

@@ -2,12 +2,14 @@ import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { useEffect, useRef } from 'react';
 import { GLTF } from 'three-stdlib';
+import Marcador360 from '../../../lab1/components/ui/Marcador360';
+
 
 type GLTFResult = GLTF & {
   nodes: {
     DoorFrane009: THREE.Mesh;
     DoorFrane009_1: THREE.Mesh;
-    Handle_Front003: THREE.Mesh;
+    Handle_Front021: THREE.Mesh;
   };
   materials: {
     ['Material.091']: THREE.MeshStandardMaterial;
@@ -22,21 +24,30 @@ type InstanceData = {
   scale: [number, number, number];
 };
 
-export function InstancedPuerta2() {
-  const { nodes, materials } = useGLTF(
-    'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/puerta/puerta2.glb'
-  ) as unknown as GLTFResult;
+export function Puerta2() {
+  const { nodes, materials } = useGLTF('models/puerta/puerta2.glb') as unknown as GLTFResult;
 
   const marcoRef = useRef<THREE.InstancedMesh>(null);
   const vidrioRef = useRef<THREE.InstancedMesh>(null);
 
   const instances: InstanceData[] = [
     { position: [167.089, 20, -279.414], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [52.9421, 20, -346.272], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
-    // Agrega más si necesitas
+    { position: [52.9421, 20, -346.272], rotation: [0, 1.57, 0], scale: [1, 1, 1] },
+    { position: [81.879, 20, -346.272], rotation: [0, 1.57, 0], scale: [1, 1, 1] },
+    { position: [119.846, 20, -346.272], rotation: [0, 1.57, 0], scale: [1, 1, 1] },
+    { position: [147.787, 20, -346.272], rotation: [0, 1.57, 0], scale: [1, 1, 1] },
+    { position: [112.5, 21, -130.267], rotation: [0, -1.57, 0], scale: [1, 1, 1.1] },
+    { position: [166.3, 19, -142], rotation: [0, 0, 0], scale: [1, 1, 1.1] },
+    { position: [-62.334, 19.5, -221.824], rotation: [0, 3.14, 0], scale: [1, 1, 1] },
+    { position: [-32, 20, -370], rotation: [0, 0, 0], scale: [1, 1.04, 1.08] },
+    { position: [-99, 19, -506], rotation: [0, 3.14, 0], scale: [1, 1, 1.08] }, // Puerta especial
+    { position: [30.324, 20, -71.757], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [30, 20, -48], rotation: [0, 0, 0], scale: [1, 1, 1.05] },
+    { position: [-165, 20, -56.541], rotation: [0, -1.57, 0], scale: [1, 1, 1] },
+    { position: [-179, 20, -68.5], rotation: [0, 3.14, 0], scale: [1, 1, 1.05] },
   ];
 
-  const relativeHandlePosition = new THREE.Vector3(0.15, -0.3, -7.4); // ← Posición relativa fija
+  const relativeHandlePosition = new THREE.Vector3(0.15, -0.3, -7.4);
 
   useEffect(() => {
     instances.forEach((inst, i) => {
@@ -72,26 +83,43 @@ export function InstancedPuerta2() {
         material={materials['glass frosted']}
       />
 
-      {/* Manijas individuales */}
       {instances.map((inst, index) => {
         const basePosition = new THREE.Vector3(...inst.position);
         const quaternion = new THREE.Quaternion().setFromEuler(new THREE.Euler(...inst.rotation));
         const offset = relativeHandlePosition.clone().applyQuaternion(quaternion);
         const finalPosition = basePosition.clone().add(offset);
 
+        // 👇 Calculamos la posición del marcador encima de la puerta
+        const isTargetDoor = inst.position[0] === -99 && inst.position[1] === 19 && inst.position[2] === -506;
+        const markerPosition: [number, number, number] = [
+          inst.position[0]+9,
+          inst.position[1] +3.5,
+          inst.position[2] +3.5, // Ajusta la altura del marcador
+        ];
+
         return (
-          <mesh
-            key={`handle-${index}`}
-            geometry={nodes.Handle_Front003.geometry}
-            material={materials['Material.117']}
-            position={finalPosition.toArray()}
-            rotation={inst.rotation}
-            scale={inst.scale}
-          />
+          <group key={`handle-${index}`}>
+            <mesh
+              geometry={nodes.Handle_Front021.geometry}
+              material={materials['Material.117']}
+              position={finalPosition.toArray()}
+              rotation={inst.rotation}
+              scale={inst.scale}
+            />
+
+            {isTargetDoor && (
+              <Marcador360
+                position={markerPosition}
+                url="#/lab1"
+                isEspecial={true}
+                
+              />
+            )}
+          </group>
         );
       })}
     </group>
   );
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/puerta/puerta2.glb');
+useGLTF.preload('models/puerta/puerta2.glb');
