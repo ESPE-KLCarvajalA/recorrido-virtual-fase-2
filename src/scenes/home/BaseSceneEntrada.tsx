@@ -4,6 +4,7 @@ import BaseCharacter from '../../shared/components/BaseCharacter';
 import { PointerLockControls } from '@react-three/drei';
 import { useRef } from 'react';
 import BaseSceneAuera from './components/BaseSceneAfuera';
+import HDRIEnvironment from './components/ui/HDRIEnvironment';
 
 
 
@@ -40,6 +41,7 @@ const BaseSceneEntrada = () => {
 
 
     
+      <HDRIEnvironment />
 
 
 
