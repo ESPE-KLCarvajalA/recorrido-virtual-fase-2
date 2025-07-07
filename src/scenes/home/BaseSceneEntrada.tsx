@@ -41,8 +41,9 @@ const BaseSceneEntrada = () => {
 
 
     
-      <HDRIEnvironment />
-
+        <HDRIEnvironment />
+    
+       
 
 
 
