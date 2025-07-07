@@ -73,7 +73,7 @@ const BaseCharacter = ({ positionCharacter, velocidad, altura, args, position }:
     <group>
       <mesh castShadow ref={ref as React.Ref<THREE.Mesh>}>
         <sphereGeometry args={args} />
-        <meshStandardMaterial color="#FFFF00" opacity={0.5} transparent />
+        <meshStandardMaterial color="#00FF00" opacity={0.5}  />
       </mesh>
     </group>
   );
