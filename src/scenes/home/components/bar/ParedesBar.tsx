@@ -1,0 +1,42 @@
+import * as THREE from 'three'
+import { useGLTF } from '@react-three/drei'
+import { GLTF } from 'three-stdlib'
+import { ThreeElements } from '@react-three/fiber'
+
+type GLTFResult = GLTF & {
+  nodes: {
+    Room027: THREE.Mesh
+    Room027_1: THREE.Mesh
+  }
+  materials: {
+    ['Material.096']: THREE.MeshStandardMaterial
+    ['Material.097']: THREE.MeshStandardMaterial
+  }
+}
+
+export function ParedesBar(props: ThreeElements['group']) {
+  const { nodes, materials } = useGLTF('/paredesBar.glb') as unknown as GLTFResult
+  return (
+    <group {...props} dispose={null}>
+      <group
+        name="Room084"
+        position={[-854.077, -9.046, -291.626]}
+        rotation={[0, -Math.PI / 2, 0]}
+        scale={[1.051, 31.523, 2.999]}>
+        <mesh
+          name="Room027"
+          geometry={nodes.Room027.geometry}
+          material={materials['Material.096']}
+        />
+        <mesh
+          name="Room027_1"
+          geometry={nodes.Room027_1.geometry}
+          material={materials['Material.097']}
+        />
+      </group>
+    </group>
+  )
+}
+
+useGLTF.preload('/paredesBar.glb')
+

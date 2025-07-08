@@ -13,7 +13,7 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function PisoMedio(props: ThreeElements['group']) {
+export default  function PisoMedio(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('models/pisos/pisoMedio.glb') as unknown as GLTFResult;
 
   const position: [number, number, number] = [9.373, -4, -247.046];

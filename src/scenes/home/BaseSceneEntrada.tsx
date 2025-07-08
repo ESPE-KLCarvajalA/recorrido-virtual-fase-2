@@ -3,8 +3,9 @@ import { Canvas } from '@react-three/fiber';
 import BaseCharacter from '../../shared/components/BaseCharacter';
 import { PointerLockControls } from '@react-three/drei';
 import { useRef } from 'react';
-import BaseSceneAuera from './components/BaseSceneAfuera';
+
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
+
 
 
 
@@ -26,12 +27,8 @@ const BaseSceneEntrada = () => {
 
         <BaseCharacter controls positionCharacter={[-92,-1, 170]} args={[2.2]} altura={20} velocidad={40} salto={20} color="green" />
 
+    
        
-
-      <BaseSceneAuera />
-       
-      
-
 
 
 
@@ -40,10 +37,11 @@ const BaseSceneEntrada = () => {
       </Physics>
 
 
-    
-        <HDRIEnvironment />
-    
-       
+
+
+      <HDRIEnvironment />
+
+
 
 
 
