@@ -20,7 +20,7 @@ type GLTFResult = GLTF & {
 }
 
 export function PisoBar(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/bar/pisoBar.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/pisoBar.glb') as unknown as GLTFResult
 
   // Posiciones y escalas
   const posColumna1: [number, number, number] = [-648.523, -4.063, -288.685]
@@ -99,4 +99,4 @@ export function PisoBar(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/bar/pisoBar.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/pisoBar.glb')

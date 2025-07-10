@@ -40,7 +40,7 @@ function getConvexPolyhedronArgs(geometry: THREE.BufferGeometry) {
 }
 
 export function ParedesInternasBar(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/bar/paredesInternasBar.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/paredesInternasBar.glb') as unknown as GLTFResult
 
   // Colisión para Room085
   const [ref1] = useConvexPolyhedron(() => ({
@@ -102,4 +102,4 @@ export function ParedesInternasBar(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/bar/paredesInternasBar.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/paredesInternasBar.glb')

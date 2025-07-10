@@ -36,7 +36,7 @@ function getConvexPolyhedronArgs(geometry: THREE.BufferGeometry) {
 }
 
 export function ParedesBar(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/bar/paredesBar.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/paredesBar.glb') as unknown as GLTFResult
 
   const position: [number, number, number] = [-854.077, -9.046, -291.626]
   const rotation: [number, number, number] = [0, -Math.PI / 2, 0]
@@ -67,4 +67,4 @@ export function ParedesBar(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/bar/paredesBar.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/paredesBar.glb')
