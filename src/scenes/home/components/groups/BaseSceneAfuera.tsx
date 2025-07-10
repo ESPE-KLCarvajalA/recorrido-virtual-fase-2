@@ -5,18 +5,18 @@
 
 
 
-import { Borde } from "../primer/Borde";
-import { PisoArco } from "../primer/PisoArco";
-import { PisoCesped1 } from "../primer/PisoCesped1";
-import { PisoCesped3 } from "../primer/PisoCesped3";
-import { PisoCesped5E } from "../primer/PisoCesped5E";
-import { PisoLabs } from "../primer/PisoLabs";
+// import { Borde } from "../primer/Borde";
+// import { PisoArco } from "../primer/PisoArco";
+// import { PisoCesped1 } from "../primer/PisoCesped1";
+// import { PisoCesped3 } from "../primer/PisoCesped3";
+// import { PisoCesped5E } from "../primer/PisoCesped5E";
+// import { PisoLabs } from "../primer/PisoLabs";
 import { PisoOctagono } from "../primer/PisoOctagono";
-import { PisoTriangulo } from "../primer/PisoTriangulo";
-import { PisoVereda } from "../primer/pisoVereda";
-import { PisoVereda2 } from "../primer/pisoVereda2";
+// import { PisoTriangulo } from "../primer/PisoTriangulo";
+// import { PisoVereda } from "../primer/pisoVereda";
+// import { PisoVereda2 } from "../primer/pisoVereda2";
 import { Vereda1 } from "../primer/vereda1";
-import { Vereda2 } from "../primer/vereda2";
+// import { Vereda2 } from "../primer/vereda2";
 
 
 // cargar segun la distancia 
@@ -28,7 +28,7 @@ const BaseSceneAfuera = () => {
 
         <PisoOctagono />
         <Vereda1 />
-        <PisoTriangulo />
+        {/* <PisoTriangulo />
         <PisoCesped1 />
         <Vereda2 />
         <PisoArco />
@@ -36,9 +36,9 @@ const BaseSceneAfuera = () => {
         <PisoVereda2 />
         <PisoCesped3 />
         <Borde />
-        <PisoCesped5E />
+        <PisoCesped5E /> */}
         {/* <PisoVereda5 /> */}
-        <PisoLabs />
+        {/* <PisoLabs /> */}
       
  {/* sin fisica */}
       {/* <Frases />

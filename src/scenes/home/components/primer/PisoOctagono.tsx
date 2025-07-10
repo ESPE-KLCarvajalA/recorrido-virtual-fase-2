@@ -14,7 +14,7 @@ type GLTFResult = GLTF & {
 };
 
 export function PisoOctagono(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/pisoOctagono.glb') as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoOctagono.glb') as unknown as GLTFResult;
 
   // Obtener el bounding box del mesh para calcular tamaño y centro
   const box = new THREE.Box3().setFromBufferAttribute(nodes.piso_gris.geometry.attributes.position as THREE.BufferAttribute);
@@ -42,4 +42,4 @@ export function PisoOctagono(props: ThreeElements['group']) {
   );
 }
 
-useGLTF.preload('models/pisos/pisoOctagono.glb');
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoOctagono.glb');
