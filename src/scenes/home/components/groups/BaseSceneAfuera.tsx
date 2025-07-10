@@ -4,11 +4,7 @@
 
 
 
-import { Cartelera } from "../otros/cartelera";
-import { Frases } from "../otros/frases";
-import { Senaleticas } from "../otros/senaleticas";
-import { Tablero } from "../otros/tablero";
-import { Parqueadero } from "../parqueadero/parqueadero";
+
 import { Borde } from "../primer/Borde";
 import { PisoArco } from "../primer/PisoArco";
 import { PisoCesped1 } from "../primer/PisoCesped1";

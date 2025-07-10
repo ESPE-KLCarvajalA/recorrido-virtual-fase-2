@@ -46,7 +46,7 @@ function Portals() {
   );
 }
 
-const BaseSceneLab1 = () => {
+const BaseSceneLab3 = () => {
   return (
     <>
     
@@ -72,4 +72,4 @@ const BaseSceneLab1 = () => {
   );
 };
 
-export default BaseSceneLab1;
+export default BaseSceneLab3;

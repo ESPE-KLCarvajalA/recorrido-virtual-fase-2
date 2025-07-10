@@ -107,7 +107,7 @@ export function PisoVereda5(props: ThreeElements['group']) {
   ]
 
   // Crear colisiones con refs
-  const refs = groups.map(({ meshes, position, rotation, scale }) => {
+  const refs = groups.map(({ meshes, position, rotation }) => {
     const hullGeometry = getConvexHullFromMeshes(meshes, new THREE.Vector3(0, 0, 0), new THREE.Euler(0, 0, 0), new THREE.Vector3(1, 1, 1))
 
     // Extraer vertices y caras

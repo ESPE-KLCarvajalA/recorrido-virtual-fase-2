@@ -2,7 +2,6 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import * as THREE from 'three'
-import type { ThreeElements } from '@react-three/fiber'
 
 type GLTFResult = GLTF & {
   nodes: Record<string, THREE.Mesh>
