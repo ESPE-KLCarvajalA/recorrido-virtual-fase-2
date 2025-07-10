@@ -1,8 +1,8 @@
 import * as THREE from 'three'
-import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
+import { ConditionalGLTFModel } from '../../../../components/common/ConditionalGLTFModel' // Ajusta la ruta si cambia
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -24,65 +24,77 @@ type GLTFResult = GLTF & {
 }
 
 export function TechoVilla7(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('/techoVilla7.glb') as unknown as GLTFResult
+  // Centro aproximado para el cálculo de distancia
+  const centerPosition: [number, number, number] = [-674.604, 62.276, 182.714]
+
   return (
-    <group {...props} dispose={null}>
-      <mesh
-        name="pared_vertical_2019"
-        geometry={nodes.pared_vertical_2019.geometry}
-        material={materials['Material.066']}
-        position={[-823.992, 45.13, 185.864]}
-        scale={[0.581, 1, 1.048]}
-      />
-      <group
-        name="techo016"
-        position={[-674.604, 62.276, 182.714]}
-        rotation={[0, -Math.PI / 2, 0]}
-        scale={[12.797, 3.519, 34.842]}>
-        <mesh
-          name="Plane109"
-          geometry={nodes.Plane109.geometry}
-          material={materials['Material.140']}
-        />
-        <mesh
-          name="Plane109_1"
-          geometry={nodes.Plane109_1.geometry}
-          material={materials['Material.141']}
-        />
-      </group>
-      <mesh
-        name="sobretecho012"
-        geometry={nodes.sobretecho012.geometry}
-        material={materials['Material.059']}
-        position={[-618.374, 42.139, 191.523]}
-        rotation={[Math.PI, 0, Math.PI]}
-        scale={[-95.851, -4.05, -64.836]}
-      />
-      <group
-        name="sobretecho013"
-        position={[-769.006, 42.808, 189.901]}
-        rotation={[0, 1.571, 0]}
-        scale={[-65.21, -4.55, -55.024]}>
-        <mesh
-          name="Cube050"
-          geometry={nodes.Cube050.geometry}
-          material={materials['Material.058']}
-        />
-        <mesh
-          name="Cube050_1"
-          geometry={nodes.Cube050_1.geometry}
-          material={materials['Material.059']}
-        />
-      </group>
-      <mesh
-        name="pared_vertical_2018"
-        geometry={nodes.pared_vertical_2018.geometry}
-        material={materials['Material.066']}
-        position={[-523.401, 44.974, 185.48]}
-        scale={[0.581, 1, 1.032]}
-      />
-    </group>
+    <ConditionalGLTFModel<GLTFResult>
+      url="models/villas/techoVilla7.glb"
+      position={centerPosition}
+      maxDistance={250} // Optimizado según tu performance actual
+    >
+      {(nodes, materials) => (
+        <group {...props} dispose={null}>
+          <mesh
+            name="pared_vertical_2019"
+            geometry={nodes.pared_vertical_2019.geometry}
+            material={materials['Material.066']}
+            position={[-149.388, -17.146, 3.15]} // Relativo: [-823.992 - (-674.604), 45.13 - 62.276, 185.864 - 182.714]
+            scale={[0.581, 1, 1.048]}
+          />
+          <group
+            name="techo016"
+            position={[0, 0, 0]} // Relativo: [-674.604 - (-674.604), 62.276 - 62.276, 182.714 - 182.714]
+            rotation={[0, -Math.PI / 2, 0]}
+            scale={[12.797, 3.519, 34.842]}
+          >
+            <mesh
+              name="Plane109"
+              geometry={nodes.Plane109.geometry}
+              material={materials['Material.140']}
+            />
+            <mesh
+              name="Plane109_1"
+              geometry={nodes.Plane109_1.geometry}
+              material={materials['Material.141']}
+            />
+          </group>
+          <mesh
+            name="sobretecho012"
+            geometry={nodes.sobretecho012.geometry}
+            material={materials['Material.059']}
+            position={[56.23, -20.137, 8.809]} // Relativo: [-618.374 - (-674.604), 42.139 - 62.276, 191.523 - 182.714]
+            rotation={[Math.PI, 0, Math.PI]}
+            scale={[-95.851, -4.05, -64.836]}
+          />
+          <group
+            name="sobretecho013"
+            position={[-94.402, -19.468, 7.187]} // Relativo: [-769.006 - (-674.604), 42.808 - 62.276, 189.901 - 182.714]
+            rotation={[0, 1.571, 0]}
+            scale={[-65.21, -4.55, -55.024]}
+          >
+            <mesh
+              name="Cube050"
+              geometry={nodes.Cube050.geometry}
+              material={materials['Material.058']}
+            />
+            <mesh
+              name="Cube050_1"
+              geometry={nodes.Cube050_1.geometry}
+              material={materials['Material.059']}
+            />
+          </group>
+          <mesh
+            name="pared_vertical_2018"
+            geometry={nodes.pared_vertical_2018.geometry}
+            material={materials['Material.066']}
+            position={[151.203, -17.302, 2.766]} // Relativo: [-523.401 - (-674.604), 44.974 - 62.276, 185.48 - 182.714]
+            scale={[0.581, 1, 1.032]}
+          />
+        </group>
+      )}
+    </ConditionalGLTFModel>
   )
 }
 
-useGLTF.preload('/techoVilla7.glb')
+useGLTF.preload('models/villas/techoVilla7.glb')

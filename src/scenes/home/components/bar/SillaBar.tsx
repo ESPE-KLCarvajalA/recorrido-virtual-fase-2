@@ -25,7 +25,7 @@ type GLTFResult = GLTF & {
 }
 
 export function SillaBar(props: ThreeElements ['group']) {
-  const { nodes, materials } = useGLTF('/sillaBar.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('models/bar/sillaBar.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -101,4 +101,4 @@ export function SillaBar(props: ThreeElements ['group']) {
   )
 }
 
-useGLTF.preload('/sillaBar.glb')
+useGLTF.preload('models/bar/sillaBar.glb')

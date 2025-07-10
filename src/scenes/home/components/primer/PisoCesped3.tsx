@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { ThreeElements } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
-import { useTrimesh } from '@react-three/cannon'
+import { useConvexPolyhedron } from '@react-three/cannon'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -18,14 +18,36 @@ export function PisoCesped3(props: ThreeElements['group']) {
 
   const geometry = nodes.Plane012.geometry;
 
-  const vertices = geometry.attributes.position.array as Float32Array;
-  const indices = geometry.index ? (geometry.index.array as Uint16Array | Uint32Array) : new Uint32Array();
+  // Extraer vértices como Vector3[]
+  const positionAttr = geometry.attributes.position;
+  const vertices: THREE.Vector3[] = [];
+  for (let i = 0; i < positionAttr.count; i++) {
+    vertices.push(new THREE.Vector3(
+      positionAttr.getX(i),
+      positionAttr.getY(i),
+      positionAttr.getZ(i)
+    ));
+  }
+
+  // Extraer caras como listas de tres índices [[a,b,c], ...]
+  const indexAttr = geometry.index;
+  const faces: number[][] = [];
+  if (indexAttr) {
+    const indices = indexAttr.array;
+    for (let i = 0; i < indices.length; i += 3) {
+      faces.push([
+        indices[i],
+        indices[i + 1],
+        indices[i + 2]
+      ]);
+    }
+  }
 
   const position: [number, number, number] = [-798.342, -4.216, -169.25];
 
-  const [ref] = useTrimesh(() => ({
+  const [ref] = useConvexPolyhedron(() => ({
     type: 'Static',
-    args: [vertices, indices],
+    args: [vertices, faces],
     position: position,
   }));
 

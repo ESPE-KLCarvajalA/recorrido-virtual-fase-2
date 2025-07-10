@@ -1,7 +1,6 @@
-
 import * as THREE from 'three'
 import { ThreeElements } from '@react-three/fiber';
-import { useTrimesh } from '@react-three/cannon';
+import { useBox } from '@react-three/cannon';
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 
@@ -15,38 +14,42 @@ type GLTFResult = GLTF & {
 }
 
 export function PisoAula(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/pisoAula.glb') as unknown as GLTFResult
-
-  const position: [number, number, number] = [435.774, -1, -585.645];
+  const { nodes, materials } = useGLTF('models/pisos/pisoAula.glb') as unknown as GLTFResult;
 
   const geometry = nodes.Cube013.geometry;
 
- 
-  const vertices = geometry.attributes.position.array as Float32Array;
-  const indices = geometry.index ? (geometry.index.array as Uint16Array | Uint32Array) : new Uint32Array(); // Fallback si no hay índices, aunque raro para mallas bien exportadas
+  // Saca dimensiones y centro
+  const box = new THREE.Box3().setFromObject(nodes.Cube013);
+  const size = new THREE.Vector3();
+  box.getSize(size);
+  const center = new THREE.Vector3();
+  box.getCenter(center);
 
- 
-  const [ref] = useTrimesh(() => ({
+  const position: [number, number, number] = [435.774, -1, -585.645];
+
+  const [ref] = useBox(() => ({
     type: 'Static',
-    args: [vertices, indices],
-    position: position,
+    args: [size.x, size.y, size.z],
+    position: [
+      position[0] + center.x,
+      position[1] + center.y,
+      position[2] + center.z,
+    ],
   }));
 
   return (
     <group {...props} dispose={null}>
-     
       <group ref={ref} />
-
       <mesh
         name="Cube013"
         geometry={geometry}
         material={materials.Tiles}
-        position={position} 
-        castShadow 
-        receiveShadow 
+        position={position}
+        castShadow
+        receiveShadow
       />
     </group>
   );
 }
 
-useGLTF.preload('models/pisos/pisoAula.glb')
+useGLTF.preload('models/pisos/pisoAula.glb');

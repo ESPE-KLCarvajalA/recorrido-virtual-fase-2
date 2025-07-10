@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 import { ThreeElements } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
-import { useTrimesh } from '@react-three/cannon';
+import { useConvexPolyhedron } from '@react-three/cannon';
 import { GLTF } from 'three-stdlib';
 import { BufferGeometry } from 'three';
+import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry.js';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -21,51 +22,66 @@ type GLTFResult = GLTF & {
 export function PisoVereda(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('models/pisos/pisoVereda.glb') as unknown as GLTFResult;
 
-  // Extraer geometría combinada de los 3 meshes
   const geometries: BufferGeometry[] = [
     nodes.Plane049.geometry,
     nodes.Plane049_1.geometry,
-    nodes.Plane049_2.geometry
+    nodes.Plane049_2.geometry,
   ];
 
-  // Unir los vértices y las caras de los tres meshes
-  const vertices: number[] = [];
-  const indices: number[] = [];
-  let indexOffset = 0;
+  // Recolectar todos los puntos de las geometrías en un solo array de Vector3
+  const points: THREE.Vector3[] = [];
 
   geometries.forEach((geo) => {
     const posAttr = geo.attributes.position;
-    const idxAttr = geo.index;
-
     for (let i = 0; i < posAttr.count; i++) {
-      vertices.push(posAttr.getX(i), posAttr.getY(i), posAttr.getZ(i));
+      points.push(new THREE.Vector3(posAttr.getX(i), posAttr.getY(i), posAttr.getZ(i)));
     }
-
-    for (let i = 0; i < idxAttr!.count; i++) {
-      indices.push(idxAttr!.getX(i) + indexOffset);
-    }
-
-    indexOffset += posAttr.count;
   });
 
-  const [ref] = useTrimesh(() => ({
-    args: [vertices, indices],
+  // Generar hull convexo a partir de los puntos
+  const convexGeometry = new ConvexGeometry(points);
+
+  // Extraer vertices para useConvexPolyhedron (en forma de Triplet: [x,y,z])
+  const vertices: [number, number, number][] = [];
+  const pos = convexGeometry.attributes.position.array;
+  for (let i = 0; i < pos.length; i += 3) {
+    vertices.push([pos[i], pos[i + 1], pos[i + 2]]);
+  }
+
+  // Extraer caras (índices de triángulos)
+  const faces: number[][] = [];
+  if (convexGeometry.index) {
+    const index = convexGeometry.index.array;
+    for (let i = 0; i < index.length; i += 3) {
+      faces.push([index[i], index[i + 1], index[i + 2]]);
+    }
+  } else {
+    // En caso no haya índices, crear un array secuencial (poco común)
+    for (let i = 0; i < pos.length / 3; i += 3) {
+      faces.push([i, i + 1, i + 2]);
+    }
+  }
+
+  const colliderPosition: [number, number, number] = [-528.547, -1.587, -519.508];
+
+  const [ref] = useConvexPolyhedron(() => ({
+    args: [vertices, faces],
     type: 'Static',
-    position: [-528.547, -1.587, -519.508], // misma posición que el grupo
+    position: colliderPosition,
   }));
 
   return (
     <group {...props} dispose={null}>
       {/* Collider invisible */}
-      <mesh ref={ref} visible={false} />
+      <group ref={ref} />
 
       {/* Visuales */}
-      <group name="curb005" position={[-528.7, -1.587, -519.508]}>
+      <group name="curb005" position={colliderPosition}>
         <mesh
           name="Plane049"
           geometry={nodes.Plane049.geometry}
           material={materials['Material.114']}
-          position={[0.45, 0,0]}
+          position={[0.45, 0, 0]}
         />
         <mesh
           name="Plane049_1"

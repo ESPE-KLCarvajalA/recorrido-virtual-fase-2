@@ -5,12 +5,8 @@ import { useState, useEffect } from 'react';
  * Player Controls
  ****************/
 export const usePlayerControls = () => {
-  // Originalmente tenías esta línea comentada, ¡es la correcta!
-  // const keys = { KeyW: 'forward', KeyS: 'backward', KeyA: 'left', KeyD: 'right', Space: 'jump', ShiftLeft: 'run' };
-  // La línea actual:
-  // const keys = { KeyW: 'forward', KeyS: 'backward', KeyA: 'left', KeyD: 'right', ShiftLeft: 'run', };
   
-  // ¡CORRECCIÓN! Asegúrate de que 'Space' esté mapeado a 'jump'
+  
   const keys = { KeyW: 'forward', KeyS: 'backward', KeyA: 'left', KeyD: 'right', Space: 'jump', ShiftLeft: 'run' }; // <--- ¡Asegúrate de que esta sea la línea activa!
   
   const moveFieldByKey = (key: keyof typeof keys) => keys[key];

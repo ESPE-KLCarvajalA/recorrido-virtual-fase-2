@@ -25,7 +25,7 @@ type GLTFResult = GLTF & {
 }
 
 export function TechoLabCC(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('/techoLabCC.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('models/labCiencias2/techoLabCC.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <group
@@ -92,4 +92,4 @@ export function TechoLabCC(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('/techoLabCC.glb')
+useGLTF.preload('models/labCiencias2/techoLabCC.glb')

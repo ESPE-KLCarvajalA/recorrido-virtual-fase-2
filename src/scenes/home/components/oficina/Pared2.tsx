@@ -20,8 +20,8 @@ export function Pared2(props: ThreeElements['group']) {
 
   const position: [number, number, number] = [238.472, 41.7, -65.002];
 
-  // Colisión para Plane024
-  useTrimesh(() => ({
+  // Guardar ref para colisiones
+  const [ref1] = useTrimesh(() => ({
     args: [
       nodes.Plane024.geometry.attributes.position.array as Float32Array,
       nodes.Plane024.geometry.index!.array as Uint16Array,
@@ -30,8 +30,7 @@ export function Pared2(props: ThreeElements['group']) {
     type: 'Static',
   }));
 
-  // Colisión para Plane024_1
-  useTrimesh(() => ({
+  const [ref2] = useTrimesh(() => ({
     args: [
       nodes.Plane024_1.geometry.attributes.position.array as Float32Array,
       nodes.Plane024_1.geometry.index!.array as Uint16Array,
@@ -44,11 +43,13 @@ export function Pared2(props: ThreeElements['group']) {
     <group {...props} dispose={null}>
       <group name="pared_vertical_1" position={position}>
         <mesh
+          ref={ref1}
           name="Plane024"
           geometry={nodes.Plane024.geometry}
           material={materials['Material.066']}
         />
         <mesh
+          ref={ref2}
           name="Plane024_1"
           geometry={nodes.Plane024_1.geometry}
           material={materials['Material.067']}

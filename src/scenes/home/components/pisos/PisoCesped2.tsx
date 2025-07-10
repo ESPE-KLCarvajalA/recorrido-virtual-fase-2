@@ -1,10 +1,8 @@
-
-
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { ThreeElements } from '@react-three/fiber';
-import { useTrimesh } from '@react-three/cannon';
+import { useBox } from '@react-three/cannon';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -19,15 +17,24 @@ export function PisoCesped2(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('models/pisos/pisoCesped2.glb') as unknown as GLTFResult;
 
   const geometry = nodes.piso_cesped_cerca_del_lab.geometry;
-  const vertices = Array.from(geometry.attributes.position.array as Float32Array);
-  const indices = geometry.index ? Array.from(geometry.index.array as Uint16Array | Uint32Array) : [];
+
+  // Bounding box del plano
+  const box = new THREE.Box3().setFromObject(nodes.piso_cesped_cerca_del_lab);
+  const size = new THREE.Vector3();
+  box.getSize(size);
+  const center = new THREE.Vector3();
+  box.getCenter(center);
 
   const position: [number, number, number] = [364.12, -2, -332.336];
 
-  const [ref] = useTrimesh(() => ({
+  const [ref] = useBox(() => ({
     type: 'Static',
-    args: [vertices, indices],
-    position,
+    args: [size.x, size.y, size.z],
+    position: [
+      position[0] + center.x,
+      position[1] + center.y,
+      position[2] + center.z,
+    ],
   }));
 
   return (

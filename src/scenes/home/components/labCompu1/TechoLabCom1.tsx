@@ -20,7 +20,7 @@ type GLTFResult = GLTF & {
 }
 
 export function TechoLabCom1(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('/techoLabCom1.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('models/labCom1/techoLabCom1.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <group
@@ -38,4 +38,4 @@ export function TechoLabCom1(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('/techoLabCom1.glb')
+useGLTF.preload('models/labCom1/techoLabCom1.glb')

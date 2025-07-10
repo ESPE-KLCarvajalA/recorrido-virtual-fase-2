@@ -1,8 +1,8 @@
 import * as THREE from 'three'
-import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
+import { useBox } from '@react-three/cannon'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -20,13 +20,44 @@ type GLTFResult = GLTF & {
 }
 
 export function PisoBar(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('/pisoBar.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('models/bar/pisoBar.glb') as unknown as GLTFResult
+
+  // Posiciones y escalas
+  const posColumna1: [number, number, number] = [-648.523, -4.063, -288.685]
+  const scaleColumna1: [number, number, number] = [15.387, 19.73, 12.105]
+
+  const posColumna2: [number, number, number] = [-570.368, -4.063, -287.578]
+  const scaleColumna2: [number, number, number] = [15.387, 17.894, 13.264]
+
+  const posPiso: [number, number, number] = [-710.344, -6.479, -210.603]
+  const scalePiso: [number, number, number] = [143.642, 2.5, 80.797]
+
+  // Colisiones físicas (cajas estáticas)
+  const [refColumna1] = useBox(() => ({
+    args: scaleColumna1,
+    position: posColumna1,
+    type: 'Static',
+  }))
+
+  const [refColumna2] = useBox(() => ({
+    args: scaleColumna2,
+    position: posColumna2,
+    type: 'Static',
+  }))
+
+  const [refPiso] = useBox(() => ({
+    args: scalePiso,
+    position: posPiso,
+    type: 'Static',
+  }))
+
   return (
     <group {...props} dispose={null}>
       <group
         name="concrete_column001"
-        position={[-648.523, -4.063, -288.685]}
-        scale={[15.387, 19.73, 12.105]}>
+        position={posColumna1}
+        scale={scaleColumna1}
+        ref={refColumna1}>
         <mesh
           name="Plane043"
           geometry={nodes.Plane043.geometry}
@@ -38,10 +69,12 @@ export function PisoBar(props: ThreeElements['group']) {
           material={materials['Material.097']}
         />
       </group>
+
       <group
         name="concrete_column003"
-        position={[-570.368, -4.063, -287.578]}
-        scale={[15.387, 17.894, 13.264]}>
+        position={posColumna2}
+        scale={scaleColumna2}
+        ref={refColumna2}>
         <mesh
           name="Plane038"
           geometry={nodes.Plane038.geometry}
@@ -53,15 +86,17 @@ export function PisoBar(props: ThreeElements['group']) {
           material={materials['Material.097']}
         />
       </group>
+
       <mesh
         name="Cube"
         geometry={nodes.Cube.geometry}
         material={materials['Terrazzo Tiles']}
-        position={[-710.344, -6.479, -210.603]}
-        scale={[143.642, 2.5, 80.797]}
+        position={posPiso}
+        scale={scalePiso}
+        ref={refPiso}
       />
     </group>
   )
 }
 
-useGLTF.preload('/pisoBar.glb')
+useGLTF.preload('models/bar/pisoBar.glb')

@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
-import { useTrimesh } from '@react-three/cannon'
+import { useConvexPolyhedron } from '@react-three/cannon'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -15,6 +15,31 @@ type GLTFResult = GLTF & {
   }
 }
 
+function getConvexPolyhedronArgs(geometry: THREE.BufferGeometry) {
+  const positionAttr = geometry.attributes.position
+  const vertices: THREE.Vector3[] = []
+
+  for (let i = 0; i < positionAttr.count; i++) {
+    vertices.push(
+      new THREE.Vector3(
+        positionAttr.getX(i),
+        positionAttr.getY(i),
+        positionAttr.getZ(i)
+      )
+    )
+  }
+
+  const faces: number[][] = []
+  if (geometry.index) {
+    const index = geometry.index.array
+    for (let i = 0; i < index.length; i += 3) {
+      faces.push([index[i], index[i + 1], index[i + 2]])
+    }
+  }
+
+  return [vertices, faces] as const
+}
+
 function CollisionMesh({
   geometry,
   position,
@@ -22,11 +47,10 @@ function CollisionMesh({
   geometry: THREE.BufferGeometry
   position: [number, number, number]
 }) {
-  const vertices = geometry.attributes.position.array as Float32Array
-  const indices = geometry.index?.array as Uint16Array | Uint32Array
+  const [vertices, faces] = getConvexPolyhedronArgs(geometry)
 
-  const [ref] = useTrimesh(() => ({
-    args: [vertices, indices],
+  const [ref] = useConvexPolyhedron(() => ({
+    args: [vertices, faces],
     type: 'Static',
     position,
   }))
@@ -41,11 +65,9 @@ export function ParedEn(props: ThreeElements['group']) {
   return (
     <group {...props} dispose={null}>
       <group name="Room089" position={position}>
-        
         <mesh geometry={nodes.Room028.geometry} material={materials['Material.081']} />
         <mesh geometry={nodes.Room028_1.geometry} material={materials['Material.082']} />
 
-        
         <CollisionMesh geometry={nodes.Room028.geometry} position={position} />
         <CollisionMesh geometry={nodes.Room028_1.geometry} position={position} />
       </group>

@@ -2,11 +2,12 @@
 
 // Imports de tus componentes originales
 
-import { ParedLabCompu1 } from "./labCompu1/ParedLabCompu1";
-import { TechoLabCom1 } from "./labCompu1/TechoLabCom1";
+import { ParedLabCompu1 } from "../labCompu1/ParedLabCompu1";
+import { TechoLabCom1 } from "../labCompu1/TechoLabCom1";
 
-// DESPUES Vista
 
+
+// cargar segun la distancia 
 
 
 const BaseSceneLab = () => {
@@ -15,16 +16,7 @@ const BaseSceneLab = () => {
       <>
       <ParedLabCompu1 />
       <TechoLabCom1 />
-       {/* 
-       
-       
-  
-  
-        
-  
-        */}
-     
-  
+    
       </>
     );
   };

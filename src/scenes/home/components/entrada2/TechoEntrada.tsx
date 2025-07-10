@@ -16,7 +16,7 @@ type GLTFResult = GLTF & {
 }
 
 export function TechoEntrada(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('/techoEntrada.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('models/entrada2/techoEntrada.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <group
@@ -39,4 +39,4 @@ export function TechoEntrada(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('/techoEntrada.glb')
+useGLTF.preload('models/entrada2/techoEntrada.glb')

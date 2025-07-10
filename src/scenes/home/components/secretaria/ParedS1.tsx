@@ -24,50 +24,27 @@ export function ParedS1(props: ThreeElements['group']) {
 
   const position: [number, number, number] = [-155.823, 26, -39.883]
 
-  // Colisiones
-  useTrimesh(() => ({
-    args: [
-      nodes.Room019.geometry.attributes.position.array as Float32Array,
-      nodes.Room019.geometry.index!.array as Uint16Array,
-    ],
-    position,
-    type: 'Static',
-  }))
+  // Crear colisiones automáticamente para todos los nodos relevantes
+  const trimeshNodes = [nodes.Room019, nodes.Room019_1, nodes.Room019_2, nodes.Room019_3]
 
-  useTrimesh(() => ({
-    args: [
-      nodes.Room019_1.geometry.attributes.position.array as Float32Array,
-      nodes.Room019_1.geometry.index!.array as Uint16Array,
-    ],
-    position,
-    type: 'Static',
-  }))
-
-  useTrimesh(() => ({
-    args: [
-      nodes.Room019_2.geometry.attributes.position.array as Float32Array,
-      nodes.Room019_2.geometry.index!.array as Uint16Array,
-    ],
-    position,
-    type: 'Static',
-  }))
-
-  useTrimesh(() => ({
-    args: [
-      nodes.Room019_3.geometry.attributes.position.array as Float32Array,
-      nodes.Room019_3.geometry.index!.array as Uint16Array,
-    ],
-    position,
-    type: 'Static',
-  }))
+  trimeshNodes.forEach((mesh) => {
+    useTrimesh(() => ({
+      args: [
+        mesh.geometry.attributes.position.array as Float32Array,
+        mesh.geometry.index!.array as Uint16Array,
+      ],
+      position,
+      type: 'Static',
+    }))
+  })
 
   return (
     <group {...props} dispose={null}>
       <group name="Room018" position={position}>
-        <mesh name="Room019" geometry={nodes.Room019.geometry} material={materials['Material.094']} />
-        <mesh name="Room019_1" geometry={nodes.Room019_1.geometry} material={materials['Material.095']} />
-        <mesh name="Room019_2" geometry={nodes.Room019_2.geometry} material={materials['Material.035']} />
-        <mesh name="Room019_3" geometry={nodes.Room019_3.geometry} material={materials['Material.050']} />
+        <mesh geometry={nodes.Room019.geometry} material={materials['Material.094']} />
+        <mesh geometry={nodes.Room019_1.geometry} material={materials['Material.095']} />
+        <mesh geometry={nodes.Room019_2.geometry} material={materials['Material.035']} />
+        <mesh geometry={nodes.Room019_3.geometry} material={materials['Material.050']} />
       </group>
     </group>
   )

@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { ThreeElements } from '@react-three/fiber';
-import { useTrimesh } from '@react-three/cannon';
+import { useConvexPolyhedron } from '@react-three/cannon';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -19,11 +19,38 @@ export function PisoLabs(props: ThreeElements['group']) {
   const geometry = nodes.piso_labs.geometry;
   const position = [-17.977, -1, -203.107] as [number, number, number];
 
-  const vertices = geometry.attributes.position.array as Float32Array;
-  const indices = geometry.index!.array as Uint16Array;
+  // Convertir atributos a vertices Vector3
+  const positionAttr = geometry.attributes.position;
+  const vertices: THREE.Vector3[] = [];
+  for (let i = 0; i < positionAttr.count; i++) {
+    vertices.push(new THREE.Vector3(
+      positionAttr.getX(i),
+      positionAttr.getY(i),
+      positionAttr.getZ(i)
+    ));
+  }
 
-  useTrimesh(() => ({
-    args: [vertices, indices],
+  // Obtener índices (triángulos)
+  // Si no hay índices, se asume que la geometría es un conjunto de triángulos en orden
+  let faces: number[][] = [];
+  if (geometry.index) {
+    const indexAttr = geometry.index;
+    for (let i = 0; i < indexAttr.count; i += 3) {
+      faces.push([
+        indexAttr.getX(i),
+        indexAttr.getX(i + 1),
+        indexAttr.getX(i + 2)
+      ]);
+    }
+  } else {
+    // Sin índices, cada 3 vertices forman un triángulo
+    for (let i = 0; i < positionAttr.count; i += 3) {
+      faces.push([i, i + 1, i + 2]);
+    }
+  }
+
+  const [ref] = useConvexPolyhedron(() => ({
+    args: [vertices, faces],
     position,
     type: 'Static',
   }));
@@ -31,10 +58,13 @@ export function PisoLabs(props: ThreeElements['group']) {
   return (
     <group {...props} dispose={null}>
       <mesh
+        ref={ref}
         name="piso_labs"
         geometry={geometry}
         material={materials['Granite Tiles']}
         position={position}
+        castShadow
+        receiveShadow
       />
     </group>
   );

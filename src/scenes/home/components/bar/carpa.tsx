@@ -15,7 +15,7 @@ type GLTFResult = GLTF & {
 }
 
 export function Carpa(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('/carpa.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('models/bar/carpa.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <group
@@ -30,4 +30,4 @@ export function Carpa(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('/carpa.glb')
+useGLTF.preload('models/bar/carpa.glb')

@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
+import { ConditionalGLTFModel } from '../../../../components/common/ConditionalGLTFModel' // Ajusta según tu ruta
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -10,31 +11,41 @@ type GLTFResult = GLTF & {
   }
   materials: {
     ['Material.142']: THREE.MeshStandardMaterial
-    ['Material.143']: THREE.MeshStandardMaterial
   }
 }
 
 export function TechoVilla1(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/villas/techoVilla1.glb') as unknown as GLTFResult
+  // Centro para el cálculo de distancia de renderizado
+  const centerPosition: [number, number, number] = [-768.999, 74.927, -514.194]
+
   return (
-    <group {...props} dispose={null}>
-      <group
-        name="techo013"
-        position={[-768.999, 74.927, -514.194]}
-        rotation={[Math.PI, 0, Math.PI]}
-        scale={[12.797, 3.519, 31.177]}>
-        <mesh
-          name="Plane107"
-          geometry={nodes.Plane107.geometry}
-          material={materials['Material.142']}
-        />
-        <mesh
-          name="Plane107_1"
-          geometry={nodes.Plane107_1.geometry}
-          material={materials['Material.143']}
-        />
-      </group>
-    </group>
+    <ConditionalGLTFModel<GLTFResult>
+      url="models/villas/techoVilla1.glb"
+      position={centerPosition}
+      maxDistance={250} // Optimizado según tu performance actual
+    >
+      {(nodes, materials) => (
+        <group {...props} dispose={null}>
+          <group
+            name="techo013"
+            position={[0, 0, 0]} // Posición relativa al centro (era la misma que el centro)
+            rotation={[Math.PI, 0, Math.PI]}
+            scale={[12.797, 3.519, 31.177]}
+          >
+            <mesh
+              name="Plane107"
+              geometry={nodes.Plane107.geometry}
+              material={materials['Material.142']}
+            />
+            <mesh
+              name="Plane107_1"
+              geometry={nodes.Plane107_1.geometry}
+              material={materials['Material.142']}
+            />
+          </group>
+        </group>
+      )}
+    </ConditionalGLTFModel>
   )
 }
 

@@ -22,8 +22,8 @@ export function Pared1(props: ThreeElements['group']) {
 
   const position: [number, number, number] = [72.942, 29.5, -71.785];
 
-  // Colisión Room004_1
-  useTrimesh(() => ({
+  // Guardamos las referencias para cada colisión
+  const [ref1] = useTrimesh(() => ({
     args: [
       nodes.Room004_1.geometry.attributes.position.array as Float32Array,
       nodes.Room004_1.geometry.index!.array as Uint16Array,
@@ -32,8 +32,7 @@ export function Pared1(props: ThreeElements['group']) {
     type: 'Static',
   }));
 
-  // Colisión Room004_2
-  useTrimesh(() => ({
+  const [ref2] = useTrimesh(() => ({
     args: [
       nodes.Room004_2.geometry.attributes.position.array as Float32Array,
       nodes.Room004_2.geometry.index!.array as Uint16Array,
@@ -42,8 +41,7 @@ export function Pared1(props: ThreeElements['group']) {
     type: 'Static',
   }));
 
-  // Colisión Room004_3
-  useTrimesh(() => ({
+  const [ref3] = useTrimesh(() => ({
     args: [
       nodes.Room004_3.geometry.attributes.position.array as Float32Array,
       nodes.Room004_3.geometry.index!.array as Uint16Array,
@@ -56,16 +54,19 @@ export function Pared1(props: ThreeElements['group']) {
     <group {...props} dispose={null}>
       <group name="Room004" position={position}>
         <mesh
+          ref={ref1}
           name="Room004_1"
           geometry={nodes.Room004_1.geometry}
           material={materials['Material.094']}
         />
         <mesh
+          ref={ref2}
           name="Room004_2"
           geometry={nodes.Room004_2.geometry}
           material={materials['Material.095']}
         />
         <mesh
+          ref={ref3}
           name="Room004_3"
           geometry={nodes.Room004_3.geometry}
           material={materials['Material.066']}

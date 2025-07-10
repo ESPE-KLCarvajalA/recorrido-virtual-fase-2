@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
-import { useTrimesh } from '@react-three/cannon'
+import { useConvexPolyhedron } from '@react-three/cannon'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -17,13 +17,25 @@ type GLTFResult = GLTF & {
   }
 }
 
-// Utilidad para convertir geometría a vertices e índices
-function getTrimeshArgs(geometry: THREE.BufferGeometry) {
-  const vertices = Array.from(geometry.attributes.position.array as Float32Array)
-  const indices = geometry.index
-    ? Array.from(geometry.index.array as Uint16Array | Uint32Array)
-    : []
-  return [vertices, indices] as [number[], number[]]
+// Utilidad para extraer vértices únicos y caras
+function getConvexPolyhedronArgs(geometry: THREE.BufferGeometry) {
+  geometry.computeVertexNormals()
+  geometry = geometry.toNonIndexed()
+
+  const positions = geometry.attributes.position.array as Float32Array
+  const vertices: THREE.Vector3[] = []
+
+  for (let i = 0; i < positions.length; i += 3) {
+    vertices.push(new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2]))
+  }
+
+  // Agrupar cada 3 vértices como una cara triangular
+  const faces: number[][] = []
+  for (let i = 0; i < vertices.length; i += 3) {
+    faces.push([i, i + 1, i + 2])
+  }
+
+  return [vertices, faces] as [THREE.Vector3[], number[][]]
 }
 
 export function ParedE2(props: ThreeElements['group']) {
@@ -32,8 +44,8 @@ export function ParedE2(props: ThreeElements['group']) {
   const geometry = nodes.Cube040.geometry
   const position: [number, number, number] = [-1.756, 30, 40.526]
 
-  const [ref] = useTrimesh(() => ({
-    args: getTrimeshArgs(geometry),
+  const [ref] = useConvexPolyhedron(() => ({
+    args: getConvexPolyhedronArgs(geometry),
     type: 'Static',
     position,
   }))
