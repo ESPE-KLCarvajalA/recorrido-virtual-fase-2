@@ -19,7 +19,7 @@ type GLTFResult = GLTF & {
 }
 
 export function TechoOficina1(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/oficina/techoOficina1.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/techoOficina1.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <group name="sobretecho005" position={[-117.496, 54.868, -104.043]}>
@@ -62,4 +62,4 @@ export function TechoOficina1(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/oficina/techoOficina1.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/techoOficina1.glb')

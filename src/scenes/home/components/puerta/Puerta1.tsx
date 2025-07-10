@@ -34,7 +34,7 @@ const allInstances: InstanceData[] = [
 ]
 
 export function Puerta1() {
-  const { nodes, materials } = useGLTF('models/puerta/puerta1.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/puerta/puerta1.glb') as unknown as GLTFResult
 
   const marcoRef = useRef<THREE.InstancedMesh>(null)
   const vidrioRef = useRef<THREE.InstancedMesh>(null)
@@ -124,4 +124,4 @@ export function Puerta1() {
   )
 }
 
-useGLTF.preload('models/puerta/puerta1.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/puerta/puerta1.glb')

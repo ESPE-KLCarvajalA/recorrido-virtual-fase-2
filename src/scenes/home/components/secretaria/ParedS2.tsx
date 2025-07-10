@@ -32,7 +32,7 @@ export function ParedS2(props: ThreeElements['group']) {
 
   return (
     <ConditionalGLTFModel<GLTFResult>
-      url="models/secretaria/paredS2.glb"
+      url="https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/secretaria/paredS2.glb"
       position={position}
       maxDistance={300}
     >
@@ -55,4 +55,4 @@ export function ParedS2(props: ThreeElements['group']) {
 }
 
 // ✅ Preload para rendimiento
-useGLTF.preload('models/secretaria/paredS2.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/secretaria/paredS2.glb')

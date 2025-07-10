@@ -27,7 +27,7 @@ export function ParedVilla6(props: ThreeElements['group']) {
 
   return (
     <ConditionalGLTFModel<GLTFResult>
-      url="models/villas/paredVilla6.glb"
+      url="https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/villas/paredVilla6.glb"
       position={centerPosition}
       maxDistance={200}
     >
@@ -75,4 +75,4 @@ export function ParedVilla6(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/villas/paredVilla6.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/villas/paredVilla6.glb')

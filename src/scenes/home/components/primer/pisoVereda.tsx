@@ -20,7 +20,7 @@ type GLTFResult = GLTF & {
 };
 
 export function PisoVereda(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/pisoVereda.glb') as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda.glb') as unknown as GLTFResult;
 
   const geometries: BufferGeometry[] = [
     nodes.Plane049.geometry,
@@ -98,4 +98,4 @@ export function PisoVereda(props: ThreeElements['group']) {
   );
 }
 
-useGLTF.preload('models/pisos/pisoVereda.glb');
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda.glb');

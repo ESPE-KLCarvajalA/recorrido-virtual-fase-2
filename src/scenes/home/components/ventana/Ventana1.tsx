@@ -22,7 +22,7 @@ type InstanceData = {
 };
 
 export function Ventana1() {
-  const { nodes, materials } = useGLTF('models/ventana/ventana1.glb') as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana1.glb') as unknown as GLTFResult;
 
   const frameRef = useRef<THREE.InstancedMesh>(null);
   const glassRef = useRef<THREE.InstancedMesh>(null);
@@ -127,4 +127,4 @@ export function Ventana1() {
   );
 }
 
-useGLTF.preload('models/ventana/ventana1.glb');
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana1.glb');

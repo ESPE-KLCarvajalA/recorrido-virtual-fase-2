@@ -14,7 +14,7 @@ type GLTFResult = GLTF & {
 }
 
 export default function PisoMedio(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/pisoMedio.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoMedio.glb') as unknown as GLTFResult
 
   const geometry = nodes.piso_oficinas.geometry
   const position: [number, number, number] = [9.373, -4, -247.046]
@@ -51,4 +51,4 @@ export default function PisoMedio(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/pisos/pisoMedio.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoMedio.glb')

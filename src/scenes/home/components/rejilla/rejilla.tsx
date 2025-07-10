@@ -19,7 +19,7 @@ type InstanceData = {
 };
 
 export function Rejilla() {
-    const { nodes, materials } = useGLTF('models/rejilla/rejilla.glb') as unknown as GLTFResult;
+    const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/rejilla/rejilla.glb') as unknown as GLTFResult;
 
     const meshRef = useRef<THREE.InstancedMesh>(null);
 
@@ -109,4 +109,4 @@ export function Rejilla() {
     );
 }
 
-useGLTF.preload('models/rejilla/rejilla.glb');
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/rejilla/rejilla.glb');

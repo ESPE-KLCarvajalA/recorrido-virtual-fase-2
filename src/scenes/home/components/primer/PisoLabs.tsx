@@ -14,7 +14,7 @@ type GLTFResult = GLTF & {
 };
 
 export function PisoLabs(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/pisoLabs.glb') as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoLabs.glb') as unknown as GLTFResult;
 
   const geometry = nodes.piso_labs.geometry;
   const position = [-17.977, -1, -203.107] as [number, number, number];
@@ -70,4 +70,4 @@ export function PisoLabs(props: ThreeElements['group']) {
   );
 }
 
-useGLTF.preload('models/pisos/pisoLabs.glb');
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoLabs.glb');

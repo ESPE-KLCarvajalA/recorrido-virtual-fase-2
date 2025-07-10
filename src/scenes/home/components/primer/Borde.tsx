@@ -17,7 +17,7 @@ type GLTFResult = GLTF & {
 }
 
 export function Borde(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/borde.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/borde.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <group name="piso_gris003" position={[-343.52, -8.075, 269.232]}>
@@ -41,4 +41,4 @@ export function Borde(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/pisos/borde.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/borde.glb')

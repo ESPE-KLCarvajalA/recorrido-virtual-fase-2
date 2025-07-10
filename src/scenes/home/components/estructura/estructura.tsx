@@ -96,7 +96,7 @@ const instances: Instance[] = [
 
 
 export function Estructura() {
-    const { nodes, materials } = useGLTF('models/estructura/estructura.glb') as unknown as GLTFResult;
+    const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/estructura/estructura.glb') as unknown as GLTFResult;
 
     const ref1 = useRef<THREE.InstancedMesh>(null);
     const ref2 = useRef<THREE.InstancedMesh>(null);
@@ -153,4 +153,4 @@ export function Estructura() {
     );
 }
 
-useGLTF.preload('models/estructura/estructura.glb');
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/estructura/estructura.glb');

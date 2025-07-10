@@ -25,7 +25,7 @@ type GLTFResult = GLTF & {
 }
 
 export function Senaleticas(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/otros/senaleticas.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/otros/senaleticas.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -88,4 +88,4 @@ export function Senaleticas(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/otros/senaleticas.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/otros/senaleticas.glb')

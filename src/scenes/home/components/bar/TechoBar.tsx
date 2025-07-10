@@ -20,7 +20,7 @@ type GLTFResult = GLTF & {
 }
 
 export function TechoBar(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/bar/techoBar.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/techoBar.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -70,4 +70,4 @@ export function TechoBar(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/bar/techoBar.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/techoBar.glb')

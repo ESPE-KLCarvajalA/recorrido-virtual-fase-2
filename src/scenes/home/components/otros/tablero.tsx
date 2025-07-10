@@ -14,7 +14,7 @@ type GLTFResult = GLTF & {
 }
 
 export function Tablero(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/otros/tablero.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/otros/tablero.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -27,4 +27,4 @@ export function Tablero(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/otros/tablero.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/otros/tablero.glb')

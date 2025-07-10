@@ -20,7 +20,7 @@ type GLTFResult = GLTF & {
 }
 
 export function PisoCesped5E(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/pisoCesped5E.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoCesped5E.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <group
@@ -75,4 +75,4 @@ export function PisoCesped5E(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/pisos/pisoCesped5E.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoCesped5E.glb')

@@ -16,7 +16,7 @@ type GLTFResult = GLTF & {
 }
 
 export function PisoPrueba(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/pisoprueba.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoprueba.glb') as unknown as GLTFResult
 
   const [ref1] = useTrimesh(() => ({
     type: 'Static',
@@ -48,4 +48,4 @@ export function PisoPrueba(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/pisos/pisoprueba.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoprueba.glb')

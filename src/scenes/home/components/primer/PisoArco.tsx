@@ -16,7 +16,7 @@ type GLTFResult = GLTF & {
 }
 
 export function PisoArco(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/pisoArco.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoArco.glb') as unknown as GLTFResult
 
   const groupPosition: [number, number, number] = [-1.895, -3, 31.141]
 
@@ -62,4 +62,4 @@ export function PisoArco(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/pisos/pisoArco.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoArco.glb')

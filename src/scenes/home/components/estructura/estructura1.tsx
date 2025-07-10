@@ -17,7 +17,7 @@ type GLTFResult = GLTF & {
 
 
 export function Estructura1(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/estructura/estructura1.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/estructura/estructura1.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -39,4 +39,4 @@ export function Estructura1(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/estructura/estructura1.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/estructura/estructura1.glb')

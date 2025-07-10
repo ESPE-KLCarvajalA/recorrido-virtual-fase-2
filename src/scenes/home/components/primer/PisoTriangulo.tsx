@@ -17,7 +17,7 @@ type GLTFResult = GLTF & {
 }
 
 export function PisoTriangulo(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/pisos/pisoTriangulo.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoTriangulo.glb') as unknown as GLTFResult
 
   // Extraer vértices de ambas geometrías (si quieres combinar para colisión)
   const positions1 = nodes.Cube079.geometry.attributes.position.array as Float32Array
@@ -79,4 +79,4 @@ export function PisoTriangulo(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/pisos/pisoTriangulo.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoTriangulo.glb')

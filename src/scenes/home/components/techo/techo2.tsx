@@ -34,7 +34,7 @@ type GLTFResult = GLTF & {
 }
 
 export function Techo1(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('models/techo/techo1.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/techo/techo1.glb') as unknown as GLTFResult
 
   useEffect(() => {
     const mat = materials['Material.042']
@@ -118,4 +118,4 @@ export function Techo1(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('models/techo/techo1.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/techo/techo1.glb')
