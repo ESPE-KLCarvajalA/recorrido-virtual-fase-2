@@ -9,7 +9,7 @@ import { Borde } from "../primer/Borde";
 import { PisoArco } from "../primer/PisoArco";
 import { PisoCesped1 } from "../primer/PisoCesped1";
 import { PisoCesped3 } from "../primer/PisoCesped3";
-import { PisoCesped5E } from "../primer/PisoCesped5E";
+// import { PisoCesped5E } from "../primer/PisoCesped5E";
 import { PisoLabs } from "../primer/PisoLabs";
 import { PisoOctagono } from "../primer/PisoOctagono";
 import { PisoTriangulo } from "../primer/PisoTriangulo";
@@ -36,7 +36,7 @@ const BaseSceneAfuera = () => {
         <PisoVereda2 />
         <PisoCesped3 />
         <Borde />
-        <PisoCesped5E />
+        {/* <PisoCesped5E /> */}
         {/* <PisoVereda5 /> */}
         <PisoLabs />
       

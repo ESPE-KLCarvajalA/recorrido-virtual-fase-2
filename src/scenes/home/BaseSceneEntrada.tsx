@@ -38,14 +38,14 @@ const BaseSceneEntrada = () => {
           
          
            
-             <BaseSceneArco/>
+             {/* <BaseSceneArco/>
            <BaseSceneBar/>
             <BaseSceneBar2/>
             <BaseSceneLab/>
             <BaseSceneLab2/>
             <BaseSceneOficina/>
-            <BaseSceneVilla/>
-            <BaseSceneVilla2/>
+            <BaseSceneVilla/> */}
+            {/* <BaseSceneVilla2/> */}
 
       </Physics>
 
