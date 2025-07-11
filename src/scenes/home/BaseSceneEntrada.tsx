@@ -9,13 +9,13 @@ import { Perf } from 'r3f-perf'
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
 import BaseSceneAfuera from './components/groups/BaseSceneAfuera';
 import BaseSceneArco from './components/groups/BaseSceneArco';
-import BaseSceneBar from './components/groups/BaseSceneBar';
-import BaseSceneBar2 from './components/groups/BaseSceneBar2';
-import BaseSceneLab from './components/groups/BaseSceneLab';
-import BaseSceneLab2 from './components/groups/BaseSceneLab2';
-import BaseSceneOficina from './components/groups/BaseSceneOficina';
-import BaseSceneVilla from './components/groups/BaseSceneVilla';
-import BaseSceneVilla2 from './components/groups/BaseSceneVilla2';
+// import BaseSceneBar from './components/groups/BaseSceneBar';
+// import BaseSceneBar2 from './components/groups/BaseSceneBar2';
+// import BaseSceneLab from './components/groups/BaseSceneLab';
+// import BaseSceneLab2 from './components/groups/BaseSceneLab2';
+// import BaseSceneOficina from './components/groups/BaseSceneOficina';
+// import BaseSceneVilla from './components/groups/BaseSceneVilla';
+// import BaseSceneVilla2 from './components/groups/BaseSceneVilla2';
 
 
 
@@ -39,13 +39,13 @@ const BaseSceneEntrada = () => {
          
            
              <BaseSceneArco/>
-           <BaseSceneBar/>
+           {/* <BaseSceneBar/>
             <BaseSceneBar2/>
             <BaseSceneLab/>
             <BaseSceneLab2/>
             <BaseSceneOficina/>
             <BaseSceneVilla/>
-            <BaseSceneVilla2/>
+            <BaseSceneVilla2/> */}
 
       </Physics>
 
