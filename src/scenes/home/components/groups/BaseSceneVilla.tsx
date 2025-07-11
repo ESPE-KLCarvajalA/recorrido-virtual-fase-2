@@ -5,9 +5,9 @@
 import { ParedVilla5 } from "../villas/ParedVilla5";
 import { ParedVilla6 } from "../villas/ParedVilla6";
 import { ParedVilla7 } from "../villas/ParedVilla7";
-import { TechoVilla5 } from "../villas/TechoVilla5";
-import { TechoVilla6 } from "../villas/TechoVilla6";
-import { TechoVilla7 } from "../villas/TechoVilla7";
+// import { TechoVilla5 } from "../villas/TechoVilla5";
+// import { TechoVilla6 } from "../villas/TechoVilla6";
+// import { TechoVilla7 } from "../villas/TechoVilla7";
 
 
 
@@ -27,9 +27,9 @@ const BaseSceneVilla = () => {
       <ParedVilla7/>
 
  {/* sin fisica */}
-      < TechoVilla6/> 
+      {/* < TechoVilla6/> 
      < TechoVilla5/>
-      <TechoVilla7/>
+      <TechoVilla7/> */}
 
       
    

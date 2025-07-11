@@ -4,7 +4,7 @@
 
 import { ParedLabCiencias1 } from "../labCiencias2/ParedLabCiencias1";
 import { ParedLabCiencias2 } from "../labCiencias2/ParedLabCiencias2";
-import { TechoLabCC } from "../labCiencias2/TechoLabCC";
+// import { TechoLabCC } from "../labCiencias2/TechoLabCC";
 // import { TechoLabCC2 } from "../labCiencias2/TechoLabCC2";
 
 
@@ -17,7 +17,7 @@ const BaseSceneLab2 = () => {
       <>
       < ParedLabCiencias1 />
       < ParedLabCiencias2 />
-      <TechoLabCC />
+      {/* <TechoLabCC /> */}
       {/* <TechoLabCC2 /> */}
 
      
