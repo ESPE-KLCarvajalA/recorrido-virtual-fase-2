@@ -16,6 +16,7 @@ import BaseSceneLab2 from './components/groups/BaseSceneLab2';
 import BaseSceneOficina from './components/groups/BaseSceneOficina';
 import BaseSceneVilla from './components/groups/BaseSceneVilla';
 import BaseSceneVilla2 from './components/groups/BaseSceneVilla2';
+import { TechoNuevo } from './components/oficina/prueba';
 
 
 
@@ -37,7 +38,7 @@ const BaseSceneEntrada = () => {
             <BaseSceneAfuera/>
           
          
-           
+            <TechoNuevo />
              <BaseSceneArco/>
            <BaseSceneBar/>
             <BaseSceneBar2/> 
