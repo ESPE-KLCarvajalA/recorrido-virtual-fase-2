@@ -21,7 +21,7 @@ export function Pared2(props: ThreeElements['group']) {
 
   return (
     <group {...props} dispose={null}>
-      <group name="pared_vertical_1" position={[238.472, 43, -65.002]}>
+      <group name="pared_vertical_1" position={[238.472, 42, -65.002]}>
         <mesh
           name="Plane024"
           geometry={nodes.Plane024.geometry}
