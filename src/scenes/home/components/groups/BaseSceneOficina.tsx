@@ -20,7 +20,7 @@ const BaseSceneOficina = () => {
         <Pared2 />
         <ParedS1 />
         <ParedS2 />
-        <SobretechoOficina /> 
+      
     
      {/* sin fisica */}
       {/* <TechoOficina />

@@ -132,10 +132,10 @@ const BaseSceneEntrada = () => {
 
       <Physics 
         gravity={[0, -100, 0]} 
-        iterations={5}        // Balanceado: ni muy alto ni muy bajo
-        tolerance={0.015}     // Balanceado para buena precisión
-        allowSleep={true}     // Permitir objetos durmientes
-        broadphase="SAP"      // Algoritmo más eficiente que naive
+        iterations={10}       // ✅ RESTAURADO: Necesario para movimiento fluido
+        tolerance={0.001}     // ✅ RESTAURADO: Precisión necesaria para personaje
+        allowSleep={false}    // ✅ CRÍTICO: Evitar que personaje se "duerma"
+        broadphase="Naive"    // ✅ RESTAURADO: Mejor para personajes dinámicos
       >
         <SceneContent />
       </Physics>
