@@ -36,7 +36,7 @@ export function Ventana1() {
 
   // 🎯 Materiales optimizados usando MaterialManager
   const frameMaterial = MaterialManager.getMaterial('window-frame');
-  const glassMaterial = MaterialManager.getBaseMaterial('glassFrosted');
+  const glassMaterial = MaterialManager.getBaseMaterial('glass');
   const customBrownMaterial = MaterialManager.getMaterial('window-brown');
 
   const allInstances: InstanceData[] = [
