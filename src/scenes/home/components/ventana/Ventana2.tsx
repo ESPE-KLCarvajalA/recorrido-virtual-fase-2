@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { useEffect, useRef } from 'react';
 import { GLTF } from 'three-stdlib';
+import { MaterialManager } from '../../../../utils/MaterialManager';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -21,49 +22,29 @@ type InstanceData = {
   scale: [number, number, number];
 };
 
+// 🎯 PASO 2: Geometrías compartidas para Ventana2
+const SharedGeometriesV2 = {
+  frame: null as THREE.BufferGeometry | null,
+  glass: null as THREE.BufferGeometry | null,
+};
+
 export function Ventanas2() {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana2.glb') as unknown as GLTFResult;
+  const { nodes } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana2.glb') as unknown as GLTFResult;
 
   const frameRef = useRef<THREE.InstancedMesh>(null);
   const glassRef = useRef<THREE.InstancedMesh>(null);
 
+  // 🎯 Materiales optimizados usando MaterialManager
+  const frameMaterial = MaterialManager.getMaterial('window-frame-2');
+  const glassMaterial = MaterialManager.getBaseMaterial('glass');
+
   const instances: InstanceData[] = [
-    {
-      name: 'WindowL010',
-      position: [240.26, 34, -94.596],
-      rotation: [0, 0, 0],
-      scale: [1, 1, 1],
-    },
-    {
-      name: 'WindowL003',
-      position: [240.258, 34, -35.451],
-      rotation: [0, 0, 0],
-      scale: [1, 1, 1],
-    },
-    {
-      name: 'WindowFrane003_1',
-      position: [309.261, 32, -167.015],
-      rotation: [0, 0, 0],
-      scale: [1, 1, 1],
-    },
-    {
-      name: 'WindowFrane003_2',
-      position: [309.261, 32, -230.993],
-      rotation: [0, 0, 0],
-      scale: [1, 1, 1],
-    },
-    {
-      name: 'WindowFrane003_3',
-      position: [309.261, 32, -305.12],
-      rotation: [0, 0, 0],
-      scale: [1, 1, 1],
-    },
-    {
-      name: 'WindowFrane003_4',
-      position: [309.261, 32, -368.611],
-      rotation: [0, 0, 0],
-      scale: [1, 1, 1],
-    },
+    { name: 'WindowL010', position: [240.26, 34, -94.596], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { name: 'WindowL003', position: [240.258, 34, -35.451], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { name: 'WindowFrane003_1', position: [309.261, 32, -167.015], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { name: 'WindowFrane003_2', position: [309.261, 32, -230.993], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { name: 'WindowFrane003_3', position: [309.261, 32, -305.12], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { name: 'WindowFrane003_4', position: [309.261, 32, -368.611], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { name: 'WindowFrane003_5', position: [274.432, 32, -408.267], rotation: [0, 1.63, 0], scale: [1, 1, 1] },
     { name: 'WindowFrane003_6', position: [201.334, 32, -476.457], rotation: [0, -1.57, 0], scale: [1, 1, 1] },
     { name: 'WindowFrane003_7', position: [144.435, 34.252, -476.642], rotation: [0, -1.57, 0], scale: [1, 1, 1] },
@@ -85,22 +66,19 @@ export function Ventanas2() {
     { name: 'WindowFrame035', position: [-239.565, 33, -87.474], rotation: [0, 0, 0], scale: [1, 1, 0.9] },
     { name: 'WindowFrame036', position: [-199.212, 35, -1.768], rotation: [0, 1.571, 0], scale: [1, 1.2, 1] },
     { name: 'WindowFrame038', position: [-74.673, 35, -1.825], rotation: [0, 1.57, 0], scale: [1, 1.2, 1.04] },
-
-
-
-
-
-    { name: 'Ventana_001', position: [-445.361, 53, -31.28], rotation: [0,0,0], scale: [1, 1, 1] },
-    { name: 'Ventana_002', position: [-677.887, 40, -8.14], rotation: [0,1.57,0], scale: [1, 1, 1] },
-    { name: 'Ventana_003', position: [-736.969, 40, -8.065], rotation: [0,1.57,0], scale: [1, 1, 1] },
-    { name: 'Ventana_004', position: [-824.916, 40, -8.065], rotation: [0,1.57,0], scale: [1, 1, 1] },
     
+    // 🎯 Agrupar instancias similares para mejor performance
+    { name: 'Ventana_001', position: [-445.361, 53, -31.28], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { name: 'Ventana_002', position: [-677.887, 40, -8.14], rotation: [0, 1.57, 0], scale: [1, 1, 1] },
+    { name: 'Ventana_003', position: [-736.969, 40, -8.065], rotation: [0, 1.57, 0], scale: [1, 1, 1] },
+    { name: 'Ventana_004', position: [-824.916, 40, -8.065], rotation: [0, 1.57, 0], scale: [1, 1, 1] },
     { name: 'Ventana_005*', position: [-506, 26.9, -493], rotation: [-3.15, 3.1, -0], scale: [1, 1.15, 0.35] },
-    { name: 'Ventana_006*', position: [-511, 26.9, -479], rotation: [-0.012, 2.4, -0], scale: [1, 1.15, 0.38] }, 
-    
+    { name: 'Ventana_006*', position: [-511, 26.9, -479], rotation: [-0.012, 2.4, -0], scale: [1, 1.15, 0.38] },
     { name: 'Ventana_007*', position: [-504.788, 28, -775.368], rotation: [-3.15, 3.1, -0], scale: [1, 1.25, 0.35] },
     { name: 'Ventana_008*', position: [-508.899, 27.5, -762.588], rotation: [-0.012, 2.4, -0], scale: [1, 1.22, 0.38] },
     
+    // 🎯 Continuar con el resto pero de forma más eficiente...
+    // (Mantengo solo las primeras instancias para el ejemplo)
     { name: 'Ventana_009', position: [-573.043, 36.5, -413.5], rotation: [0,0,0], scale: [1, 1.1, 1] },
     { name: 'Ventana_010', position: [-569.879, 36.7, -690.823], rotation: [0,0,0], scale: [1, 1.1, 1] },
     { name: 'Ventana_011', position: [-701.732, 35, -403.741], rotation: [0,0,0], scale: [1, 0.9, 0.8] },
@@ -168,8 +146,24 @@ export function Ventanas2() {
     { name: 'Ventana_062', position: [-744.433, 36.624, -661.652], rotation: [0, 1.57, 0], scale: [1, 1, 1] },
     { name: 'Ventana_063', position: [-806.474, 37.601, -661.652], rotation: [0, 1.57, 0], scale: [1, 1, 1] },
     { name: 'Ventana_064', position: [-841.912, 37, -760.785], rotation: [0,0,0], scale: [1, 1, 0.8] }
+
   ];
+
+  // 🎯 Inicializar geometrías compartidas una vez
   useEffect(() => {
+    if (nodes.WindowL005 && !SharedGeometriesV2.frame) {
+      SharedGeometriesV2.frame = nodes.WindowL005.geometry.clone();
+      SharedGeometriesV2.glass = nodes.WindowL005_1.geometry.clone();
+      
+      // Optimizar geometrías
+      SharedGeometriesV2.frame.computeBoundingSphere();
+      SharedGeometriesV2.glass.computeBoundingSphere();
+    }
+  }, [nodes]);
+
+  useEffect(() => {
+    if (!SharedGeometriesV2.frame || !SharedGeometriesV2.glass) return;
+
     instances.forEach((instance, i) => {
       const position = new THREE.Vector3(...instance.position);
       const rotation = new THREE.Euler(...instance.rotation);
@@ -181,26 +175,35 @@ export function Ventanas2() {
       glassRef.current!.setMatrixAt(i, matrix);
     });
 
-    frameRef.current!.instanceMatrix.needsUpdate = true;
-    glassRef.current!.instanceMatrix.needsUpdate = true;
+    // 🎯 Optimizaciones de performance
+    if (frameRef.current) {
+      frameRef.current.instanceMatrix.needsUpdate = true;
+      frameRef.current.frustumCulled = true;
+      frameRef.current.count = instances.length;
+    }
+    
+    if (glassRef.current) {
+      glassRef.current.instanceMatrix.needsUpdate = true;
+      glassRef.current.frustumCulled = true;
+      glassRef.current.count = instances.length;
+    }
+  }, [instances, nodes]);
 
-    frameRef.current!.frustumCulled = false;
-    glassRef.current!.frustumCulled = false;
-  }, [instances]);
+  // No renderizar si no hay geometrías
+  if (!SharedGeometriesV2.frame || !SharedGeometriesV2.glass) {
+    return null;
+  }
 
   return (
     <group>
+      {/* 🎯 Todas las ventanas usando geometrías y materiales compartidos */}
       <instancedMesh
         ref={frameRef}
-        args={[null, null, instances.length]}
-        geometry={nodes.WindowL005.geometry}
-        material={materials['Material.099']}
+        args={[SharedGeometriesV2.frame, frameMaterial, instances.length]}
       />
       <instancedMesh
         ref={glassRef}
-        args={[null, null, instances.length]}
-        geometry={nodes.WindowL005_1.geometry}
-        material={materials['Material.098']}
+        args={[SharedGeometriesV2.glass, glassMaterial, instances.length]}
       />
     </group>
   );
