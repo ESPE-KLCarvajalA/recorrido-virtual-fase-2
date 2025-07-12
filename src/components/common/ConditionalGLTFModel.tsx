@@ -111,7 +111,7 @@ export function ConditionalGLTFModelLOD<T extends GLTFResult>({
   // 🎯 Aplicar calidad según LOD
   React.useLayoutEffect(() => {
     Object.values(materials).forEach((material) => {
-      if (material.isMeshStandardMaterial) {
+      if (material instanceof THREE.MeshStandardMaterial) {
         if (lodLevel === 'low') {
           // Reducir calidad para objetos lejanos
           material.roughness = 0.8
@@ -138,7 +138,8 @@ export function useConditionalGLTF<T extends GLTFResult>(url: string, maxDistanc
   
   useFrame(() => {
     // Verificar cada 30 frames para performance
-    if (useFrame.state.clock.elapsedTime % 0.5 < 0.016) {
+    const { clock } = useThree()
+    if (clock.elapsedTime % 0.5 < 0.016) {
       const distance = camera.position.length() // Distancia desde origen
       setShouldLoad(distance < maxDistance)
     }
