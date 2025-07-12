@@ -18,11 +18,11 @@ import BaseSceneVilla from './components/groups/BaseSceneVilla';
 import BaseSceneVilla2 from './components/groups/BaseSceneVilla2';
 import { TechoNuevo } from './components/oficina/prueba';
 
-// 🎯 PASO 1: Configuración de distancias optimizadas
+// 🎯 BALANCED: Mantener performance pero mostrar contenido completo
 const RENDER_DISTANCES = {
-  CLOSE: 80,    // Objetos muy cercanos (antes 150)
-  MEDIUM: 150,  // Objetos medianos (antes 300) 
-  FAR: 250,     // Objetos lejanos (antes 500)
+  CLOSE: 150,   // Aumentado para ver objetos cercanos
+  MEDIUM: 300,  // Aumentado para edificios importantes  
+  FAR: 500,     // Aumentado para villas y estructuras lejanas
 }
 
 // 🎯 Hook para calcular distancia de cámara
@@ -132,8 +132,10 @@ const BaseSceneEntrada = () => {
 
       <Physics 
         gravity={[0, -100, 0]} 
-        iterations={6}        // Reducido de 10
-        tolerance={0.01}      // Añadido para performance
+        iterations={5}        // Balanceado: ni muy alto ni muy bajo
+        tolerance={0.015}     // Balanceado para buena precisión
+        allowSleep={true}     // Permitir objetos durmientes
+        broadphase="SAP"      // Algoritmo más eficiente que naive
       >
         <SceneContent />
       </Physics>

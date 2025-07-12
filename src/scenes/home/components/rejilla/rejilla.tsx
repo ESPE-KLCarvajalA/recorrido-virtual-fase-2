@@ -43,43 +43,57 @@ export function Rejilla() {
     const meshRef = useRef<THREE.InstancedMesh>(null);
     const cameraDistance = useCameraDistance();
 
-    // 🎯 INSTANCIAS REDUCIDAS - Solo las más importantes y cercanas
+    // 🎯 REJILLAS IMPORTANTES RESTAURADAS
     const allInstances: InstanceData[] = [
-        // Área principal (siempre visible)
+        // ✅ ÁREA PRINCIPAL - Siempre importantes
         { position: [431.91, 32.253, -349.326], rotation: [0, 0, 0], scale: [1, 1, 1] },
         { position: [477.383, 32.218, -361.549], rotation: [0, 0, 0], scale: [1, 1, 1] },
         { position: [539.536, 32, -378], rotation: [0, 0, 0], scale: [0.8, 0.95, 1] },
         { position: [578.679, 32, -278.097], rotation: [0, -1.6, 0], scale: [1, 0.95, 1] },
         { position: [587.731, 32, -245.404], rotation: [0, -1.6, 0], scale: [1, 0.95, 1] },
+        { position: [603.677, 32, -186.33], rotation: [0, -1.6, 0], scale: [1, 0.95, 1] },
+        { position: [397.316, 32, -373.437], rotation: [0, -1.6, 0], scale: [1, 0.95, 1] },
         
-        // Áreas secundarias importantes
+        // ✅ EDIFICIO PRINCIPAL - Importante para navegación
         { position: [239, 36.024, -94], rotation: [0, -1.8, 0], scale: [1.5, 1, 1] },
         { position: [237, 36.024, -35], rotation: [0, -1.8, 0], scale: [1.6, 1, 1] },
         { position: [307.456, 35, -167.029], rotation: [0, -1.8, 0], scale: [1.5, 1, 1] },
         { position: [307.456, 35, -231.007], rotation: [0, -1.8, 0], scale: [1.5, 1, 1] },
+        { position: [307.456, 35, -305.134], rotation: [0, -1.8, 0], scale: [1.5, 1, 1] },
+        { position: [307.456, 35, -368.625], rotation: [0, -1.8, 0], scale: [1.5, 1, 1] },
         
-        // Solo rejillas más importantes del edificio principal
+        // ✅ ÁREAS SECUNDARIAS - Visibles cuando cerca
+        { position: [274, 32, -407.077], rotation: [0, -0.1, 0], scale: [1.5, 0.9, 1] },
+        { position: [201.321, 33, -475.267], rotation: [0, -0.2, 0], scale: [1.5, 0.9, 1] },
+        { position: [54.762, 33, -475.287], rotation: [0, -0.2, 0], scale: [1.5, 0.9, 1] },
+        { position: [-29, 33, -443], rotation: [0, -1.7, 0], scale: [1.6, 0.9, 1] },
         { position: [169.422, 42, -316], rotation: [0, -1.8, 0], scale: [1, 0.5, 1] },
+        { position: [169.422, 42, -230.945], rotation: [0, -1.8, 0], scale: [1.7, 0.5, 1] },
         { position: [65.279, 31, -131], rotation: [0, -0.2, 0], scale: [1.5, 0.9, 1] },
         { position: [65.279, 35, -3.785], rotation: [0, 0, 0], scale: [1.5, 1, 1] },
+        { position: [-95.102, 35, -104], rotation: [0, -0.2, 0], scale: [1.5, 1, 1] },
         
-        // Oficinas principales
+        // ✅ OFICINAS - Importantes para experiencia
         { position: [164, 19, -279], rotation: [0, -1.94, 0], scale: [0.7, 1.7, 1] },
         { position: [112.5, 20, -133], rotation: [0, -0.4, 0], scale: [0.7, 1.7, 1] },
-        { position: [164, 19, -143], rotation: [0, -1.94, 0], scale: [0.7, 1.7, 1] }
+        { position: [164, 19, -143], rotation: [0, -1.94, 0], scale: [0.7, 1.7, 1] },
+        { position: [596, 22, -214], rotation: [0, -1.7, 0], scale: [0.7, 1.7, 1] },
+        { position: [-34.06, 20, -369.5], rotation: [0, -1.94, 0], scale: [0.7, 1.8, 1] },
+        { position: [148, 20, -344], rotation: [0, -0.35, 0], scale: [0.7, 1.7, 1] },
+        { position: [-60, 19, -223], rotation: [0, -1.94, 0], scale: [0.7, 1.7, 1] },
+        { position: [-241, 26, -257.5], rotation: [0, -1.75, 0], scale: [1.56, 2, 1] }
         
-        // 🎯 ELIMINADAS 25+ rejillas lejanas que raramente se ven
-        // Esto reduce significativamente draw calls y texturas
+        // 🎯 Restauré las rejillas más importantes para navegación
     ];
 
-    // 🎯 LOD: Filtrar instancias según distancia de cámara
+    // 🎯 LOD BALANCEADO: Filtrar rejillas según distancia pero mostrar contenido importante
     const visibleInstances = useMemo(() => {
-        if (cameraDistance < 200) {
-            return allInstances; // Todas si está muy cerca
-        } else if (cameraDistance < 400) {
-            return allInstances.slice(0, 10); // Solo las primeras 10 si está lejos
+        if (cameraDistance < 350) {
+            return allInstances; // Todas las rejillas si está cerca
+        } else if (cameraDistance < 600) {
+            return allInstances.slice(0, 20); // Mostrar 20 principales si está lejos
         } else {
-            return allInstances.slice(0, 5); // Solo las primeras 5 si está muy lejos
+            return allInstances.slice(0, 12); // Mostrar 12 esenciales si está muy lejos
         }
     }, [cameraDistance]);
 

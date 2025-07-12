@@ -20,7 +20,7 @@ type GroupProps = Omit<React.ComponentPropsWithoutRef<'group'>, 'children'>
 
 export function ConditionalGLTFModel<T extends GLTFResult>({
   url,
-  maxDistance = 200, // 🎯 Reducido de Infinity
+  maxDistance = 400, // 🎯 Balanceado: Ver contenido pero optimizado
   children,
   position = [0, 0, 0],
   ...props
@@ -35,8 +35,8 @@ export function ConditionalGLTFModel<T extends GLTFResult>({
     const distance = targetPos.distanceTo(cameraPos)
     return distance <= maxDistance
   }, [
-    Math.floor(camera.position.x / 50), // Discretizar para evitar re-renders constantes
-    Math.floor(camera.position.z / 50), // Solo X y Z importan para distancia horizontal
+    Math.floor(camera.position.x / 75), // Balance: Updates más frecuentes pero optimizados
+    Math.floor(camera.position.z / 75), // Mejor respuesta a movimiento del usuario
     position,
     maxDistance
   ])

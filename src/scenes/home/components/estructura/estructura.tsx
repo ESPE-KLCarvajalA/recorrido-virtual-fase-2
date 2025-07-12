@@ -49,33 +49,50 @@ const SharedGeometries = {
     detail2: null as THREE.BufferGeometry | null
 };
 
-// 🎯 INSTANCIAS REDUCIDAS - Solo las más cercanas e importantes
+// 🎯 BALANCED: Instancias importantes restauradas pero con LOD inteligente
 const instances: Instance[] = [
-    // Entrada principal (siempre visible)
+    // ✅ ÁREA PRINCIPAL - Siempre visible
     { position: [-58.822, 23, 553.073], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [-18.424, 23, 517.935], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [22.378, 23, 482.444], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [63.249, 23, 446.895], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [102.23, 23, 412.212], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    
-    // Área principal (visible frecuentemente)
     { position: [142.14, 23, 375.582], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [182.007, 23, 338.991], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [221.898, 22.212, 302.378], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [261.773, 20.403, 265.78], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [299.982, 21.011, 228.489], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    
-    // Esquinas importantes 
     { position: [337.772, 21.028, 189.72], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [375.478, 21.028, 151.037], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [413.248, 21.028, 112.143], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [451.042, 21.028, 72.884], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
+    { position: [488.901, 21.028, 33.568], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
     
-    // Reducidas las instancias lejanas - Solo 3 más importantes
+    // ✅ ÁREA SECUNDARIA - Visible cuando cerca
+    { position: [527.31, 21.094, -4.754], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
+    { position: [564.132, 21.177, -44.198], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
+    { position: [600.397, 21.177, -82.993], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
+    { position: [640.04, 21.177, -120.383], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
+    { position: [679.872, 21.177, -157.263], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
     { position: [695, 21.177, -200], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
-    { position: [-100, 23, 590], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [-140, 23, 627], rotation: [0, 0, 0], scale: [1, 1, 1] }
     
-    // 🎯 ELIMINADAS 25+ instancias lejanas que raramente se ven
+    // ✅ ÁREA IMPORTANTE - Estructura lateral
+    { position: [539.998, 21.177, -714.755], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
+    { position: [555.212, 21.177, -662.757], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
+    { position: [570.822, 21.177, -611.763], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
+    { position: [586.06, 21.177, -560.212], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
+    { position: [601.67, 21.177, -508.739], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
+    
+    // ✅ ENTRADA SECUNDARIA - Importante para navegación
+    { position: [-100, 23, 590], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [-140, 23, 627], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    
+    // ✅ ÁREA LEJANA - Solo visible cuando muy cerca o navegando hacia allá
+    { position: [-322.682, 15.372, 785.385], rotation: [0, 3.1, 0], scale: [1, 1, 1] },
+    { position: [-364.275, 15.372, 820.301], rotation: [0, 3.1, 0], scale: [1, 1, 1] },
+    { position: [-405.855, 15.372, 855.401], rotation: [0, 3.1, 0], scale: [1, 1, 1] }
+    
+    // 🎯 Mantengo las instancias MÁS importantes pero con LOD inteligente
 ];
 
 function useCameraDistance() {
@@ -94,14 +111,14 @@ export function Estructura() {
     
     const cameraDistance = useCameraDistance();
 
-    // 🎯 LOD: Filtrar instancias según distancia
+    // 🎯 LOD BALANCEADO: Filtrar instancias según distancia pero mostrar contenido
     const visibleInstances = useMemo(() => {
-        if (cameraDistance < 300) {
-            return instances; // Todas las instancias si está cerca
-        } else if (cameraDistance < 600) {
-            return instances.slice(0, 10); // Solo las primeras 10 si está lejos
+        if (cameraDistance < 400) {
+            return instances; // Todas las instancias si está relativamente cerca
+        } else if (cameraDistance < 800) {
+            return instances.slice(0, 20); // Mostrar 20 si está lejos
         } else {
-            return instances.slice(0, 5); // Solo las primeras 5 si está muy lejos
+            return instances.slice(0, 15); // Mostrar 15 si está muy lejos
         }
     }, [cameraDistance]);
 
