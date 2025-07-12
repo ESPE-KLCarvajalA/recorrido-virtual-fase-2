@@ -16,7 +16,6 @@ import BaseSceneLab2 from './components/groups/BaseSceneLab2';
 import BaseSceneOficina from './components/groups/BaseSceneOficina';
 import BaseSceneVilla from './components/groups/BaseSceneVilla';
 import BaseSceneVilla2 from './components/groups/BaseSceneVilla2';
-import { TechoNuevo } from './components/oficina/prueba';
 
 // 🎯 BALANCED: Mantener performance pero mostrar contenido completo
 const RENDER_DISTANCES = {
@@ -82,6 +81,7 @@ function SceneContent() {
 
       {/* 🎯 SIEMPRE RENDERIZAR (escena base) */}
       <BaseSceneAfuera />
+      <BaseSceneOficina />
 
       {/* 🎯 RENDERIZADO CONDICIONAL POR DISTANCIA */}
       <ConditionalRender position={scenePositions.arco} distance={RENDER_DISTANCES.CLOSE}>
@@ -104,10 +104,7 @@ function SceneContent() {
         <BaseSceneLab2 />
       </ConditionalRender>
 
-      <ConditionalRender position={scenePositions.oficina} distance={RENDER_DISTANCES.CLOSE}>
-        <BaseSceneOficina />
-        <TechoNuevo />
-      </ConditionalRender>
+     
 
       <ConditionalRender position={scenePositions.villa} distance={RENDER_DISTANCES.FAR}>
         <BaseSceneVilla />

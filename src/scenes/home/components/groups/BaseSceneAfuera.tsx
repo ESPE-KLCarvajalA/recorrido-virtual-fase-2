@@ -5,7 +5,6 @@
 
 
 
-import { SobretechoOficina } from "../oficina/Sobretecho";
 import { Cartelera } from "../otros/cartelera";
 import { Frases } from "../otros/frases";
 import { Senaleticas } from "../otros/senaleticas";
@@ -46,7 +45,7 @@ const BaseSceneAfuera = () => {
         <PisoCesped5E />
         <PisoLabs />
        <PisoVereda5 />
-       <SobretechoOficina />   
+       
       
  {/* sin fisica */}
       <Frases />
