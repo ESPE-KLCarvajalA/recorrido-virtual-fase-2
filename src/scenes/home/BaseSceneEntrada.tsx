@@ -55,8 +55,6 @@ function ConditionalRender({
 }
 
 function SceneContent() {
-  const { camera } = useThree();
-  
   // 🎯 Posiciones centrales de cada grupo
   const scenePositions = {
     afuera: [0, 0, 0] as [number, number, number],
