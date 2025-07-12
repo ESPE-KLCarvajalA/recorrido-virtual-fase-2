@@ -1,5 +1,6 @@
 import { Pared1 } from '../oficina/Pared1';
 import { Pared2 } from '../oficina/Pared2';
+import { SobretechoOficina } from '../oficina/Sobretecho';
 import { ParedS1 } from '../secretaria/ParedS1';
 import { ParedS2 } from '../secretaria/ParedS2';
 
@@ -19,6 +20,7 @@ const BaseSceneOficina = () => {
         <Pared2 />
         <ParedS1 />
         <ParedS2 />
+        <SobretechoOficina /> 
     
      {/* sin fisica */}
       {/* <TechoOficina />
