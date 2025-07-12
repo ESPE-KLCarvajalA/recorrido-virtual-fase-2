@@ -23,7 +23,7 @@ export function SobretechoOficina(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/sobretecho.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
-      <group name="sobretecho005" position={[-117.496, 54.868, -104.043]}>
+      <group name="sobretecho005" position={[-117.496, 53, -104.043]}>
         <mesh
           name="Cube062"
           geometry={nodes.Cube062.geometry}
@@ -35,7 +35,7 @@ export function SobretechoOficina(props: ThreeElements['group']) {
           material={materials['Material.059']}
         />
       </group>
-      <group name="sobretecho003" position={[155.165, 56.729, -79.396]}>
+      <group name="sobretecho003" position={[155.165, 55, -79.396]}>
         <mesh
           name="Cube064"
           geometry={nodes.Cube064.geometry}
@@ -47,7 +47,7 @@ export function SobretechoOficina(props: ThreeElements['group']) {
           material={materials['Material.059']}
         />
       </group>
-      <group name="sobretecho015" position={[6.657, 60.64, -79.396]}>
+      <group name="sobretecho015" position={[6.657, 59, -79.396]}>
         <mesh
           name="Cube061"
           geometry={nodes.Cube061.geometry}

@@ -1,10 +1,10 @@
-import {  Physics } from '@react-three/cannon';
-import { Canvas } from '@react-three/fiber';
+import { Physics } from '@react-three/cannon';
+import { Canvas, useThree } from '@react-three/fiber';
 import BaseCharacter from '../../shared/components/BaseCharacter';
 import { PointerLockControls } from '@react-three/drei';
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import { Perf } from 'r3f-perf'
-
+import * as THREE from 'three';
 
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
 import BaseSceneAfuera from './components/groups/BaseSceneAfuera';
@@ -18,48 +18,132 @@ import BaseSceneVilla from './components/groups/BaseSceneVilla';
 import BaseSceneVilla2 from './components/groups/BaseSceneVilla2';
 import { TechoNuevo } from './components/oficina/prueba';
 
+// 🎯 PASO 1: Configuración de distancias optimizadas
+const RENDER_DISTANCES = {
+  CLOSE: 80,    // Objetos muy cercanos (antes 150)
+  MEDIUM: 150,  // Objetos medianos (antes 300) 
+  FAR: 250,     // Objetos lejanos (antes 500)
+}
 
+// 🎯 Hook para calcular distancia de cámara
+function useCameraDistance(targetPosition: [number, number, number]) {
+  const camera = useThree(state => state.camera);
+  
+  return useMemo(() => {
+    const target = new THREE.Vector3(...targetPosition);
+    return camera.position.distanceTo(target);
+  }, [camera.position.x, camera.position.z, targetPosition]); // Solo X y Z para performance
+}
+
+// 🎯 Componente de renderizado condicional
+function ConditionalRender({ 
+  children, 
+  position, 
+  distance = RENDER_DISTANCES.MEDIUM 
+}: {
+  children: React.ReactNode;
+  position: [number, number, number];
+  distance?: number;
+}) {
+  const cameraDistance = useCameraDistance(position);
+  
+  if (cameraDistance > distance) {
+    return null; // No renderizar si está lejos
+  }
+  
+  return <>{children}</>;
+}
+
+function SceneContent() {
+  const { camera } = useThree();
+  
+  // 🎯 Posiciones centrales de cada grupo
+  const scenePositions = {
+    afuera: [0, 0, 0] as [number, number, number],
+    arco: [-2, 30, 40] as [number, number, number],
+    bar: [-854, -9, -291] as [number, number, number],
+    bar2: [-710, -6, -210] as [number, number, number],
+    lab: [256, 36, -249] as [number, number, number],
+    lab2: [-17, 44, -410] as [number, number, number],
+    oficina: [72, 30, -71] as [number, number, number],
+    villa: [-485, 25, -729] as [number, number, number],
+    villa2: [-500, 30, -750] as [number, number, number],
+  };
+
+  return (
+    <>
+      <BaseCharacter 
+        controls 
+        positionCharacter={[-92, -1, 170]} 
+        args={[2.2]} 
+        altura={20} 
+        velocidad={40} 
+        salto={20} 
+        color="green" 
+      />
+
+      {/* 🎯 SIEMPRE RENDERIZAR (escena base) */}
+      <BaseSceneAfuera />
+
+      {/* 🎯 RENDERIZADO CONDICIONAL POR DISTANCIA */}
+      <ConditionalRender position={scenePositions.arco} distance={RENDER_DISTANCES.CLOSE}>
+        <BaseSceneArco />
+      </ConditionalRender>
+
+      <ConditionalRender position={scenePositions.bar} distance={RENDER_DISTANCES.MEDIUM}>
+        <BaseSceneBar />
+      </ConditionalRender>
+
+      <ConditionalRender position={scenePositions.bar2} distance={RENDER_DISTANCES.MEDIUM}>
+        <BaseSceneBar2 />
+      </ConditionalRender>
+
+      <ConditionalRender position={scenePositions.lab} distance={RENDER_DISTANCES.MEDIUM}>
+        <BaseSceneLab />
+      </ConditionalRender>
+
+      <ConditionalRender position={scenePositions.lab2} distance={RENDER_DISTANCES.MEDIUM}>
+        <BaseSceneLab2 />
+      </ConditionalRender>
+
+      <ConditionalRender position={scenePositions.oficina} distance={RENDER_DISTANCES.CLOSE}>
+        <BaseSceneOficina />
+        <TechoNuevo />
+      </ConditionalRender>
+
+      <ConditionalRender position={scenePositions.villa} distance={RENDER_DISTANCES.FAR}>
+        <BaseSceneVilla />
+      </ConditionalRender>
+
+      <ConditionalRender position={scenePositions.villa2} distance={RENDER_DISTANCES.FAR}>
+        <BaseSceneVilla2 />
+      </ConditionalRender>
+    </>
+  );
+}
 
 const BaseSceneEntrada = () => {
   const controlsRef = useRef(null);
 
   return (
-
     <Canvas camera={{ position: [-92, 0, 29] }}>
-      
-       <Perf position="top-left" />
+      <Perf position="top-left" />
 
-      <ambientLight intensity={Math.PI / 2} />
+      {/* 🎯 ILUMINACIÓN OPTIMIZADA */}
+      <ambientLight intensity={0.3} /> {/* Reducido de 0.45 */}
 
-      <Physics gravity={[0, -100, 0]} iterations={10}>
-
-        <BaseCharacter controls positionCharacter={[-92,-1, 170]} args={[2.2]} altura={20} velocidad={40} salto={20} color="green" />
-
-            <BaseSceneAfuera/>
-          
-         
-            <TechoNuevo />
-             <BaseSceneArco/>
-           <BaseSceneBar/>
-            <BaseSceneBar2/> 
-             <BaseSceneLab/>
-            <BaseSceneLab2/>
-            <BaseSceneOficina/>
-            <BaseSceneVilla/>
-            <BaseSceneVilla2/>
-
+      <Physics 
+        gravity={[0, -100, 0]} 
+        iterations={6}        // Reducido de 10
+        tolerance={0.01}      // Añadido para performance
+      >
+        <SceneContent />
       </Physics>
 
       <HDRIEnvironment />
-
       <PointerLockControls ref={controlsRef} />
-
     </Canvas>
-
   );
 };
 
 export default BaseSceneEntrada;
-
-
-
