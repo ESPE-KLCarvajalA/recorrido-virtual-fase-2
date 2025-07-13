@@ -1,15 +1,15 @@
-import React, { useMemo } from 'react'
-import { useGLTF } from '@react-three/drei'
-import { GLTF } from 'three-stdlib'
+import React from 'react'
 import * as THREE from 'three'
-import { useFrame, useThree } from '@react-three/fiber'
+import { useGLTF } from '@react-three/drei'
+import { useThree } from '@react-three/fiber'
+import { GLTF } from 'three-stdlib'
 
 type GLTFResult = GLTF & {
   nodes: Record<string, THREE.Mesh>
   materials: Record<string, THREE.Material>
 }
 
-interface ConditionalGLTFModelProps<T extends GLTFResult> {
+type ConditionalGLTFModelProps<T extends GLTFResult> = {
   url: string
   maxDistance?: number
   children: (nodes: T['nodes'], materials: T['materials']) => React.ReactNode
@@ -20,147 +20,47 @@ type GroupProps = Omit<React.ComponentPropsWithoutRef<'group'>, 'children'>
 
 export function ConditionalGLTFModel<T extends GLTFResult>({
   url,
-  maxDistance = 400, // 🎯 Balanceado: Ver contenido pero optimizado
+  maxDistance = 400,
   children,
   position = [0, 0, 0],
   ...props
 }: ConditionalGLTFModelProps<T> & GroupProps) {
-  
   const { camera } = useThree()
-  
-  // 🎯 Calcular distancia MÁS simple y confiable
-  const isVisible = useMemo(() => {
-    const targetPos = new THREE.Vector3(...position)
-    const cameraPos = camera.position
-    const distance = targetPos.distanceTo(cameraPos)
-    
-    // ✅ DEBUG en desarrollo
-    if (import.meta.env.DEV && Math.random() < 0.01) { // 1% de las veces
-      console.log(`ConditionalGLTF: distance=${Math.round(distance)}, max=${maxDistance}, visible=${distance <= maxDistance}`)
-    }
-    
-    return distance <= maxDistance
-  }, [
-    Math.floor(camera.position.x / 20), // ✅ MÁS frecuente para mejor respuesta
-    Math.floor(camera.position.z / 20), // ✅ Actualizar más seguido
-    position,
-    maxDistance
-  ])
+  const gltf = useGLTF(url) as unknown as T
 
-  // 🎯 Solo cargar modelo si es visible
-  const { nodes, materials } = useGLTF(url, isVisible) as unknown as T
-
-  // 🎯 Validación optimizada
-  if (!isVisible) {
-    return null // No renderizar nada si está lejos
-  }
-
-  if (typeof children !== 'function') {
-    console.error('ConditionalGLTFModel: children debe ser una función')
-    return null
-  }
-
-  if (!nodes || !materials) {
-    return null // Modelo no cargado
-  }
-
-  // 🎯 Aplicar optimizaciones a todos los meshes
-  React.useLayoutEffect(() => {
-    Object.values(nodes).forEach((node) => {
-      if (node.isMesh) {
-        node.frustumCulled = true      // Forzar frustum culling
-        node.matrixAutoUpdate = false  // Evitar updates innecesarios si es estático
-        node.updateMatrix()            // Update manual una vez
-      }
-    })
-  }, [nodes])
-
-  return (
-    <group position={position} {...props}>
-      {children(nodes, materials)}
-    </group>
-  )
-}
-
-// 🎯 Versión para objetos muy lejanos (LOD básico)
-export function ConditionalGLTFModelLOD<T extends GLTFResult>({
-  url,
-  maxDistance = 300,
-  children,
-  position = [0, 0, 0],
-  ...props
-}: ConditionalGLTFModelProps<T> & GroupProps) {
-  
-  const { camera } = useThree()
-  
-  const lodLevel = useMemo(() => {
+  const isVisible = React.useMemo(() => {
     const targetPos = new THREE.Vector3(...position)
     const distance = targetPos.distanceTo(camera.position)
-    
-    if (distance > maxDistance) return 'hidden'
-    if (distance > maxDistance * 0.7) return 'low'
-    return 'high'
+    return distance <= maxDistance
   }, [
-    Math.floor(camera.position.x / 30),
-    Math.floor(camera.position.z / 30),
+    Math.floor(camera.position.x / 20),
+    Math.floor(camera.position.z / 20),
     position,
-    maxDistance
+    maxDistance,
+    camera.position
   ])
 
-  const shouldRender = lodLevel !== 'hidden'
-  const { nodes, materials } = useGLTF(url, shouldRender) as unknown as T
+  if (!isVisible) return <group position={position} {...props} />
 
-  if (!shouldRender || !nodes || !materials || typeof children !== 'function') {
+  if (!gltf?.nodes || !gltf?.materials || typeof children !== 'function') {
     return null
   }
 
-  // 🎯 Aplicar calidad según LOD
   React.useLayoutEffect(() => {
-    Object.values(materials).forEach((material) => {
-      // ✅ CORREGIDO: Type checking correcto
-      if (material instanceof THREE.MeshStandardMaterial) {
-        if (lodLevel === 'low') {
-          // Reducir calidad para objetos lejanos
-          material.roughness = 0.8
-          material.metalness = 0.1
-          if (material.map) {
-            material.map.minFilter = THREE.LinearFilter // Filtro más simple
-          }
-        }
+    Object.values(gltf.nodes).forEach((node) => {
+      if (node.isMesh) {
+        node.frustumCulled = true
+        node.matrixAutoUpdate = false
+        node.updateMatrix()
       }
     })
-  }, [materials, lodLevel])
+  }, [gltf.nodes])
 
   return (
     <group position={position} {...props}>
-      {children(nodes, materials)}
+      {children(gltf.nodes, gltf.materials)}
     </group>
   )
 }
-
-// 🎯 Hook para LOD manual
-export function useConditionalGLTF<T extends GLTFResult>(url: string, maxDistance = 200) {
-  const { camera } = useThree()
-  const [shouldLoad, setShouldLoad] = React.useState(false)
-  
-  // ✅ CORREGIDO: useFrame callback con state y clock
-  useFrame((state) => {
-    // Verificar cada 30 frames para performance
-    if (state.clock.elapsedTime % 0.5 < 0.016) {
-      const distance = camera.position.length() // Distancia desde origen
-      setShouldLoad(distance < maxDistance)
-    }
-  })
-
-  const gltf = useGLTF(url, shouldLoad)
-  
-  return React.useMemo(() => {
-    if (!shouldLoad || !gltf?.nodes || !gltf?.materials) {
-      return null
-    }
-    return gltf as unknown as T
-  }, [gltf, shouldLoad])
-}
-
 
 
