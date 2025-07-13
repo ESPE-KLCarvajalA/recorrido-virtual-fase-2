@@ -20,19 +20,7 @@ import BaseSceneVilla from './components/groups/BaseSceneVilla';
 
 import ConditionalRender from '../../utils/ConditionalRender';
 
-// 🎯 Hook optimizado para calcular distancia desde el personaje
-function useCameraDistance(targetPosition: [number, number, number]) {
-  const camera = useThree((state) => state.camera);
 
-  return React.useMemo(() => {
-    const target = new THREE.Vector3(...targetPosition);
-    return camera.position.distanceTo(target);
-  }, [
-    Math.floor(camera.position.x / 25),
-    Math.floor(camera.position.z / 25),
-    targetPosition,
-  ]);
-}
 
 function SceneContent() {
   return (
