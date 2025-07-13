@@ -18,7 +18,7 @@ type GLTFResult = GLTF & {
 export function PisoArco(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoArco.glb') as unknown as GLTFResult
 
-  const groupPosition: [number, number, number] = [-1.895, -3, 31.141]
+  const groupPosition: [number, number, number] = [-1.895, -3, 25]
 
   // Combinar bounding box de las dos mallas para sacar dimensiones
   const box = new THREE.Box3().setFromObject(new THREE.Group())

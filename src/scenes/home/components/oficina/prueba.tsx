@@ -21,7 +21,7 @@ export function TechoNuevo(props: ThreeElements['group']) {
         name="techo015"
         geometry={nodes.techo015.geometry}
         material={materials['Material.212']}
-        position={[72.124, 74.433, -68.044]}
+        position={[72.124, 73, -68.044]}
         rotation={[0, -1.571, 0]}
         scale={[12.797, 3.519, 52.569]}
       />
