@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useMemo } from 'react'
 import { GLTF } from 'three-stdlib'
 
 type GLTFResult = GLTF & {
@@ -33,6 +33,11 @@ const allInstances: InstanceData[] = [
   { position: [359.4, 20, -469.9], rotation: [0, 0.66, 0], scale: [1, 1, 1] }
 ]
 
+const relativeHandlePosition = new THREE.Vector3(-1, -0.2, -8)
+
+const brownMatDark = new THREE.MeshStandardMaterial({ color: '#584346' })
+const brownMatLight = new THREE.MeshStandardMaterial({ color: '#C58532' })
+
 export function Puerta1() {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/puerta/puerta1.glb') as unknown as GLTFResult
 
@@ -45,9 +50,9 @@ export function Puerta1() {
 
   const normalInstances = allInstances.slice(0, 4)
 
-  const relativeHandlePosition = new THREE.Vector3(-1, -0.2, -8)
-
   useEffect(() => {
+    if (!marcoRef.current || !vidrioRef.current || !extraRef.current) return
+
     normalInstances.forEach((inst, i) => {
       const pos = new THREE.Vector3(...inst.position)
       const rot = new THREE.Euler(...inst.rotation)
@@ -58,38 +63,38 @@ export function Puerta1() {
         scale
       )
 
-      marcoRef.current?.setMatrixAt(i, matrix)
-      vidrioRef.current?.setMatrixAt(i, matrix)
-      extraRef.current?.setMatrixAt(i, matrix)
+      marcoRef.current.setMatrixAt(i, matrix)
+      vidrioRef.current.setMatrixAt(i, matrix)
+      extraRef.current.setMatrixAt(i, matrix)
     })
 
-    marcoRef.current!.instanceMatrix.needsUpdate = true
-    vidrioRef.current!.instanceMatrix.needsUpdate = true
-    extraRef.current!.instanceMatrix.needsUpdate = true
-  }, [])
-
-  const brownMatDark = new THREE.MeshStandardMaterial({ color: '#584346' })
-  const brownMatLight = new THREE.MeshStandardMaterial({ color: '#C58532' })
+    marcoRef.current.instanceMatrix.needsUpdate = true
+    vidrioRef.current.instanceMatrix.needsUpdate = true
+    extraRef.current.instanceMatrix.needsUpdate = true
+  }, [normalInstances])
 
   return (
     <group>
       {/* Puertas instanciadas */}
       <instancedMesh
         ref={marcoRef}
-        args={[nodes.DoorFrane002.geometry, undefined, normalInstances.length]}
+        geometry={nodes.DoorFrane002.geometry}
         material={materials['Material.091']}
+        count={normalInstances.length}
         frustumCulled={false}
       />
       <instancedMesh
         ref={vidrioRef}
-        args={[nodes.DoorFrane002_1.geometry, undefined, normalInstances.length]}
+        geometry={nodes.DoorFrane002_1.geometry}
         material={materials['glass frosted']}
+        count={normalInstances.length}
         frustumCulled={false}
       />
       <instancedMesh
         ref={extraRef}
-        args={[nodes.DoorFrane002_2.geometry, undefined, normalInstances.length]}
+        geometry={nodes.DoorFrane002_2.geometry}
         material={materials['Material.120']}
+        count={normalInstances.length}
         frustumCulled={false}
       />
 

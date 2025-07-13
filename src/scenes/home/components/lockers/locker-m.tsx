@@ -42,19 +42,24 @@ export function LockerM() {
   ];
 
   useEffect(() => {
+    if (!ref1.current || !ref2.current) return; // ✅ Protección
+  
     instances.forEach((inst, i) => {
       const pos = new THREE.Vector3(...inst.position);
       const rot = new THREE.Euler(...inst.rotation);
       const scl = new THREE.Vector3(...inst.scale);
       const matrix = new THREE.Matrix4().compose(pos, new THREE.Quaternion().setFromEuler(rot), scl);
-      ref1.current!.setMatrixAt(i, matrix);
-      ref2.current!.setMatrixAt(i, matrix);
+  
+      ref1.current.setMatrixAt(i, matrix);
+      ref2.current.setMatrixAt(i, matrix);
     });
-    ref1.current!.instanceMatrix.needsUpdate = true;
-    ref2.current!.instanceMatrix.needsUpdate = true;
-    ref1.current!.frustumCulled = false;
-    ref2.current!.frustumCulled = false;
+  
+    ref1.current.instanceMatrix.needsUpdate = true;
+    ref2.current.instanceMatrix.needsUpdate = true;
+    ref1.current.frustumCulled = false;
+    ref2.current.frustumCulled = false;
   }, [instances]);
+  
 
   return (
     <group>

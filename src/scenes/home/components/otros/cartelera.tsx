@@ -41,23 +41,24 @@ export function Cartelera(props: ThreeElements['group']) {
   const ref4 = useRef<THREE.InstancedMesh>(null)
 
   useEffect(() => {
-    transforms.forEach((transform, i) => {
+    for (let i = 0; i < transforms.length; i++) {
+      const t = transforms[i]
       const matrix = new THREE.Matrix4()
-      const pos = new THREE.Vector3(...transform.position)
-      const rot = new THREE.Euler(...transform.rotation)
-      const scl = new THREE.Vector3(...transform.scale)
+      const pos = new THREE.Vector3(...t.position)
+      const rot = new THREE.Euler(...t.rotation)
+      const scl = new THREE.Vector3(...t.scale)
       matrix.compose(pos, new THREE.Quaternion().setFromEuler(rot), scl)
 
-      ref1.current?.setMatrixAt(i, matrix)
-      ref2.current?.setMatrixAt(i, matrix)
-      ref3.current?.setMatrixAt(i, matrix)
-      ref4.current?.setMatrixAt(i, matrix)
-    })
+      if (ref1.current) ref1.current.setMatrixAt(i, matrix)
+      if (ref2.current) ref2.current.setMatrixAt(i, matrix)
+      if (ref3.current) ref3.current.setMatrixAt(i, matrix)
+      if (ref4.current) ref4.current.setMatrixAt(i, matrix)
+    }
 
     for (const ref of [ref1, ref2, ref3, ref4]) {
       if (ref.current) {
-        ref.current.frustumCulled = false
         ref.current.instanceMatrix.needsUpdate = true
+        ref.current.frustumCulled = false
       }
     }
   }, [])
@@ -75,27 +76,27 @@ export function Cartelera(props: ThreeElements['group']) {
       {/* Instanciadas */}
       <instancedMesh
         ref={ref1}
-        args={[undefined, undefined, transforms.length]}
         geometry={nodes.WindowFrane006.geometry}
         material={materials['Material.060']}
+        count={transforms.length}
       />
       <instancedMesh
         ref={ref2}
-        args={[undefined, undefined, transforms.length]}
         geometry={nodes.WindowFrane006_1.geometry}
         material={materials['Material.015']}
+        count={transforms.length}
       />
       <instancedMesh
         ref={ref3}
-        args={[undefined, undefined, transforms.length]}
         geometry={nodes.WindowFrane006_2.geometry}
         material={materials['Material.036']}
+        count={transforms.length}
       />
       <instancedMesh
         ref={ref4}
-        args={[undefined, undefined, transforms.length]}
         geometry={nodes.WindowFrane006_3.geometry}
         material={materials['Material.084']}
+        count={transforms.length}
       />
     </group>
   )

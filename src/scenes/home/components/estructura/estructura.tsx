@@ -145,30 +145,31 @@ export function Estructura() {
     }, [nodes]);
 
     useEffect(() => {
-        if (!SharedGeometries.base) return;
-
+        // Validar existencia de geometrías
+        if (!SharedGeometries.base || !ref1.current || !ref2.current || !ref3.current) return;
+    
         visibleInstances.forEach((inst, i) => {
             const matrix = new THREE.Matrix4();
             const position = new THREE.Vector3(...inst.position);
             const rotation = new THREE.Euler(...inst.rotation);
             const scale = new THREE.Vector3(...inst.scale);
             matrix.compose(position, new THREE.Quaternion().setFromEuler(rotation), scale);
-
-            ref1.current?.setMatrixAt(i, matrix);
-            ref2.current?.setMatrixAt(i, matrix);
-            ref3.current?.setMatrixAt(i, matrix);
+    
+            ref1.current!.setMatrixAt(i, matrix);
+            ref2.current!.setMatrixAt(i, matrix);
+            ref3.current!.setMatrixAt(i, matrix);
         });
-
-        // 🎯 Optimizaciones críticas
+    
+        // Actualizar matrices y count
         [ref1, ref2, ref3].forEach((ref) => {
             if (ref.current) {
                 ref.current.instanceMatrix.needsUpdate = true;
                 ref.current.frustumCulled = true;
-                ref.current.count = visibleInstances.length; // Actualizar count
-                ref.current.computeBoundingSphere(); // Optimizar culling
+                ref.current.count = visibleInstances.length;
             }
         });
     }, [visibleInstances]);
+    
 
     // No renderizar si no hay geometrías
     if (!SharedGeometries.base) {
