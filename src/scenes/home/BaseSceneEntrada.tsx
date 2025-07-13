@@ -96,21 +96,21 @@ function SceneContent() {
       {/* 🎯 SIEMPRE RENDERIZAR - Escena base y estructuras críticas */}
       <BaseSceneAfuera />
       <BaseSceneArco />
-      <TechoNuevo />
+      
       
       {/* 🎯 ESTRUCTURAS PRINCIPALES - SIEMPRE VISIBLES */}
       <BaseSceneBar />        {/* ✅ Paredes del bar */}
-      <BaseSceneBar2 />       {/* ✅ Estructuras internas del bar */}
       <BaseSceneOficina />    {/* ✅ Paredes de oficinas */}
       <BaseSceneVilla />      {/* ✅ Villas 5, 6, 7 */}
-      <BaseSceneVilla2 />     {/* ✅ Villas adicionales */}
 
       {/* 🎯 RENDERIZADO CONDICIONAL - Solo para objetos decorativos/secundarios */}
       <ConditionalRender position={scenePositions.lab} distance={RENDER_DISTANCES.MEDIUM}>
+      <BaseSceneBar2 />       {/* ✅ Estructuras internas del bar */}
         <BaseSceneLab />
       </ConditionalRender>
 
       <ConditionalRender position={scenePositions.lab2} distance={RENDER_DISTANCES.MEDIUM}>
+      <BaseSceneVilla2 />     {/* ✅ Villas adicionales */}
         <BaseSceneLab2 />
       </ConditionalRender>
     </>
