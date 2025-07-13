@@ -93,41 +93,25 @@ function SceneContent() {
         color="green" 
       />
 
-      {/* 🎯 SIEMPRE RENDERIZAR (escena base) */}
+      {/* 🎯 SIEMPRE RENDERIZAR - Escena base y estructuras críticas */}
       <BaseSceneAfuera />
+      <BaseSceneArco />
+      <TechoNuevo />
+      
+      {/* 🎯 ESTRUCTURAS PRINCIPALES - SIEMPRE VISIBLES */}
+      <BaseSceneBar />        {/* ✅ Paredes del bar */}
+      <BaseSceneBar2 />       {/* ✅ Estructuras internas del bar */}
+      <BaseSceneOficina />    {/* ✅ Paredes de oficinas */}
+      <BaseSceneVilla />      {/* ✅ Villas 5, 6, 7 */}
+      <BaseSceneVilla2 />     {/* ✅ Villas adicionales */}
 
-      {/* 🎯 RENDERIZADO CONDICIONAL CON DEBUG TEMPORAL */}
-      <ConditionalRender position={scenePositions.arco} distance={RENDER_DISTANCES.CLOSE} debug={true}>
-        <BaseSceneArco />
-      </ConditionalRender>
-
-      <ConditionalRender position={scenePositions.bar} distance={RENDER_DISTANCES.MEDIUM} debug={true}>
-        <BaseSceneBar />
-      </ConditionalRender>
-
-      <ConditionalRender position={scenePositions.bar2} distance={RENDER_DISTANCES.MEDIUM}>
-        <BaseSceneBar2 />
-      </ConditionalRender>
-
+      {/* 🎯 RENDERIZADO CONDICIONAL - Solo para objetos decorativos/secundarios */}
       <ConditionalRender position={scenePositions.lab} distance={RENDER_DISTANCES.MEDIUM}>
         <BaseSceneLab />
       </ConditionalRender>
 
       <ConditionalRender position={scenePositions.lab2} distance={RENDER_DISTANCES.MEDIUM}>
         <BaseSceneLab2 />
-      </ConditionalRender>
-
-      <ConditionalRender position={scenePositions.oficina} distance={RENDER_DISTANCES.CLOSE} debug={true}>
-        <BaseSceneOficina />
-        <TechoNuevo />
-      </ConditionalRender>
-
-      <ConditionalRender position={scenePositions.villa} distance={RENDER_DISTANCES.FAR}>
-        <BaseSceneVilla />
-      </ConditionalRender>
-
-      <ConditionalRender position={scenePositions.villa2} distance={RENDER_DISTANCES.FAR}>
-        <BaseSceneVilla2 />
       </ConditionalRender>
     </>
   );
@@ -148,7 +132,6 @@ const BaseSceneEntrada = () => {
         iterations={10}       // ✅ RESTAURADO: Necesario para movimiento fluido
         tolerance={0.001}     // ✅ RESTAURADO: Precisión necesaria para personaje
         allowSleep={false}    // ✅ CRÍTICO: Evitar que personaje se "duerma"
-        broadphase="Naive"    // ✅ RESTAURADO: Mejor para personajes dinámicos
       >
         <SceneContent />
       </Physics>
