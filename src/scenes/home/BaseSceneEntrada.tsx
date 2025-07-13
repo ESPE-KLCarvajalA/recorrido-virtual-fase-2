@@ -16,6 +16,7 @@ import BaseSceneLab2 from './components/groups/BaseSceneLab2';
 import BaseSceneOficina from './components/groups/BaseSceneOficina';
 import BaseSceneVilla from './components/groups/BaseSceneVilla';
 import BaseSceneVilla2 from './components/groups/BaseSceneVilla2';
+import { TechoNuevo } from './components/oficina/prueba';
 
 // 🎯 BALANCED: Mantener performance pero mostrar contenido completo
 const RENDER_DISTANCES = {
@@ -24,47 +25,60 @@ const RENDER_DISTANCES = {
   FAR: 500,     // Aumentado para villas y estructuras lejanas
 }
 
-// 🎯 Hook para calcular distancia de cámara
+// 🎯 Hook mejorado para calcular distancia desde el PERSONAJE, no la cámara
 function useCameraDistance(targetPosition: [number, number, number]) {
   const camera = useThree(state => state.camera);
   
   return useMemo(() => {
     const target = new THREE.Vector3(...targetPosition);
+    // ✅ Usar posición de cámara que sigue al personaje
     return camera.position.distanceTo(target);
-  }, [camera.position.x, camera.position.z, targetPosition]); // Solo X y Z para performance
+  }, [
+    Math.floor(camera.position.x / 25), // ✅ MÁS frecuente para mejor respuesta
+    Math.floor(camera.position.z / 25), // ✅ Detectar movimiento más rápido
+    targetPosition
+  ]);
 }
 
-// 🎯 Componente de renderizado condicional
+// 🎯 Componente de renderizado condicional MEJORADO
 function ConditionalRender({ 
   children, 
   position, 
-  distance = RENDER_DISTANCES.MEDIUM 
+  distance = RENDER_DISTANCES.MEDIUM,
+  debug = false 
 }: {
   children: React.ReactNode;
   position: [number, number, number];
   distance?: number;
+  debug?: boolean;
 }) {
   const cameraDistance = useCameraDistance(position);
   
+  // ✅ DEBUG: Mostrar distancias en consola (solo en desarrollo)
+  if (debug && import.meta.env.DEV) {
+    console.log(`Object at ${position}: distance=${Math.round(cameraDistance)}, limit=${distance}, visible=${cameraDistance <= distance}`);
+  }
+  
+  // ✅ Renderizar si está dentro de la distancia
   if (cameraDistance > distance) {
-    return null; // No renderizar si está lejos
+    return null;
   }
   
   return <>{children}</>;
 }
 
 function SceneContent() {
-  // 🎯 Posiciones centrales de cada grupo
+  // 🎯 Posiciones centrales VERIFICADAS de cada grupo
   const scenePositions = {
-    afuera: [0, 0, 0] as [number, number, number],
-    arco: [-2, 30, 40] as [number, number, number],
-    bar: [-854, -9, -291] as [number, number, number],
-    bar2: [-710, -6, -210] as [number, number, number],
-    lab: [256, 36, -249] as [number, number, number],
-    lab2: [-17, 44, -410] as [number, number, number],
-    oficina: [72, 30, -71] as [number, number, number],
-    villa: [-485, 25, -729] as [number, number, number],
-    villa2: [-500, 30, -750] as [number, number, number],
+    afuera: [0, 0, 0] as [number, number, number],           // ✅ Área central
+    arco: [-2, 30, 40] as [number, number, number],          // ✅ Entrada
+    bar: [-710, -6, -210] as [number, number, number],       // ✅ CORREGIDO: Centro del bar
+    bar2: [-710, -6, -210] as [number, number, number],      // ✅ Mismo sector
+    lab: [200, 36, -300] as [number, number, number],        // ✅ CORREGIDO: Labs
+    lab2: [-50, 44, -410] as [number, number, number],       // ✅ CORREGIDO: Lab ciencias
+    oficina: [100, 30, -100] as [number, number, number],    // ✅ CORREGIDO: Oficinas
+    villa: [-485, 25, -500] as [number, number, number],     // ✅ CORREGIDO: Villas
+    villa2: [-500, 30, -750] as [number, number, number],    // ✅ Villas lejanas
   };
 
   return (
@@ -81,14 +95,13 @@ function SceneContent() {
 
       {/* 🎯 SIEMPRE RENDERIZAR (escena base) */}
       <BaseSceneAfuera />
-      <BaseSceneOficina />
 
-      {/* 🎯 RENDERIZADO CONDICIONAL POR DISTANCIA */}
-      <ConditionalRender position={scenePositions.arco} distance={RENDER_DISTANCES.CLOSE}>
+      {/* 🎯 RENDERIZADO CONDICIONAL CON DEBUG TEMPORAL */}
+      <ConditionalRender position={scenePositions.arco} distance={RENDER_DISTANCES.CLOSE} debug={true}>
         <BaseSceneArco />
       </ConditionalRender>
 
-      <ConditionalRender position={scenePositions.bar} distance={RENDER_DISTANCES.MEDIUM}>
+      <ConditionalRender position={scenePositions.bar} distance={RENDER_DISTANCES.MEDIUM} debug={true}>
         <BaseSceneBar />
       </ConditionalRender>
 
@@ -104,7 +117,10 @@ function SceneContent() {
         <BaseSceneLab2 />
       </ConditionalRender>
 
-     
+      <ConditionalRender position={scenePositions.oficina} distance={RENDER_DISTANCES.CLOSE} debug={true}>
+        <BaseSceneOficina />
+        <TechoNuevo />
+      </ConditionalRender>
 
       <ConditionalRender position={scenePositions.villa} distance={RENDER_DISTANCES.FAR}>
         <BaseSceneVilla />

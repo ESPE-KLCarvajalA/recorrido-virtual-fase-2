@@ -28,15 +28,21 @@ export function ConditionalGLTFModel<T extends GLTFResult>({
   
   const { camera } = useThree()
   
-  // 🎯 Calcular distancia optimizada (solo cuando cambia posición significativamente)
+  // 🎯 Calcular distancia MÁS simple y confiable
   const isVisible = useMemo(() => {
     const targetPos = new THREE.Vector3(...position)
     const cameraPos = camera.position
     const distance = targetPos.distanceTo(cameraPos)
+    
+    // ✅ DEBUG en desarrollo
+    if (import.meta.env.DEV && Math.random() < 0.01) { // 1% de las veces
+      console.log(`ConditionalGLTF: distance=${Math.round(distance)}, max=${maxDistance}, visible=${distance <= maxDistance}`)
+    }
+    
     return distance <= maxDistance
   }, [
-    Math.floor(camera.position.x / 75), // Balance: Updates más frecuentes pero optimizados
-    Math.floor(camera.position.z / 75), // Mejor respuesta a movimiento del usuario
+    Math.floor(camera.position.x / 20), // ✅ MÁS frecuente para mejor respuesta
+    Math.floor(camera.position.z / 20), // ✅ Actualizar más seguido
     position,
     maxDistance
   ])
@@ -111,6 +117,7 @@ export function ConditionalGLTFModelLOD<T extends GLTFResult>({
   // 🎯 Aplicar calidad según LOD
   React.useLayoutEffect(() => {
     Object.values(materials).forEach((material) => {
+      // ✅ CORREGIDO: Type checking correcto
       if (material instanceof THREE.MeshStandardMaterial) {
         if (lodLevel === 'low') {
           // Reducir calidad para objetos lejanos
@@ -136,10 +143,10 @@ export function useConditionalGLTF<T extends GLTFResult>(url: string, maxDistanc
   const { camera } = useThree()
   const [shouldLoad, setShouldLoad] = React.useState(false)
   
-  useFrame(() => {
+  // ✅ CORREGIDO: useFrame callback con state y clock
+  useFrame((state) => {
     // Verificar cada 30 frames para performance
-    const { clock } = useThree()
-    if (clock.elapsedTime % 0.5 < 0.016) {
+    if (state.clock.elapsedTime % 0.5 < 0.016) {
       const distance = camera.position.length() // Distancia desde origen
       setShouldLoad(distance < maxDistance)
     }
@@ -154,3 +161,6 @@ export function useConditionalGLTF<T extends GLTFResult>(url: string, maxDistanc
     return gltf as unknown as T
   }, [gltf, shouldLoad])
 }
+
+
+
