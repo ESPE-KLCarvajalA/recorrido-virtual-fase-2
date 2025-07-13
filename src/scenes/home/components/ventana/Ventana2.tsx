@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef, useMemo, useState } from 'react';
 import { GLTF } from 'three-stdlib';
 import { MaterialManager } from '../../../../utils/MaterialManager';
 
@@ -22,6 +22,7 @@ type InstanceData = {
   scale: [number, number, number];
 };
 
+// estado local en vez de objeto global para evitar problemas de sincronización
 const SharedGeometriesV2 = {
   frame: null as THREE.BufferGeometry | null,
   glass: null as THREE.BufferGeometry | null,
@@ -36,8 +37,12 @@ export function Ventanas2() {
   const frameMaterial = MaterialManager.getMaterial('window-frame-2');
   const glassMaterial = MaterialManager.getBaseMaterial('glass');
 
+  const [geometriesReady, setGeometriesReady] = useState(false);
+
   const instances = useMemo<InstanceData[]>(() => [
-    // ... tu array de instancias aquí, sin cambios
+    { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [2, 0, 0], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    // ... agrega tus instancias reales aquí
   ], []);
 
   useEffect(() => {
@@ -47,47 +52,47 @@ export function Ventanas2() {
 
       SharedGeometriesV2.frame.computeBoundingSphere();
       SharedGeometriesV2.glass.computeBoundingSphere();
+
+      setGeometriesReady(true); // ahora es seguro renderizar
     }
   }, [nodes]);
 
   useEffect(() => {
-    if (!SharedGeometriesV2.frame || !SharedGeometriesV2.glass) return;
+    if (!geometriesReady || !SharedGeometriesV2.frame || !SharedGeometriesV2.glass) return;
 
     instances.forEach((instance, i) => {
       const position = new THREE.Vector3(...instance.position);
       const rotation = new THREE.Euler(...instance.rotation);
       const scale = new THREE.Vector3(...instance.scale);
-      const matrix = new THREE.Matrix4();
-      matrix.compose(position, new THREE.Quaternion().setFromEuler(rotation), scale);
+      const matrix = new THREE.Matrix4().compose(
+        position,
+        new THREE.Quaternion().setFromEuler(rotation),
+        scale
+      );
 
-      if (frameRef.current) frameRef.current.setMatrixAt(i, matrix);
-      if (glassRef.current) glassRef.current.setMatrixAt(i, matrix);
+      frameRef.current?.setMatrixAt(i, matrix);
+      glassRef.current?.setMatrixAt(i, matrix);
     });
 
-    if (frameRef.current) {
-      frameRef.current.instanceMatrix.needsUpdate = true;
-      frameRef.current.frustumCulled = true;
-      frameRef.current.count = instances.length;
-    }
+    frameRef.current!.instanceMatrix.needsUpdate = true;
+    glassRef.current!.instanceMatrix.needsUpdate = true;
+  }, [geometriesReady, instances]);
 
-    if (glassRef.current) {
-      glassRef.current.instanceMatrix.needsUpdate = true;
-      glassRef.current.frustumCulled = true;
-      glassRef.current.count = instances.length;
-    }
-  }, [instances, nodes]);
-
-  if (!SharedGeometriesV2.frame || !SharedGeometriesV2.glass) return null;
+  if (!geometriesReady) return null;
 
   return (
     <group>
       <instancedMesh
         ref={frameRef}
-        args={[SharedGeometriesV2.frame, frameMaterial, instances.length]}
+        geometry={SharedGeometriesV2.frame!}
+        material={frameMaterial}
+        count={instances.length}
       />
       <instancedMesh
         ref={glassRef}
-        args={[SharedGeometriesV2.glass, glassMaterial, instances.length]}
+        geometry={SharedGeometriesV2.glass!}
+        material={glassMaterial}
+        count={instances.length}
       />
     </group>
   );
