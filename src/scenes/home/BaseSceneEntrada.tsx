@@ -14,7 +14,7 @@ import {
 import BaseSceneAfuera from './components/groups/BaseSceneAfuera';
 import BaseSceneArco from './components/groups/BaseSceneArco';
 import BaseSceneBar from './components/groups/BaseSceneBar';
-// import BaseSceneOficina from './components/groups/BaseSceneOficina';
+import BaseSceneOficina from './components/groups/BaseSceneOficina';
 // import BaseSceneVilla from './components/groups/BaseSceneVilla';
 
 import ConditionalRender from '../../utils/ConditionalRender';
@@ -39,8 +39,8 @@ function SceneContent() {
       <BaseSceneAfuera />
       <BaseSceneArco />
       <BaseSceneBar />
-      {/* <BaseSceneOficina />
-      <BaseSceneVilla /> */}
+      <BaseSceneOficina />
+      {/* <BaseSceneVilla /> */}
 
       {/* 🌀 Render dinámico: todos los objetos externos optimizados */}
       {renderGroups.map((group, i) => (
