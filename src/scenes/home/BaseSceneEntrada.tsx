@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/cannon';
 import { PointerLockControls } from '@react-three/drei';
 import { Perf } from 'r3f-perf';
-import * as THREE from 'three';
 
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
 import BaseCharacter from '../../shared/components/BaseCharacter';
