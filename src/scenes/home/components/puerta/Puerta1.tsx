@@ -33,13 +33,18 @@ const allInstances: InstanceData[] = [
   { position: [359.4, 20, -469.9], rotation: [0, 0.66, 0], scale: [1, 1, 1] }
 ]
 
+// ✅ Mover fuera del componente
+const normalInstances = allInstances.slice(0, 4)
+
 const relativeHandlePosition = new THREE.Vector3(-1, -0.2, -8)
 
 const brownMatDark = new THREE.MeshStandardMaterial({ color: '#584346' })
 const brownMatLight = new THREE.MeshStandardMaterial({ color: '#C58532' })
 
 export function Puerta1() {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/puerta/puerta1.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF(
+    'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/puerta/puerta1.glb'
+  ) as unknown as GLTFResult
 
   const marcoRef = useRef<THREE.InstancedMesh>(null)
   const vidrioRef = useRef<THREE.InstancedMesh>(null)
@@ -47,8 +52,6 @@ export function Puerta1() {
 
   const brownDoor1 = allInstances[4]
   const brownDoor2 = allInstances[5]
-
-  const normalInstances = allInstances.slice(0, 4)
 
   useEffect(() => {
     if (!marcoRef.current || !vidrioRef.current || !extraRef.current) return
@@ -71,7 +74,7 @@ export function Puerta1() {
     marcoRef.current.instanceMatrix.needsUpdate = true
     vidrioRef.current.instanceMatrix.needsUpdate = true
     extraRef.current.instanceMatrix.needsUpdate = true
-  }, [normalInstances])
+  }, [])
 
   return (
     <group>
