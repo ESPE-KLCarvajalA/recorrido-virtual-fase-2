@@ -3,7 +3,7 @@
 // Imports de tus componentes originales
 
 import { ParedesBar } from "../bar/ParedesBar";
-// import { TechoBar } from "../bar/TechoBar";
+import { TechoBar } from "../bar/TechoBar";
 
 
 // cargar segun la distancia 
@@ -14,8 +14,8 @@ const BaseSceneBar = () => {
 
     return (
       <>
- {/* sin fisica */}
-      {/* <TechoBar /> */}
+      {/* sin fisica */}
+      <TechoBar />
 
          {/*fisica */}
       <ParedesBar />

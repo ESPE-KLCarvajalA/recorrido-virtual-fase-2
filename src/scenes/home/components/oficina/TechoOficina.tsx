@@ -38,4 +38,5 @@ export function TechoOficina(props: ThreeElements['group']) {
   )
 }
 
+
 useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/techoOficina.glb')
