@@ -33,14 +33,6 @@ const BaseSceneEntrada = () => {
 
         <BaseSceneAfuera />
         <BaseSceneArco />
-        
-
-
-        <BaseCharacter controls positionCharacter={[-92,-1, 170]} args={[2.2]} altura={20} velocidad={40} salto={20} color="green" />
-
-        
-      </Physics>
-
         <BaseSceneBar />
         <BaseSceneBar2 />
         <BaseSceneLab />
@@ -49,6 +41,15 @@ const BaseSceneEntrada = () => {
         <BaseSceneVilla />
         <BaseSceneVilla2 />
 
+        
+
+
+        <BaseCharacter controls positionCharacter={[-92,-1, 170]} args={[2.2]} altura={20} velocidad={40} salto={20} color="green" />
+
+        
+      </Physics>
+
+        
 
       {/* sin fisicas */}
 
