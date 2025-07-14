@@ -1,0 +1,140 @@
+.floatPoint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  animation: float 2.5s ease-in-out infinite;
+  transform: translate(-50%, -50%); /* centra el punto en 3D */
+}
+
+
+.floatPoint:hover .floatText {
+  opacity: 1;
+  transition: 0.3s all ease;
+}
+
+/* .floatLabel {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: -20px;
+  top: -20px;
+
+  color: #fff;
+  font-size: 5rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 90px;
+  transition: 0.3s all ease;
+  cursor: pointer;
+}
+.floatLabel:hover {
+  transform: scale(1.1, 1.1);
+  transition: 0.3s all ease;
+} */
+
+
+.floatText {
+  width: 140px;
+  padding: 0.5rem;
+  position: absolute;
+  top: 70px;
+  left: -40px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 30px;
+  transition: 0.3s all ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-0.3rem); }
+  100% { transform: translateY(0); }
+}
+.floatLabelExit {
+  width: 70px;
+  height: 70px;
+  font-size: 3cqmax;
+  position: absolute;
+  left: -5px;
+  top: -10px;
+ 
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  line-height: 70px;
+  transition: 0.3s all ease;
+  cursor: pointer;
+}
+
+
+@keyframes pulseGreen {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(0, 255, 120, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(0, 255, 120, 0.7);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(0, 255, 120, 0.4);
+  }
+}
+
+.floatPoint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.floatPoint:hover .floatText {
+  opacity: 1;
+  transition: 0.3s all ease;
+}
+
+.floatLabelExit {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  left: -10px;
+  top: -20px;
+  color: #fff;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 70px;
+  transition: 0.3s all ease;
+  cursor: pointer;
+}
+.floatLabelExit:hover {
+  transform: scale(1.1);
+  transition: 0.3s all ease;
+}
+
+
+.floatText {
+  width: 110px;
+  padding: 1rem;
+  position: absolute;
+  top: 90px;
+  left: -20px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 20px;
+  transition: 0.3s all ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+
+

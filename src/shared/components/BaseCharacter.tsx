@@ -8,72 +8,51 @@ const BaseCharacter = ({ positionCharacter, velocidad, altura, args, position }:
   const direction = new THREE.Vector3();
   const frontVector = new THREE.Vector3();
   const sideVector = new THREE.Vector3();
+  //const speed = new THREE.Vector3();
   const SPEED = velocidad;
 
   const { camera } = useThree();
-  const velocity = useRef([0, 0, 0]);
 
   const [ref, api] = useSphere(() => ({
     mass: 1,
     type: 'Dynamic',
     position,
     args,
-    // ⚠️ Se eliminan fricción, restitución y sleep para evitar problemas de física y colisiones
   }));
 
   const { forward, backward, left, right, run } = usePlayerControls();
+  const velocity = useRef([0, 0, 0]);
 
-  // Suscribirse a cambios de velocidad física
-  useEffect(() => {
-    const unsubscribe = api.velocity.subscribe((v) => (velocity.current = v));
-    return () => unsubscribe();
-  }, [api.velocity]);
+  useEffect(() => api.velocity.subscribe((v) => (velocity.current = v)), []);
 
-  // Establecer la posición inicial cuando cambie positionCharacter
+  // Actualiza la posición física cuando cambie `positionCharacter`
   useEffect(() => {
-    if (
-      Array.isArray(positionCharacter) &&
-      positionCharacter.length === 3 &&
-      positionCharacter.every((v) => typeof v === 'number')
-    ) {
+    if (positionCharacter) {
       api.position.set(positionCharacter[0], positionCharacter[1], positionCharacter[2]);
-      api.velocity.set(0, 0, 0);
-      api.angularVelocity.set(0, 0, 0);
-    } else {
-      console.warn('positionCharacter no es un vector [x, y, z] válido:', positionCharacter);
     }
   }, [positionCharacter, api]);
 
-  // Lógica de movimiento
-  useFrame(() => {
-    const spherePosition = new THREE.Vector3();
+  useFrame((_state) => {
+    let spherePosition = new THREE.Vector3();
     ref.current.getWorldPosition(spherePosition);
     camera.position.set(spherePosition.x, spherePosition.y + altura, spherePosition.z);
-
     frontVector.set(0, 0, Number(backward) - Number(forward));
     sideVector.set(Number(left) - Number(right), 0, 0);
 
-    const moving = forward || backward || left || right;
-
-    if (moving) {
-      const speed = run ? SPEED * 3.5 : SPEED;
-      direction
-        .subVectors(frontVector, sideVector)
-        .normalize()
-        .multiplyScalar(speed)
-        .applyEuler(camera.rotation);
-      api.velocity.set(direction.x, velocity.current[1], direction.z);
+    if (run && Math.abs(velocity.current[1]) < 0.05) {
+      direction.subVectors(frontVector, sideVector).normalize().multiplyScalar(SPEED * 3.5).applyEuler(camera.rotation);
     } else {
-      // Aplica fricción manual para evitar que se quede "pegado" si está en contacto con algo
-      api.velocity.set(velocity.current[0] * 0.9, velocity.current[1], velocity.current[2] * 0.9);
+      direction.subVectors(frontVector, sideVector).normalize().multiplyScalar(SPEED).applyEuler(camera.rotation);
     }
+
+    api.velocity.set(direction.x, velocity.current[1], direction.z);
   });
 
   return (
     <group>
       <mesh castShadow ref={ref as React.Ref<THREE.Mesh>}>
         <sphereGeometry args={args} />
-        <meshStandardMaterial color="#00FF00" opacity={0.5}  />
+        <meshStandardMaterial color="#FFFF00" opacity={0.5} />
       </mesh>
     </group>
   );
