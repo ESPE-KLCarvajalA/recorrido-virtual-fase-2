@@ -7,13 +7,13 @@ import { useRef } from 'react';
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
 import BaseSceneAfuera from './groups/BaseSceneAfuera';
 import BaseSceneArco from './groups/BaseSceneArco';
-import BaseSceneBar from './groups/BaseSceneBar';
-import BaseSceneBar2 from './groups/BaseSceneBar2';
+// import BaseSceneBar from './groups/BaseSceneBar';
+// import BaseSceneBar2 from './groups/BaseSceneBar2';
 import BaseSceneLab from './groups/BaseSceneLab';
 import BaseSceneLab2 from './groups/BaseSceneLab2';
 import BaseSceneOficina from './groups/BaseSceneOficina';
-import BaseSceneVilla from './groups/BaseSceneVilla';
-import BaseSceneVilla2 from './groups/BaseSceneVilla2';
+// import BaseSceneVilla from './groups/BaseSceneVilla';
+// import BaseSceneVilla2 from './groups/BaseSceneVilla2';
 import BaseSceneOtros from './groups/BaseSceneOtros';
 
 
@@ -34,13 +34,13 @@ const BaseSceneEntrada = () => {
 
         <BaseSceneAfuera />
         <BaseSceneArco />
-        <BaseSceneBar />
-        <BaseSceneBar2 />
+        {/* <BaseSceneBar />
+        <BaseSceneBar2 /> */}
         <BaseSceneLab />
         <BaseSceneLab2 />
         <BaseSceneOficina />
-        <BaseSceneVilla />
-        <BaseSceneVilla2 />
+        {/* <BaseSceneVilla />
+        <BaseSceneVilla2 /> */}
         <BaseSceneOtros />
 
         
