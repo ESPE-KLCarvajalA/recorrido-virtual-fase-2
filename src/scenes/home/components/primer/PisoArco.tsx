@@ -18,45 +18,17 @@ type GLTFResult = GLTF & {
 export function PisoArco(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoArco.glb') as unknown as GLTFResult
 
-  const groupPosition: [number, number, number] = [-1, -3, 20]
-
-  // Combinar bounding box de las dos mallas para sacar dimensiones
-  const box = new THREE.Box3().setFromObject(new THREE.Group())
-  box.expandByObject(nodes.Plane)
-  box.expandByObject(nodes.Plane_1)
-
-  const size = new THREE.Vector3()
-  box.getSize(size)
-
-  const center = new THREE.Vector3()
-  box.getCenter(center)
-
-  // useBox con dimensiones y posición ajustadas
   const [ref] = useBox(() => ({
     type: 'Static',
-    args: [size.x, size.y, size.z],
-    position: [
-      groupPosition[0] + center.x,
-      groupPosition[1] + center.y,
-      groupPosition[2] + center.z
-    ],
+    args: [40, 1, 40], // tamaño aproximado del piso (ajusta según el modelo real)
+    position: [-1.895, 2.797, 31.141],
   }))
 
   return (
-    <group {...props} dispose={null}>
-      <group name="piso_arco" position={groupPosition} ref={ref}>
-        <mesh
-          geometry={nodes.Plane.geometry}
-          material={materials['Terrazzo Tiles']}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes.Plane_1.geometry}
-          material={materials['Material.034']}
-          castShadow
-          receiveShadow
-        />
+    <group ref={ref} {...props} dispose={null}>
+      <group name="piso_arco" position={[-1.895, 2.797, 31.141]}>
+        <mesh name="Plane" geometry={nodes.Plane.geometry} material={materials['Terrazzo Tiles']} />
+        <mesh name="Plane_1" geometry={nodes.Plane_1.geometry} material={materials['Material.034']} />
       </group>
     </group>
   )
