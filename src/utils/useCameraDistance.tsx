@@ -1,8 +1,8 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import { useState } from 'react';
-import * as THREE from 'three'
+import * as THREE from 'three';
 
-const useCameraDistance = (targetPosition: any) => {
+const useCameraDistance = (targetPosition: [number, number, number]) => {
   const { camera } = useThree();
   const [distance, setDistance] = useState(Infinity);
 

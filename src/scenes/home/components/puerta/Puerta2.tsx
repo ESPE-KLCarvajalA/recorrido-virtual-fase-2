@@ -38,12 +38,10 @@ const instances: InstanceData[] = [
   { position: [30, 20, -48], rotation: [0, 0, 0], scale: [1, 1, 1.05] },
   { position: [-165, 20, -56.541], rotation: [0, -1.57, 0], scale: [1, 1, 1] },
   { position: [-179, 20, -68.5], rotation: [0, 3.14, 0], scale: [1, 1, 1.05] },
-
   { position: [-810.413, -7.023, 126.962], rotation: [0, 0, 0], scale: [1, 1, 1] },
   { position: [-725.667, -7.47, 126.962], rotation: [0, 0, 0], scale: [1, 1, 1] },
   { position: [-586.295, -7.47, 120.231], rotation: [0, 0.914, 0], scale: [1, 1, 1] },
   { position: [-721.177, 4.818, -454.436], rotation: [0, -1.571, 0], scale: [1, 1, 1] },
-
   { position: [-464, 23.24, -930], rotation: [0, 1.57, 0], scale: [1, 1, 1.01] },
   { position: [-713, 24.132, -835.5], rotation: [0, 3.15, 0], scale: [1, 1, 1] },
   { position: [-519, 21.658, -464], rotation: [0, 0, 0], scale: [1, 1, 1] },
@@ -60,69 +58,70 @@ export function Puerta2() {
   const vidrioRef = useRef<THREE.InstancedMesh>(null);
 
   useEffect(() => {
-    if (!marcoRef.current || !vidrioRef.current) return;
-
     instances.forEach((inst, i) => {
       const pos = new THREE.Vector3(...inst.position);
       const rot = new THREE.Euler(...inst.rotation);
       const scale = new THREE.Vector3(...inst.scale);
-      const matrix = new THREE.Matrix4();
-      matrix.compose(pos, new THREE.Quaternion().setFromEuler(rot), scale);
+      const matrix = new THREE.Matrix4().compose(
+        pos,
+        new THREE.Quaternion().setFromEuler(rot),
+        scale
+      );
 
-      marcoRef.current.setMatrixAt(i, matrix);
-      vidrioRef.current.setMatrixAt(i, matrix);
+      marcoRef.current?.setMatrixAt(i, matrix);
+      vidrioRef.current?.setMatrixAt(i, matrix);
     });
 
-    marcoRef.current.instanceMatrix.needsUpdate = true;
-    vidrioRef.current.instanceMatrix.needsUpdate = true;
+    marcoRef.current!.instanceMatrix.needsUpdate = true;
+    vidrioRef.current!.instanceMatrix.needsUpdate = true;
 
-    marcoRef.current.frustumCulled = false;
-    vidrioRef.current.frustumCulled = false;
+    marcoRef.current!.frustumCulled = false;
+    vidrioRef.current!.frustumCulled = false;
   }, []);
 
   return (
     <group>
-      {/* Marcos instanciados */}
+      {/* Marcos y vidrios instanciados */}
       <instancedMesh
         ref={marcoRef}
-        geometry={nodes.DoorFrane009.geometry}
-        material={materials['Material.091']}
-        count={instances.length}
-      />
+        args={[null, null, instances.length]}
+      >
+        <bufferGeometry attach="geometry" {...nodes.DoorFrane009.geometry} />
+        <meshStandardMaterial attach="material" {...materials['Material.091']} />
+      </instancedMesh>
+
       <instancedMesh
         ref={vidrioRef}
-        geometry={nodes.DoorFrane009_1.geometry}
-        material={materials['glass frosted']}
-        count={instances.length}
-      />
+        args={[null, null, instances.length]}
+      >
+        <bufferGeometry attach="geometry" {...nodes.DoorFrane009_1.geometry} />
+        <meshPhysicalMaterial attach="material" {...materials['glass frosted']} />
+      </instancedMesh>
 
+      {/* Manijas y Marcadores individuales */}
       {instances.map((inst, index) => {
-        const basePosition = new THREE.Vector3(...inst.position);
-        const quaternion = new THREE.Quaternion().setFromEuler(new THREE.Euler(...inst.rotation));
-        const offset = relativeHandlePosition.clone().applyQuaternion(quaternion);
-        const finalPosition = basePosition.clone().add(offset);
+        const basePos = new THREE.Vector3(...inst.position);
+        const rotation = new THREE.Euler(...inst.rotation);
+        const quaternion = new THREE.Quaternion().setFromEuler(rotation);
+        const finalHandlePos = basePos.clone().add(relativeHandlePosition.clone().applyQuaternion(quaternion));
 
-        // Mostrar marcador solo en la puerta específica
-        const isTargetDoor = inst.position[0] === -99 && inst.position[1] === 19 && inst.position[2] === -506;
-        const markerPosition: [number, number, number] = [
+        const isTarget = inst.position[0] === -99 && inst.position[1] === 19 && inst.position[2] === -506;
+        const markerPos: [number, number, number] = [
           inst.position[0] + 9,
           inst.position[1] + 3.5,
           inst.position[2] + 3.5,
         ];
 
         return (
-          <group key={`handle-${index}`}>
+          <group key={index}>
             <mesh
               geometry={nodes.Handle_Front021.geometry}
               material={materials['Material.117']}
-              position={finalPosition.toArray()}
+              position={finalHandlePos.toArray()}
               rotation={inst.rotation}
               scale={inst.scale}
             />
-
-            {isTargetDoor && (
-              <Marcador360 position={markerPosition} url="#/lab1" isEspecial={true} />
-            )}
+            {isTarget && <Marcador360 position={markerPos} url="#/lab1" isEspecial />}
           </group>
         );
       })}
