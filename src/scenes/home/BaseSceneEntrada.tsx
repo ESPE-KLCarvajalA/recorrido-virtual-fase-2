@@ -16,6 +16,8 @@ import BaseSceneOficina from './groups/BaseSceneOficina';
 // import BaseSceneVilla2 from './groups/BaseSceneVilla2';
 import BaseSceneOtros from './groups/BaseSceneOtros';
 
+import { PerformanceMonitor } from '../../shared/components/PerformanceMonitor';
+
 
 
 
@@ -23,7 +25,7 @@ const BaseSceneEntrada = () => {
   const controlsRef = useRef(null);
 
   return (
-
+    <>
     <Canvas camera={{ position: [-92, 0, 29] }}>
 
       <ambientLight intensity={Math.PI / 2} />
@@ -66,6 +68,8 @@ const BaseSceneEntrada = () => {
 
     </Canvas>
 
+      <PerformanceMonitor />
+      </>
   );
 };
 

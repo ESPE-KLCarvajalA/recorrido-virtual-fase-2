@@ -84,21 +84,21 @@ export function Puerta1() {
         geometry={nodes.DoorFrane002.geometry}
         material={materials['Material.091']}
         count={normalInstances.length}
-        frustumCulled={false}
+        frustumCulled={true}
       />
       <instancedMesh
         ref={vidrioRef}
         geometry={nodes.DoorFrane002_1.geometry}
         material={materials['glass frosted']}
         count={normalInstances.length}
-        frustumCulled={false}
+        frustumCulled={true}
       />
       <instancedMesh
         ref={extraRef}
         geometry={nodes.DoorFrane002_2.geometry}
         material={materials['Material.120']}
         count={normalInstances.length}
-        frustumCulled={false}
+        frustumCulled={true}
       />
 
       {/* Puertas personalizadas */}
