@@ -7,9 +7,7 @@ import { Perf } from 'r3f-perf';
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
 import BaseCharacter from '../../shared/components/BaseCharacter';
 
-import {
-  renderGroups,
-} from './components/renderScenes';
+
 
 import BaseSceneAfuera from './components/groups/BaseSceneAfuera';
 import BaseSceneArco from './components/groups/BaseSceneArco';
