@@ -23,12 +23,12 @@ export function PisoArco(props: ThreeElements['group']) {
   const [ref] = useBox(() => ({
     type: 'Static',
     args: [40, 1, 40], // Ajusta según el tamaño real del piso
-    position: [-2.431, 2.797, 31.138],
+    position: [-2.431, 1, 31.138],
   }))
 
   return (
     <group {...props} dispose={null}>
-      <group ref={ref} name="piso_arco" position={[-2.431, 2.797, 31.138]}>
+      <group ref={ref} name="piso_arco" position={[-2.431, 1, 31.138]}>
         <mesh name="Plane" geometry={nodes.Plane.geometry} material={materials['Terrazzo Tiles']} />
         <mesh name="Plane_1" geometry={nodes.Plane_1.geometry} material={materials['Material.034']} />
       </group>
