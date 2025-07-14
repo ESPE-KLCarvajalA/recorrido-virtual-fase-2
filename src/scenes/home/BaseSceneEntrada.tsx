@@ -5,8 +5,15 @@ import { PointerLockControls } from '@react-three/drei';
 import { useRef } from 'react';
 
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
-import PisosFuera from './components/groups/BaseSceneAfuera';
 import BaseSceneAfuera from './components/groups/BaseSceneAfuera';
+import BaseSceneArco from './components/groups/BaseSceneArco';
+import BaseSceneBar from './components/groups/BaseSceneBar';
+import BaseSceneBar2 from './components/groups/BaseSceneBar2';
+import BaseSceneLab from './components/groups/BaseSceneLab';
+import BaseSceneLab2 from './components/groups/BaseSceneLab2';
+import BaseSceneOficina from './components/groups/BaseSceneOficina';
+import BaseSceneVilla from './components/groups/BaseSceneVilla';
+import BaseSceneVilla2 from './components/groups/BaseSceneVilla2';
 
 
 
@@ -25,23 +32,22 @@ const BaseSceneEntrada = () => {
 
 
         <BaseSceneAfuera />
+        <BaseSceneArco />
+        
+
 
         <BaseCharacter controls positionCharacter={[-92,-1, 170]} args={[2.2]} altura={20} velocidad={40} salto={20} color="green" />
 
         
-      <PisosFuera />
-       
-        
-
-
-
-
-
-
-
-
-
       </Physics>
+
+        <BaseSceneBar />
+        <BaseSceneBar2 />
+        <BaseSceneLab />
+        <BaseSceneLab2 />
+        <BaseSceneOficina />
+        <BaseSceneVilla />
+        <BaseSceneVilla2 />
 
 
       {/* sin fisicas */}
