@@ -8,6 +8,7 @@ import { ParedS2 } from '../components/secretaria/ParedS2';
 import { TechoOficina } from '../components/oficina/TechoOficina';
 import { Ventana1 } from '../components/ventana/Ventana1';
 import { Ventana2 } from '../components/ventana/Ventana2';
+import { Pared3 } from '../components/oficina/Pared3';
 
 
 // cargar segun la distancia components/
@@ -19,6 +20,7 @@ const BaseSceneOficina = () => {
         <Pared2 />
         <ParedS1 />
         <ParedS2 />
+        <Pared3 />
         <SobretechoOficina /> 
       
       
