@@ -1,8 +1,10 @@
+
+
+
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef } from 'react';
 import { GLTF } from 'three-stdlib';
-import { MaterialManager } from '../../../../utils/MaterialManager';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -22,22 +24,13 @@ type InstanceData = {
   scale: [number, number, number];
 };
 
-const SharedGeometries = {
-  frame: null as THREE.BufferGeometry | null,
-  glass: null as THREE.BufferGeometry | null,
-};
-
 export function Ventana1() {
-  const { nodes } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana1.glb') as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana1.glb') as unknown as GLTFResult;
 
   const frameRef = useRef<THREE.InstancedMesh>(null);
   const glassRef = useRef<THREE.InstancedMesh>(null);
 
-  const frameMaterial = MaterialManager.getMaterial('window-frame');
-  const glassMaterial = MaterialManager.getBaseMaterial('glass');
-  const customBrownMaterial = MaterialManager.getMaterial('window-brown');
-
-  const allInstances: InstanceData[] = useMemo(() => [
+  const allInstances: InstanceData[] = [
     { name: 'VentanaPrincipal', position: [430.901, 32.5174, -351.084], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { name: 'WindowR001', position: [477.353, 32.834, -363.356], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { name: 'WindowL001', position: [539.9, 32.517, -382], rotation: [0, -0.07, 0], scale: [0.8, 1, 1] },
@@ -48,35 +41,39 @@ export function Ventana1() {
     { name: 'WindowFrane001_41', position: [400.129, 32.8, -374.283], rotation: [0, -1.56, 0], scale: [1.1, 1, 1] },
     { name: 'WindowFrane001_42', position: [391.794, 30.338, -427.515], rotation: [0, -0.9, 0], scale: [1, 0.8, 0] },
     { name: 'WindowFrane001_43', position: [345, 31, -489], rotation: [0, -0.9, 0], scale: [1, 0.8, 0] },
-    { name: 'WindowFrane001_44', position: [-137, 41, -0.946], rotation: [0, 2.9, 0], scale: [1.19, 0.5, 1] },
-    { name: 'WindowFrane001_1', position: [-240.959, 37, -177.872], rotation: [0, 1.4, 0], scale: [0.8, 0.5, 0.5] },
-    { name: 'WindowFrane001_2', position: [-240.959, 37, -153.122], rotation: [0, 1.4, 0], scale: [0.8, 0.5, 0.5] }
-  ], []);
+    {
+        name: 'WindowFrane001_44',position: [-137, 41, -0.946],
+        rotation: [0,2.9,0],scale: [1.19,0.5,1]
+      },
+      {
+        name: 'WindowFrane001_1',
+        position: [-240.959, 37, -177.872],
+        rotation: [0,1.4,0],
+        scale: [0.8, 0.5, 0.5]
+      
+      },
+      {
+        name: 'WindowFrane001_2',
+        position: [-240.959, 37, -153.122],
+        rotation: [0, 1.4, 0],
+        scale: [0.8,0.5,0.5]
+      }
+  ];
 
-  const customWindows = useMemo(() =>
-    allInstances.filter(w => w.name === 'WindowFrane001_42' || w.name === 'WindowFrane001_43'),
-    [allInstances]
+  // Separar las ventanas especiales
+  const customWindows = allInstances.filter(w =>
+    w.name === 'WindowFrane001_42' || w.name === 'WindowFrane001_43'
   );
 
-  const instancedWindows = useMemo(() =>
-    allInstances.filter(w => w.name !== 'WindowFrane001_42' && w.name !== 'WindowFrane001_43'),
-    [allInstances]
+  // El resto sí va como instanced
+  const instancedWindows = allInstances.filter(w =>
+    w.name !== 'WindowFrane001_42' && w.name !== 'WindowFrane001_43'
   );
 
-  useEffect(() => {
-    if (nodes.WindowFrane005 && !SharedGeometries.frame) {
-      SharedGeometries.frame = nodes.WindowFrane005.geometry.clone();
-      SharedGeometries.glass = nodes.WindowFrane005_1.geometry.clone();
-
-      SharedGeometries.frame.computeBoundingSphere();
-      SharedGeometries.glass.computeBoundingSphere();
-    }
-  }, [nodes]);
+  // Material personalizado
+  const customBrownMaterial = new THREE.MeshStandardMaterial({ color: '#584346' });
 
   useEffect(() => {
-    if (!SharedGeometries.frame || !SharedGeometries.glass) return;
-    if (!frameRef.current || !glassRef.current) return;
-
     instancedWindows.forEach((instance, i) => {
       const position = new THREE.Vector3(...instance.position);
       const rotation = new THREE.Euler(...instance.rotation);
@@ -84,38 +81,49 @@ export function Ventana1() {
       const matrix = new THREE.Matrix4();
       matrix.compose(position, new THREE.Quaternion().setFromEuler(rotation), scale);
 
-      frameRef.current.setMatrixAt(i, matrix);
-      glassRef.current.setMatrixAt(i, matrix);
+      frameRef.current!.setMatrixAt(i, matrix);
+      glassRef.current!.setMatrixAt(i, matrix);
     });
 
-    frameRef.current.instanceMatrix.needsUpdate = true;
-    frameRef.current.frustumCulled = true;
-    frameRef.current.count = instancedWindows.length;
+    frameRef.current!.instanceMatrix.needsUpdate = true;
+    glassRef.current!.instanceMatrix.needsUpdate = true;
 
-    glassRef.current.instanceMatrix.needsUpdate = true;
-    glassRef.current.frustumCulled = true;
-    glassRef.current.count = instancedWindows.length;
+    frameRef.current!.frustumCulled = false;
+    glassRef.current!.frustumCulled = false;
   }, [instancedWindows]);
-
-  if (!SharedGeometries.frame || !SharedGeometries.glass) return null;
 
   return (
     <group>
+      {/* Ventanas instanciadas (normales) */}
       <instancedMesh
         ref={frameRef}
-        args={[SharedGeometries.frame, frameMaterial, instancedWindows.length]}
-        frustumCulled={true}
+        args={[null, null, instancedWindows.length]}
+        geometry={nodes.WindowFrane005.geometry}
+        material={materials['Material.072']}
       />
       <instancedMesh
         ref={glassRef}
-        args={[SharedGeometries.glass, glassMaterial, instancedWindows.length]}
-        frustumCulled={true}
+        args={[null, null, instancedWindows.length]}
+        geometry={nodes.WindowFrane005_1.geometry}
+        material={materials['Material.102']}
       />
 
+      {/* Ventanas individuales con color personalizado */}
       {customWindows.map((win, i) => (
-        <group key={`custom-window-${i}`} position={win.position} rotation={win.rotation} scale={win.scale}>
-          <mesh geometry={SharedGeometries.frame} material={customBrownMaterial} frustumCulled={true} />
-          <mesh geometry={SharedGeometries.glass} material={glassMaterial} frustumCulled={true} />
+        <group
+          key={`custom-window-${i}`}
+          position={win.position}
+          rotation={win.rotation}
+          scale={win.scale}
+        >
+          <mesh
+            geometry={nodes.WindowFrane005.geometry}
+            material={customBrownMaterial}
+          />
+          <mesh
+            geometry={nodes.WindowFrane005_1.geometry}
+            material={materials['Material.102']} // Vidrio original
+          />
         </group>
       ))}
     </group>
