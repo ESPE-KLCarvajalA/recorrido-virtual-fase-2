@@ -6,7 +6,8 @@ import { ThreeElements } from '@react-three/fiber'
 
 type GLTFResult = GLTF & {
   nodes: {
-    techo005: THREE.Mesh
+    techo015: THREE.Mesh
+    techo017: THREE.Mesh
   }
   materials: {
     ['Material.212']: THREE.MeshStandardMaterial
@@ -19,12 +20,20 @@ export function TechoEntrada(props: ThreeElements['group']) {
   return (
     <group {...props} dispose={null}>
       <mesh
-        name="techo005"
-        geometry={nodes.techo005.geometry}
+        name="techo015"
+        geometry={nodes.techo015.geometry}
         material={materials['Material.212']}
-        position={[-6.237, 65.572, 16.351]}
+        position={[72.124, 74.433, -68.044]}
+        rotation={[0, -1.571, 0]}
+        scale={[12.797, 3.519, 52.569]}
+      />
+      <mesh
+        name="techo017"
+        geometry={nodes.techo017.geometry}
+        material={materials['Material.212']}
+        position={[-176.47, 73.899, -181.851]}
         rotation={[Math.PI, 0, Math.PI]}
-        scale={[8.556, 2.388, 10.642]}
+        scale={[12.797, 3.519, 31.177]}
       />
     </group>
   )
