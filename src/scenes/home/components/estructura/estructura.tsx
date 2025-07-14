@@ -1,8 +1,9 @@
+
+
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef } from 'react';
 import { GLTF } from 'three-stdlib';
-import { useThree } from '@react-three/fiber';
 
 type GLTFResult = GLTF & {
     nodes: {
@@ -23,35 +24,8 @@ type Instance = {
     scale: [number, number, number];
 };
 
-// 🎯 PASO 3: Materiales compartidos optimizados
-const SharedMaterials = {
-    green: new THREE.MeshStandardMaterial({ 
-        color: '#03562C', 
-        roughness: 0.8,
-        metalness: 0.1 
-    }),
-    gray: new THREE.MeshStandardMaterial({ 
-        color: '#666666', 
-        roughness: 0.7,
-        metalness: 0.2 
-    }),
-    white: new THREE.MeshStandardMaterial({ 
-        color: '#FFFFFF', 
-        roughness: 0.9,
-        metalness: 0.0 
-    })
-};
-
-// 🎯 Geometrías compartidas
-const SharedGeometries = {
-    base: null as THREE.BufferGeometry | null,
-    detail1: null as THREE.BufferGeometry | null, 
-    detail2: null as THREE.BufferGeometry | null
-};
-
-// 🎯 BALANCED: Instancias importantes restauradas pero con LOD inteligente
+// 👇 Reemplaza este array por el tuyo completo
 const instances: Instance[] = [
-    // ✅ ÁREA PRINCIPAL - Siempre visible
     { position: [-58.822, 23, 553.073], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [-18.424, 23, 517.935], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [22.378, 23, 482.444], rotation: [0, 0, 0], scale: [1, 1, 1] },
@@ -67,129 +41,115 @@ const instances: Instance[] = [
     { position: [413.248, 21.028, 112.143], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [451.042, 21.028, 72.884], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
     { position: [488.901, 21.028, 33.568], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
-    
-    // ✅ ÁREA SECUNDARIA - Visible cuando cerca
     { position: [527.31, 21.094, -4.754], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
     { position: [564.132, 21.177, -44.198], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
     { position: [600.397, 21.177, -82.993], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
     { position: [640.04, 21.177, -120.383], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
     { position: [679.872, 21.177, -157.263], rotation: [0, 0.1, 0], scale: [1, 1, 1] },
+
     { position: [695, 21.177, -200], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
-    
-    // ✅ ÁREA IMPORTANTE - Estructura lateral
     { position: [539.998, 21.177, -714.755], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
     { position: [555.212, 21.177, -662.757], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
     { position: [570.822, 21.177, -611.763], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
     { position: [586.06, 21.177, -560.212], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
     { position: [601.67, 21.177, -508.739], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
-    
-    // ✅ ENTRADA SECUNDARIA - Importante para navegación
-    { position: [-100, 23, 590], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [-140, 23, 627], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    
-    // ✅ ÁREA LEJANA - Solo visible cuando muy cerca o navegando hacia allá
+    { position: [676.352, 21.177, -252.144], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
+    { position: [661.147, 21.177, -303.374], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
+    { position: [645.538, 21.177, -354.848], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
+    { position: [630.123, 21.177, -406.094], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
+    { position: [616.395, 21.32, -456.814], rotation: [0, 1.2, 0], scale: [1, 1, 1] },
+
+
+
     { position: [-322.682, 15.372, 785.385], rotation: [0, 3.1, 0], scale: [1, 1, 1] },
     { position: [-364.275, 15.372, 820.301], rotation: [0, 3.1, 0], scale: [1, 1, 1] },
-    { position: [-405.855, 15.372, 855.401], rotation: [0, 3.1, 0], scale: [1, 1, 1] }
-    
-    // 🎯 Mantengo las instancias MÁS importantes pero con LOD inteligente
+    { position: [-405.855, 15.372, 855.401], rotation: [0, 3.1, 0], scale: [1, 1, 1] },
+    { position: [-446.252, 15.372, 890.929], rotation: [0,3.1, 0], scale: [1, 1, 1] },
+    { position: [-486.129, 15.372, 927.492], rotation: [0,3.1, 0], scale: [1, 1, 1] },
+    { position: [-526.064, 15.372, 963.641], rotation: [0,3.1, 0], scale: [1, 1, 1] },
+    { position: [-566.031, 15.372, 1000.092], rotation: [0,3.1, 0], scale: [1, 1, 1] },
+    { position: [-605.773, 15.372, 1036.352], rotation: [0,3.1, 0], scale: [1, 1, 1] },
+    { position: [-645.571, 15.372, 1072.611], rotation: [0,3.1, 0], scale: [1, 1, 1] },
+    { position: [-685.388, 15.372, 1108.973], rotation: [0,3.1, 0], scale: [1, 1, 1] },
+    { position: [-724.951, 15.372, 1145.265], rotation: [0,3.1, 0], scale: [1, 1, 1] },
+    { position: [-764.7, 15.372, 1181.781], rotation: [0, 3.1, 0], scale: [1, 1, 1] },
+    { position: [-804.214, 15.372, 1217.98], rotation: [0, 3.1, 0], scale: [1, 1, 1] },
+    { position: [-844.095, 15.372, 1254.766], rotation: [0, 3.1, 0], scale: [1, 1, 1] },
+    { position: [-883.7, 15.372, 1290.906], rotation: [0, 3.1, 0], scale: [1, 1, 1] },
+    { position: [-923.58, 15.372, 1327.348], rotation: [0, 3.1, 0], scale: [1, 1, 1] },
+    { position: [-963.321, 15.372, 1363.789], rotation: [0, 3.1, 0], scale: [1, 1, 1] },
+    { position: [-1003.192, 15.372, 1400.079], rotation: [0, 3.1, 0], scale: [1, 1, 1] },
+    {
+        position: [-100, 23, 590],
+        rotation: [0, 0, 0],
+        scale: [1, 1, 1]
+      },
+      {
+        position: [-140, 23, 627],
+        rotation: [0, 0, 0],
+        scale: [1, 1, 1]
+      }
+
+
+
+
 ];
 
-function useCameraDistance() {
-    const { camera } = useThree();
-    return useMemo(() => {
-        return camera.position.length();
-    }, [Math.floor(camera.position.x / 100), Math.floor(camera.position.z / 100)]);
-}
+
 
 export function Estructura() {
-    const { nodes } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/estructura/estructura.glb') as unknown as GLTFResult;
+    const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/estructura/estructura.glb') as unknown as GLTFResult;
 
     const ref1 = useRef<THREE.InstancedMesh>(null);
     const ref2 = useRef<THREE.InstancedMesh>(null);
     const ref3 = useRef<THREE.InstancedMesh>(null);
-    
-    const cameraDistance = useCameraDistance();
-
-    // 🎯 LOD BALANCEADO: Filtrar instancias según distancia pero mostrar contenido
-    const visibleInstances = useMemo(() => {
-        if (cameraDistance < 400) {
-            return instances; // Todas las instancias si está relativamente cerca
-        } else if (cameraDistance < 800) {
-            return instances.slice(0, 20); // Mostrar 20 si está lejos
-        } else {
-            return instances.slice(0, 15); // Mostrar 15 si está muy lejos
-        }
-    }, [cameraDistance]);
-
-    // 🎯 Inicializar geometrías compartidas una vez
-    useEffect(() => {
-        if (nodes.Plane056 && !SharedGeometries.base) {
-            SharedGeometries.base = nodes.Plane056.geometry.clone();
-            SharedGeometries.detail1 = nodes.Plane056_1.geometry.clone();
-            SharedGeometries.detail2 = nodes.Plane056_2.geometry.clone();
-            
-            // Optimizar geometrías
-            SharedGeometries.base.computeBoundingSphere();
-            SharedGeometries.detail1.computeBoundingSphere();
-            SharedGeometries.detail2.computeBoundingSphere();
-            
-            // Aplicar optimizaciones
-            [SharedGeometries.base, SharedGeometries.detail1, SharedGeometries.detail2].forEach(geo => {
-                if (geo) {
-                    geo.deleteAttribute('uv2'); // Quitar UV secundario si existe
-                    geo.computeVertexNormals(); // Optimizar normales
-                }
-            });
-        }
-    }, [nodes]);
 
     useEffect(() => {
-        // Validar existencia de geometrías
-        if (!SharedGeometries.base || !ref1.current || !ref2.current || !ref3.current) return;
-    
-        visibleInstances.forEach((inst, i) => {
+        instances.forEach((inst, i) => {
             const matrix = new THREE.Matrix4();
             const position = new THREE.Vector3(...inst.position);
             const rotation = new THREE.Euler(...inst.rotation);
             const scale = new THREE.Vector3(...inst.scale);
             matrix.compose(position, new THREE.Quaternion().setFromEuler(rotation), scale);
-    
-            ref1.current!.setMatrixAt(i, matrix);
-            ref2.current!.setMatrixAt(i, matrix);
-            ref3.current!.setMatrixAt(i, matrix);
-        });
-    
-        // Actualizar matrices y count
-        [ref1, ref2, ref3].forEach((ref) => {
-            if (ref.current) {
-                ref.current.instanceMatrix.needsUpdate = true;
-                ref.current.frustumCulled = true;
-                ref.current.count = visibleInstances.length;
-            }
-        });
-    }, [visibleInstances]);
-    
 
-    // No renderizar si no hay geometrías
-    if (!SharedGeometries.base) {
-        return null;
-    }
+            ref1.current?.setMatrixAt(i, matrix);
+            ref2.current?.setMatrixAt(i, matrix);
+            ref3.current?.setMatrixAt(i, matrix);
+        });
+
+        if (ref1.current) {
+            ref1.current.frustumCulled = false;
+            ref1.current.instanceMatrix.needsUpdate = true;
+        }
+        if (ref2.current) {
+            ref2.current.frustumCulled = false;
+            ref2.current.instanceMatrix.needsUpdate = true;
+        }
+        if (ref3.current) {
+            ref3.current.frustumCulled = false;
+            ref3.current.instanceMatrix.needsUpdate = true;
+        }
+    }, []);
 
     return (
         <group>
-            {/* 🎯 Usar geometrías y materiales compartidos */}
             <instancedMesh
                 ref={ref1}
-                args={[SharedGeometries.base, SharedMaterials.green, visibleInstances.length]}
+                args={[undefined, undefined, instances.length]}
+                geometry={nodes.Plane056.geometry}
+                material={materials['verde.002']}
             />
             <instancedMesh
                 ref={ref2}
-                args={[SharedGeometries.detail1, SharedMaterials.gray, visibleInstances.length]}
+                args={[undefined, undefined, instances.length]}
+                geometry={nodes.Plane056_1.geometry}
+                material={materials['Material.045']}
             />
             <instancedMesh
                 ref={ref3}
-                args={[SharedGeometries.detail2, SharedMaterials.white, visibleInstances.length]}
+                args={[undefined, undefined, instances.length]}
+                geometry={nodes.Plane056_2.geometry}
+                material={materials['White Glazed Bricks.001']}
             />
         </group>
     );
