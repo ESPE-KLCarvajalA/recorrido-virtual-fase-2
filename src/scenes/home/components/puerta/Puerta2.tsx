@@ -73,12 +73,12 @@ const marcadoresPersonalizados = [
   {
     position: [167.089, 20, -279.414],
     markerOffset: [9, 3.5, 3.5],
-    url: '#/lab1',
+    url: '#/lab6',
   },
   {
     position: [-99, 19, -506],
     markerOffset: [9, 3.5, 3.5],
-    url: '#/lab6',
+    url: '#/lab1',
   }
 ];
 
