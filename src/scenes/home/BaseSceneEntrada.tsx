@@ -6,6 +6,7 @@ import { Perf } from 'r3f-perf';
 
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
 import BaseCharacter from '../../shared/components/BaseCharacter';
+import { WebGLContextHandler } from '../../utils/WebGLUtils';
 
 
 
@@ -49,6 +50,9 @@ const BaseSceneEntrada: React.FC = () => {
 
   return (
     <Canvas camera={{ position: [-92, 0, 29], fov: 60, near: 0.1, far: 1000 }}>
+        <WebGLContextHandler /> {/* ✅ AGREGAR ESTA LÍNEA */}
+
+      
       {/* 🧪 Rendimiento */}
       <Perf position="top-left" />
 
