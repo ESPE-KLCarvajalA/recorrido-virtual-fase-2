@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { ThreeElements } from '@react-three/fiber';
 import { useConvexPolyhedron } from '@react-three/cannon';
-import { useConditionalRender } from '../../../../utils/withLOD';
+// import { useConditionalRender } from '../../../../utils/withLOD';
 
 
 type GLTFResult = GLTF & {
@@ -20,9 +20,7 @@ export function PisoLabs(props: ThreeElements['group']) {
 
   const geometry = nodes.piso_labs.geometry;
   const position: [number, number, number] = [-17.977, -1, -203.107];
-  const shouldRender = useConditionalRender(position, 150); // 150 unidades de distancia
-  
-  if (!shouldRender) return null;
+ 
   // Convertir atributos a vertices Vector3
   const positionAttr = geometry.attributes.position;
   const vertices: THREE.Vector3[] = [];
