@@ -26,6 +26,7 @@ type InstanceData = {
 const instances: InstanceData[] = [
   { position: [-100, 1, -315], rotation: [0, -1.571, 0], scale: [18.236, 16.138, 16.138] },
   { position: [-100, 1, -299], rotation: [0, -1.571, 0], scale: [18.236, 16.138, 16.138] },
+  
   { position: [-240.671, 3, -201], rotation: [0, -Math.PI / 2, 0], scale: [21.184, 18.747, 18.747] },
   { position: [-240.671, 3, -220], rotation: [0, -Math.PI / 2, 0], scale: [22, 18.747, 18.747] }
 ];

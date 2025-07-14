@@ -46,8 +46,42 @@ const instances: InstanceData[] = [
   { position: [-713, 24.132, -835.5], rotation: [0, 3.15, 0], scale: [1, 1, 1] },
   { position: [-519, 21.658, -464], rotation: [0, 0, 0], scale: [1, 1, 1] },
   { position: [-516, 21.658, -744], rotation: [0, 0, 0], scale: [1, 1, 1] },
-  { position: [-210.704, 21.658, -716.5], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  { position: [-210.704, 21.658, -716.5], rotation: [0, 0, 0], scale: [1, 1, 1] }
 ];
+
+const marcadoresPersonalizados = [
+  {
+    position: [-165, 20, -56.541],
+    markerOffset: [9, 3.5, 3.5],
+    url: '#/lab1',
+  },
+  {
+    position: [-179, 20, -68.5],
+    markerOffset: [9, 3.5, 3.5],
+    url: '#/lab2',
+  },
+  {
+    position: [-62.334, 19.5, -221.824],
+    markerOffset: [9, 3.5, 3.5],
+    url: '#/lab3',
+  },
+  {
+    position: [-32, 20, -370],
+    markerOffset: [9, 3.5, 3.5],
+    url: '#/lab4',
+  },
+  {
+    position: [167.089, 20, -279.414],
+    markerOffset: [9, 3.5, 3.5],
+    url: '#/lab5',
+  },
+  {
+    position: [-99, 19, -506],
+    markerOffset: [9, 3.5, 3.5],
+    url: '#/lab6',
+  }
+];
+
 
 const relativeHandlePosition = new THREE.Vector3(0.15, -0.3, -7.4);
 
@@ -62,11 +96,7 @@ export function Puerta2() {
       const pos = new THREE.Vector3(...inst.position);
       const rot = new THREE.Euler(...inst.rotation);
       const scale = new THREE.Vector3(...inst.scale);
-      const matrix = new THREE.Matrix4().compose(
-        pos,
-        new THREE.Quaternion().setFromEuler(rot),
-        scale
-      );
+      const matrix = new THREE.Matrix4().compose(pos, new THREE.Quaternion().setFromEuler(rot), scale);
 
       marcoRef.current?.setMatrixAt(i, matrix);
       vidrioRef.current?.setMatrixAt(i, matrix);
@@ -74,43 +104,34 @@ export function Puerta2() {
 
     marcoRef.current!.instanceMatrix.needsUpdate = true;
     vidrioRef.current!.instanceMatrix.needsUpdate = true;
-
     marcoRef.current!.frustumCulled = false;
     vidrioRef.current!.frustumCulled = false;
   }, []);
 
   return (
     <group>
-      {/* Marcos y vidrios instanciados */}
-      <instancedMesh
-        ref={marcoRef}
-        args={[null, null, instances.length]}
-      >
+      <instancedMesh ref={marcoRef} args={[null, null, instances.length]}>
         <bufferGeometry attach="geometry" {...nodes.DoorFrane009.geometry} />
         <meshStandardMaterial attach="material" {...materials['Material.091']} />
       </instancedMesh>
 
-      <instancedMesh
-        ref={vidrioRef}
-        args={[null, null, instances.length]}
-      >
+      <instancedMesh ref={vidrioRef} args={[null, null, instances.length]}>
         <bufferGeometry attach="geometry" {...nodes.DoorFrane009_1.geometry} />
         <meshPhysicalMaterial attach="material" {...materials['glass frosted']} />
       </instancedMesh>
 
-      {/* Manijas y Marcadores individuales */}
       {instances.map((inst, index) => {
         const basePos = new THREE.Vector3(...inst.position);
         const rotation = new THREE.Euler(...inst.rotation);
         const quaternion = new THREE.Quaternion().setFromEuler(rotation);
         const finalHandlePos = basePos.clone().add(relativeHandlePosition.clone().applyQuaternion(quaternion));
 
-        const isTarget = inst.position[0] === -99 && inst.position[1] === 19 && inst.position[2] === -506;
-        const markerPos: [number, number, number] = [
-          inst.position[0] + 9,
-          inst.position[1] + 3.5,
-          inst.position[2] + 3.5,
-        ];
+        const marcadorData = marcadoresPersonalizados.find(
+          (m) =>
+            Math.abs(m.position[0] - inst.position[0]) < 0.001 &&
+            Math.abs(m.position[1] - inst.position[1]) < 0.001 &&
+            Math.abs(m.position[2] - inst.position[2]) < 0.001
+        );
 
         return (
           <group key={index}>
@@ -121,10 +142,21 @@ export function Puerta2() {
               rotation={inst.rotation}
               scale={inst.scale}
             />
-            {isTarget && <Marcador360 position={markerPos} url="#/lab1" isEspecial />}
+            {marcadorData && (
+              <Marcador360
+                position={[
+                  inst.position[0] + marcadorData.markerOffset[0],
+                  inst.position[1] + marcadorData.markerOffset[1],
+                  inst.position[2] + marcadorData.markerOffset[2],
+                ]}
+                url={marcadorData.url}
+                isEspecial
+              />
+            )}
           </group>
         );
       })}
+
     </group>
   );
 }

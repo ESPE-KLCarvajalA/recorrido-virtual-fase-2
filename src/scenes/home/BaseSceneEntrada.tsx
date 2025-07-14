@@ -11,6 +11,7 @@ import BaseSceneLab from './groups/BaseSceneLab';
 import BaseSceneLab2 from './groups/BaseSceneLab2';
 import BaseSceneOficina from './groups/BaseSceneOficina';
 import BaseSceneOtros from './groups/BaseSceneOtros';
+import BaseScenePisos2 from './groups/BaseScenePisoss2';
 
 const BaseSceneEntrada = () => {
   const controlsRef = useRef(null);
@@ -27,6 +28,7 @@ const BaseSceneEntrada = () => {
           <BaseSceneLab2 />
           <BaseSceneOficina />
           <BaseSceneOtros />
+          <BaseScenePisos2 />
 
           <BaseCharacter 
             controls 
