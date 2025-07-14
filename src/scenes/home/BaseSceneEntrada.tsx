@@ -13,7 +13,7 @@ import { WebGLContextHandler } from '../../utils/WebGLUtils';
 import BaseSceneAfuera from './components/groups/BaseSceneAfuera';
 import BaseSceneArco from './components/groups/BaseSceneArco';
 import BaseSceneBar from './components/groups/BaseSceneBar';
-import BaseSceneOficina from './components/groups/BaseSceneOficina';
+// import BaseSceneOficina from './components/groups/BaseSceneOficina';
 import BaseSceneVilla from './components/groups/BaseSceneVilla';
 
 
@@ -37,7 +37,7 @@ function SceneContent() {
       <BaseSceneAfuera />
       <BaseSceneArco />
       <BaseSceneBar />
-      <BaseSceneOficina />
+      {/* <BaseSceneOficina /> */}
       <BaseSceneVilla />
 
       
