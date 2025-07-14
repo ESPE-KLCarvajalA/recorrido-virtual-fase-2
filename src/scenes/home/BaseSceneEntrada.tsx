@@ -5,15 +5,15 @@ import { PointerLockControls } from '@react-three/drei';
 import { useRef } from 'react';
 
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
-import BaseSceneAfuera from './components/groups/BaseSceneAfuera';
-import BaseSceneArco from './components/groups/BaseSceneArco';
-import BaseSceneBar from './components/groups/BaseSceneBar';
-import BaseSceneBar2 from './components/groups/BaseSceneBar2';
-import BaseSceneLab from './components/groups/BaseSceneLab';
-import BaseSceneLab2 from './components/groups/BaseSceneLab2';
-import BaseSceneOficina from './components/groups/BaseSceneOficina';
-import BaseSceneVilla from './components/groups/BaseSceneVilla';
-import BaseSceneVilla2 from './components/groups/BaseSceneVilla2';
+import BaseSceneAfuera from './groups/BaseSceneAfuera';
+import BaseSceneArco from './groups/BaseSceneArco';
+import BaseSceneBar from './groups/BaseSceneBar';
+import BaseSceneBar2 from './groups/BaseSceneBar2';
+import BaseSceneLab from './groups/BaseSceneLab';
+import BaseSceneLab2 from './groups/BaseSceneLab2';
+import BaseSceneOficina from './groups/BaseSceneOficina';
+import BaseSceneVilla from './groups/BaseSceneVilla';
+import BaseSceneVilla2 from './groups/BaseSceneVilla2';
 
 
 

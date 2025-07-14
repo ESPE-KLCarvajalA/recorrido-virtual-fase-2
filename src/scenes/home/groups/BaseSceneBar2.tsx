@@ -3,8 +3,8 @@
 // Imports de tus componentes originales
 
 // import { Carpa } from "../bar/carpa";
-import { ParedesInternasBar } from "../bar/ParedesInternasBar";
-import { PisoBar } from "../bar/PisoBar";
+import { ParedesInternasBar } from "../components/bar/ParedesInternasBar";
+import { PisoBar } from "../components/bar/PisoBar";
 // import { SillaBar } from "../bar/SillaBar";
 
 

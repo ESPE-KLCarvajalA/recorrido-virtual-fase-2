@@ -2,8 +2,8 @@
 
 // Imports de tus componentes originales
 
-import { ParedE2 } from "../entrada2/ParedE2";
-import { TechoEntrada } from "../entrada2/TechoEntrada";
+import { ParedE2 } from "../components/entrada2/ParedE2";
+import { TechoEntrada } from "../components/entrada2/TechoEntrada";
 
 
 // cargar segun la distancia 

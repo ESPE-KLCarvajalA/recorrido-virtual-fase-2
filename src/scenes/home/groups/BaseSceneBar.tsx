@@ -2,9 +2,9 @@
 
 // Imports de tus componentes originales
 
-import { ParedesBar } from "../bar/ParedesBar";
-import { SobretechoBar } from "../bar/SobretechoBar";
-import { TechoBar } from "../bar/TechoBar";
+import { ParedesBar } from "../components/bar/ParedesBar";
+import { SobretechoBar } from "../components/bar/SobretechoBar";
+import { TechoBar } from "../components/bar/TechoBar";
 
 
 // cargar segun la distancia 

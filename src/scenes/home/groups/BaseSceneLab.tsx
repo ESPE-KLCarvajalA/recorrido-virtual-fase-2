@@ -2,8 +2,8 @@
 
 // Imports de tus componentes originales
 
-import { ParedLabCompu1 } from "../labCompu1/ParedLabCompu1";
-import { TechoLabCom1 } from "../labCompu1/TechoLabCom1";
+import { ParedLabCompu1 } from "../components/labCompu1/ParedLabCompu1";
+import { TechoLabCom1 } from "../components/labCompu1/TechoLabCom1";
 
 
 

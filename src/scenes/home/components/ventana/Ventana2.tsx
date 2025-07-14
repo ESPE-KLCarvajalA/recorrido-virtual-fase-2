@@ -23,7 +23,7 @@ type InstanceData = {
   scale: [number, number, number];
 };
 
-export function Ventanas2() {
+export function Ventana2() {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana2.glb') as unknown as GLTFResult;
 
   const frameRef = useRef<THREE.InstancedMesh>(null);
