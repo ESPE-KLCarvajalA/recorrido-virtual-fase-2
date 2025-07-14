@@ -16,7 +16,7 @@ type GLTFResult = GLTF & {
 }
 
 export function PisoVereda4(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/piso/pisoVereda4.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda4.glb') as unknown as GLTFResult
 
   // Define tamaño de la caja para colisión (ajusta según tu modelo)
   // Puedes cambiar estos valores para ajustarlo mejor al modelo
@@ -56,4 +56,4 @@ export function PisoVereda4(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/piso/pisoVereda4.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda4.glb')
