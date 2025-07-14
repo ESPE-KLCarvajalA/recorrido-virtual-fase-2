@@ -8,7 +8,7 @@ import { Rejilla } from "../components/rejilla/rejilla";
 
 
 // cargar segun la distancia components/
-const BaseSceneOficina = () => {
+const BaseSceneOtros = () => {
   return (
     <>
      <Puerta1 />
@@ -21,4 +21,4 @@ const BaseSceneOficina = () => {
   );
 };
 
-export default BaseSceneOficina;
+export default BaseSceneOtros;
