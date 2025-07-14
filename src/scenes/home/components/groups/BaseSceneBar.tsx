@@ -3,6 +3,7 @@
 // Imports de tus componentes originales
 
 import { ParedesBar } from "../bar/ParedesBar";
+import { SobretechoBar } from "../bar/SobretechoBar";
 import { TechoBar } from "../bar/TechoBar";
 
 
@@ -16,6 +17,8 @@ const BaseSceneBar = () => {
       <>
       {/* sin fisica */}
       <TechoBar />
+      <SobretechoBar />
+      
 
          {/*fisica */}
       <ParedesBar />
