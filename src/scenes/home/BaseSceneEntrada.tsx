@@ -3,7 +3,6 @@ import { Canvas } from '@react-three/fiber';
 import BaseCharacter from '../../shared/components/BaseCharacter';
 import { PointerLockControls } from '@react-three/drei';
 import { useRef } from 'react';
-import { PerformanceMonitor } from '../../shared/components/PerformanceMonitor'; // 👈 NUEVO
 
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
 import BaseSceneAfuera from './groups/BaseSceneAfuera';
@@ -44,7 +43,7 @@ const BaseSceneEntrada = () => {
         <PointerLockControls ref={controlsRef} />
       </Canvas>
 
-      <PerformanceMonitor /> {/* 👈 NUEVO */}
+      
     </>
   );
 };
