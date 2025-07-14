@@ -23,7 +23,7 @@ export const WebGLContextHandler = (): React.ReactElement | null => {
       }, 2000);
     };
 
-    const handleContextRestored = (event: Event): void => {
+    const handleContextRestored = (_event: Event): void => {
       console.log('✅ WebGL Context Restored!');
     };
 
