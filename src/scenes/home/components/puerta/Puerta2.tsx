@@ -53,12 +53,12 @@ const marcadoresPersonalizados = [
   {
     position: [-165, 20, -56.541],
     markerOffset: [9, 3.5, 3.5],
-    url: '#/lab1',
+    url: '#/lab5',
   },
   {
     position: [-179, 20, -68.5],
     markerOffset: [9, 3.5, 3.5],
-    url: '#/lab2',
+    url: '#/lab4',
   },
   {
     position: [-62.334, 19.5, -221.824],
@@ -68,12 +68,12 @@ const marcadoresPersonalizados = [
   {
     position: [-32, 20, -370],
     markerOffset: [9, 3.5, 3.5],
-    url: '#/lab4',
+    url: '#/lab2',
   },
   {
     position: [167.089, 20, -279.414],
     markerOffset: [9, 3.5, 3.5],
-    url: '#/lab5',
+    url: '#/lab1',
   },
   {
     position: [-99, 19, -506],
