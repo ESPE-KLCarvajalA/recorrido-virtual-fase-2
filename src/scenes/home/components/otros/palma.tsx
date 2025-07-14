@@ -20,7 +20,7 @@ export function Palma(props: ThreeElements['group']) {
         name="2__1_-removebg-preview"
         geometry={nodes['2__1_-removebg-preview'].geometry}
         material={materials['2__1_-removebg-preview']}
-        position={[-308.249, 18.312, -166.351]}
+        position={[-308.249, 1, -166.351]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={34.105}
       />
