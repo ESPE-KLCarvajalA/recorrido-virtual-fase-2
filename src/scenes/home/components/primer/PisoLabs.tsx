@@ -3,7 +3,6 @@ import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { ThreeElements } from '@react-three/fiber';
 import { useConvexPolyhedron } from '@react-three/cannon';
-// import { useConditionalRender } from '../../../../utils/withLOD';
 
 
 type GLTFResult = GLTF & {
