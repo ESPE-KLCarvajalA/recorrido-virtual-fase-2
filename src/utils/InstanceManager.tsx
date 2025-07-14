@@ -11,14 +11,14 @@ interface InstanceManagerProps {
   geometry: THREE.BufferGeometry;
   material: THREE.Material;
   instances: InstanceData[];
-  maxDistance?: number;
+//   maxDistance?: number;
 }
 
 export function InstanceManager({ 
   geometry, 
   material, 
   instances, 
-  maxDistance = 200 
+//   maxDistance = 200 
 }: InstanceManagerProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
 
