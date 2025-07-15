@@ -20,7 +20,7 @@ export function Carpa(props: ThreeElements['group']) {
     <group {...props} dispose={null}>
       <group
         name="Display_Tent"
-        position={[-456.786, 32.248, -246.683]}
+        position={[-454.682, 38.02, -246.833]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={[0.265, 0.417, 0.294]}>
         <mesh name="Mesh" geometry={nodes.Mesh.geometry} material={materials['Material.076']} />
