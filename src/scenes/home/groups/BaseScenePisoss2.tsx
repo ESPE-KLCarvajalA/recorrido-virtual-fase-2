@@ -7,6 +7,7 @@ import { PisoCamino } from "../components/pisos/PisoCamino";
 import { PisoCesped2 } from "../components/pisos/PisoCesped2";
 import { PisoCesped4 } from "../components/pisos/PisoCesped4";
 import { PisoCesped5I } from "../components/pisos/PisoCesped5I";
+import { PisoPrueba } from "../components/pisos/PisoPrueba";
 import { PisoTriangulo2 } from "../components/pisos/PisoTriangulo2";
 import { PisoVereda3 } from "../components/pisos/pisoVereda3";
 import { PisoVereda4 } from "../components/pisos/pisoVereda4";
@@ -27,6 +28,7 @@ const BaseScenePisos2 = () => {
       {/*fisica */}
       <PisoAula />
       <PisoCamino />
+      <PisoPrueba />
       <PisoCesped2 />
       <PisoCesped4 />
       <PisoCesped5I />
