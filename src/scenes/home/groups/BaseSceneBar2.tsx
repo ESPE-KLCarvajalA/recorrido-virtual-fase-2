@@ -2,7 +2,7 @@
 
 // Imports de tus componentes originales
 
-import { Carpa } from "../components/bar/carpa";
+// import { Carpa } from "../components/bar/carpa";
 import { ParedesInternasBar } from "../components/bar/ParedesInternasBar";
 import { PisoBar } from "../components/bar/PisoBar";
 // import { SillaBar } from "../components/bar/SillaBar";
@@ -22,7 +22,7 @@ const BaseSceneBar2 = () => {
       <ParedesInternasBar />
 
        {/* sin fisica */}
-      <Carpa /> 
+      {/* <Carpa />  */}
        {/* <SillaBar /> */}
 
       
