@@ -23,59 +23,80 @@ import { Vereda2 } from "../components/primer/vereda2";
 // NUEVO: Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
-// TEMPORAL: Función sin LOD para debuggear
 const BaseSceneAfuera = () => {
   
-  // TEMPORAL: Posición del spawn del personaje para referencia
-  const playerSpawn: [number, number, number] = [-80, -1, 170];
-  const distance = useCameraDistance(playerSpawn);
+  // CORREGIDO: Posición central basada en el área real de los objetos
+  // Tu spawn está en [-80, -1, 170], centro entre spawn y estructuras principales
+  const centerPosition: [number, number, number] = [-80, 50, 400];
+  const distance = useCameraDistance(centerPosition);
   
-  // TEMPORAL: Mostrar la distancia en consola para debuggear
-  console.log("Distancia desde spawn:", distance);
+  // CORREGIDO: Distancias ajustadas a tu escena real
+  const MAX_DISTANCE = 2000;    // Cubrir toda tu estructura extensa
+  const MEDIUM_DISTANCE = 800;  // Objetos medios 
+  const CLOSE_DISTANCE = 400;   // Detalles cercanos
+  
+  // LOD: Si está muy lejos de toda el área, no renderizar nada
+  if (distance > MAX_DISTANCE) return null;
 
   return (
     <>
-      {/* TODOS LOS COMPONENTES VISIBLES - SIN LOD TEMPORAL */}
-      {/* Física - Pisos principales y estructuras básicas */}
-      <PisoOctagono />
-      <Vereda1 />
+      {/* NIVEL 1: ELEMENTOS ESTRUCTURALES PRINCIPALES - Siempre visibles */}
+      {/* Pisos y estructuras básicas que están cerca del spawn */}
+      <PisoOctagono /> {/* [-63.105, -5, 133.726] - CERCA del spawn */}
       <PisoTriangulo />
-      <PisoCesped1 />
-      <Vereda2 />
       <PisoArco />
-      <PisoVereda />
-      <PisoVereda2 />
-      <PisoCesped3 />
-      <Borde />
-      <PisoCesped5E />
       <PisoLabs />
-      <PisoVereda5 />
+      <Borde />
       
-      {/* Sin física */}
-      <Frases />
-      <Senaleticas />
-      <Estructura />
-      <Estructura1 />
-      <Cartelera />
-      <Parqueadero />
-      <Tablero />
+      {/* Estructuras principales */}
+      <Estructura /> {/* Instancias por todo el mapa */}
+      <Estructura1 /> {/* [-173.318, 104, 648.364] y [-280.251, 103, 723] */}
 
-      {/* DEBUG: Indicador visual en el spawn del personaje */}
-      <mesh position={playerSpawn}>
-        <sphereGeometry args={[5]} />
+      {/* NIVEL 2: DETALLES MEDIOS - Solo cuando está relativamente cerca */}
+      {distance < MEDIUM_DISTANCE && (
+        <>
+          {/* Veredas y elementos del suelo */}
+          <Vereda1 />
+          <Vereda2 />
+          <PisoVereda />
+          <PisoVereda2 />
+          <PisoVereda5 />
+          <PisoCesped1 />
+          <PisoCesped3 />
+          <PisoCesped5E />
+          
+          {/* Elementos grandes */}
+          <Parqueadero />
+          <Tablero />
+        </>
+      )}
+
+      {/* NIVEL 3: DETALLES FINOS - Solo cuando está muy cerca */}
+      {distance < CLOSE_DISTANCE && (
+        <>
+          {/* Elementos decorativos y señalética */}
+          <Frases />
+          <Senaleticas />
+          <Cartelera />
+        </>
+      )}
+
+      {/* DEBUG: Indicador visual opcional (descomentar para ver LOD funcionando) */}
+      {/* 
+      <mesh position={centerPosition}>
+        <sphereGeometry args={[10]} />
         <meshBasicMaterial 
-          color="red" 
+          color={
+            distance < CLOSE_DISTANCE ? 'green' : 
+            distance < MEDIUM_DISTANCE ? 'yellow' : 
+            'red'
+          } 
           wireframe 
           transparent
-          opacity={0.5}
+          opacity={0.3}
         />
       </mesh>
-
-      {/* DEBUG: Texto con la distancia actual */}
-      <mesh position={[playerSpawn[0], playerSpawn[1] + 10, playerSpawn[2]]}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshBasicMaterial color="yellow" />
-      </mesh>
+      */}
     </>
   );
 };

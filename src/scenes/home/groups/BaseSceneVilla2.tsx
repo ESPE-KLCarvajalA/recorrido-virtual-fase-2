@@ -13,14 +13,14 @@ import useCameraDistance from '../../../utils/useCameraDistance';
 // MODIFICADO: Función sin parámetros quality (LOD básico)
 const BaseSceneVilla2 = () => {
   
-  // NUEVO: Configuración LOD para segunda villa (posición diferente)
-  const centerPosition: [number, number, number] = [600, 0, 600];
+  // CORREGIDO: Configuración LOD para segunda villa (posición diferente)
+  const centerPosition: [number, number, number] = [700, 0, 1000]; // Segunda área de villas
   const distance = useCameraDistance(centerPosition);
   
-  // NUEVO: Configuración de distancias (mayores porque las villas están lejos)
-  const MAX_DISTANCE = 800;
-  const MEDIUM_DISTANCE = 400;
-  const CLOSE_DISTANCE = 200;
+  // CORREGIDO: Distancias mayores porque las villas están lejos
+  const MAX_DISTANCE = 2000;     // Distancia máxima para renderizar
+  const MEDIUM_DISTANCE = 1000;  // Distancia media
+  const CLOSE_DISTANCE = 500;    // Distancia para detalles
   
   // NUEVO: LOD - Si está muy lejos, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
