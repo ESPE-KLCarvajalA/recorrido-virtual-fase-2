@@ -27,7 +27,7 @@ const BaseSceneEntrada = () => {
 
   return (
     <Canvas 
-      camera={{ position: [-80, 0, 29] }}
+      camera={{ position: [-92, 0, 170] }}
       gl={{ 
         antialias: true,
         powerPreference: "high-performance"
