@@ -84,22 +84,7 @@ const BaseSceneAfuera = () => {
         </>
       )}
 
-      {/* 🔧 DEBUG: Indicador visual (descomentar para ver LOD funcionando) */}
-      {/* 
-      <mesh position={centerPosition}>
-        <sphereGeometry args={[15]} />
-        <meshBasicMaterial 
-          color={
-            distance < CLOSE_DISTANCE ? 'green' : 
-            distance < MEDIUM_DISTANCE ? 'yellow' : 
-            'red'
-          } 
-          wireframe 
-          transparent
-          opacity={0.4}
-        />
-      </mesh>
-      */}
+      
     </>
   );
 };
