@@ -6,15 +6,15 @@ import { useRef } from 'react';
 
 // Tus imports existentes
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
-import BaseSceneAfuera from './groups/BaseSceneAfuera';
-import BaseSceneArco from './groups/BaseSceneArco';
+// import BaseSceneAfuera from './groups/BaseSceneAfuera';
+// import BaseSceneArco from './groups/BaseSceneArco';
 import BaseSceneLab from './groups/BaseSceneLab';
 import BaseSceneLab2 from './groups/BaseSceneLab2';
 import BaseSceneOficina from './groups/BaseSceneOficina';
 import BaseSceneOtros from './groups/BaseSceneOtros';
 import BaseScenePisos2 from './groups/BaseScenePisos2';
-import BaseSceneBar from './groups/BaseSceneBar';
-import BaseSceneBar2 from './groups/BaseSceneBar2';
+// import BaseSceneBar from './groups/BaseSceneBar';
+// import BaseSceneBar2 from './groups/BaseSceneBar2';
 import BaseSceneVilla from './groups/BaseSceneVilla';
 import BaseSceneVilla2 from './groups/BaseSceneVilla2';
 import BaseSceneOtros2 from './groups/BaseSceneOtros2';
@@ -40,16 +40,16 @@ const BaseSceneEntrada = () => {
 
       <Physics gravity={[0, -100, 0]} iterations={10}>
         {/* 🎉 TODOS LOS GRUPOS OPTIMIZADOS CON LOD BÁSICO */}
-        <BaseSceneAfuera />
-        <BaseSceneArco />
+        {/* <BaseSceneAfuera />
+        <BaseSceneArco /> */}
         <BaseSceneLab />
         <BaseSceneLab2 />
         <BaseSceneOficina />
         <BaseSceneOtros />
         <BaseSceneOtros2 />
         <BaseScenePisos2 />
-        <BaseSceneBar />
-        <BaseSceneBar2 />
+        {/* <BaseSceneBar />
+        <BaseSceneBar2 /> */}
         <BaseSceneVilla />
         <BaseSceneVilla2 />
 
