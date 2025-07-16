@@ -2,13 +2,11 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useState, useCallback, useEffect } from 'react';
 import { PerformanceState } from '../../types/optimization';
 
-interface PerformanceMonitorProps {
-  onQualityChange?: (quality: number) => void;
-}
-
 export function PerformanceMonitor({ 
   onQualityChange 
-}: PerformanceMonitorProps = {}) {
+}: { 
+  onQualityChange?: (quality: number) => void 
+}) {
   const { gl } = useThree();
   const [stats, setStats] = useState<PerformanceState>({
     fps: 60,
@@ -22,10 +20,8 @@ export function PerformanceMonitor({
 
   const [visible, setVisible] = useState(false); // Cambiar a true para desarrollo
 
-  // Adaptive quality logic (solo si hay callback)
+  // Adaptive quality logic
   const adjustQuality = useCallback((fps: number) => {
-    if (!onQualityChange) return stats.adaptiveQuality;
-    
     let newQuality = stats.adaptiveQuality;
     
     if (fps < 30) {
@@ -34,7 +30,7 @@ export function PerformanceMonitor({
       newQuality = Math.min(1.0, newQuality + 0.05);
     }
     
-    if (newQuality !== stats.adaptiveQuality) {
+    if (newQuality !== stats.adaptiveQuality && onQualityChange) {
       onQualityChange(newQuality);
     }
     
@@ -99,7 +95,7 @@ export function PerformanceMonitor({
       <div style={{ 
         color: stats.adaptiveQuality > 0.8 ? '#00ff00' : stats.adaptiveQuality > 0.5 ? '#ffaa00' : '#ff0000' 
       }}>
-        🎯 Quality: {Math.round(stats.adaptiveQuality * 100)}% {!onQualityChange && '(Static)'}
+        🎯 Quality: {Math.round(stats.adaptiveQuality * 100)}%
       </div>
       
       <div style={{ color: stats.drawCalls > 100 ? '#ff0000' : '#00ff00' }}>
@@ -111,7 +107,7 @@ export function PerformanceMonitor({
       </div>
       
       <div style={{ marginTop: '10px', fontSize: '10px', color: '#888' }}>
-        Press 'P' to toggle • {onQualityChange ? 'Auto-adaptive quality' : 'LOD optimization active'}
+        Press 'P' to toggle • Auto-adaptive quality
       </div>
     </div>
   );
