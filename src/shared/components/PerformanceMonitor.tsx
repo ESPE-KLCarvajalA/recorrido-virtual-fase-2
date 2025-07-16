@@ -1,15 +1,6 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import { useState, useCallback, useEffect } from 'react';
-
-interface PerformanceState {
-  fps: number;
-  drawCalls: number;
-  triangles: number;
-  geometries: number;
-  textures: number;
-  memory: number;
-  adaptiveQuality: number; // 0.1 - 1.0
-}
+import { PerformanceState } from '../../types/optimization';
 
 export function PerformanceMonitor({ 
   onQualityChange 
@@ -27,7 +18,7 @@ export function PerformanceMonitor({
     adaptiveQuality: 1.0
   });
 
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false); // Cambiar a true para desarrollo
 
   // Adaptive quality logic
   const adjustQuality = useCallback((fps: number) => {

@@ -11,7 +11,7 @@ import BaseSceneLab from './groups/BaseSceneLab';
 import BaseSceneLab2 from './groups/BaseSceneLab2';
 import BaseSceneOficina from './groups/BaseSceneOficina';
 import BaseSceneOtros from './groups/BaseSceneOtros';
-import BaseScenePisos2 from './groups/BaseScenePisoss2';
+import BaseScenePisos2 from './groups/BaseScenePisos2';
 import BaseSceneBar from './groups/BaseSceneBar';
 import BaseSceneBar2 from './groups/BaseSceneBar2';
 import BaseSceneVilla from './groups/BaseSceneVilla';
