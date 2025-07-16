@@ -1,7 +1,4 @@
-
-
 // Imports de tus componentes originales
-
 import { PisoAula } from "../components/pisos/pisoAula";
 import { PisoCamino } from "../components/pisos/PisoCamino";
 import { PisoCesped2 } from "../components/pisos/PisoCesped2";
@@ -13,34 +10,59 @@ import { PisoVereda3 } from "../components/pisos/pisoVereda3";
 import { PisoVereda4 } from "../components/pisos/pisoVereda4";
 import { PisoVereda41 } from "../components/pisos/pisoVereda41";
 
+// NUEVO: Import para optimizaciones
+import useCameraDistance from '../../../utils/useCameraDistance';
 
+// NUEVO: Interface para recibir calidad desde BaseSceneEntrada
+interface BaseScenePisos2Props {
+  quality?: number;
+}
 
+// MODIFICADO: Agregar prop quality con valor por defecto
+const BaseScenePisos2 = ({ quality = 1.0 }: BaseScenePisos2Props) => {
+  
+  // NUEVO: Configuración LOD para pisos del segundo nivel
+  const centerPosition: [number, number, number] = [100, 40, 100];
+  const distance = useCameraDistance(centerPosition);
+  
+  // NUEVO: Configuración de distancias
+  const MAX_DISTANCE = 600;
+  const MEDIUM_DISTANCE = 300;
+  const CLOSE_DISTANCE = 150;
+  
+  // NUEVO: LOD - Si está muy lejos, no renderizar nada
+  if (distance > MAX_DISTANCE) return null;
+  
+  // NUEVO: Calidad adaptativa
+  const adaptiveQuality = Math.min(1.0, (MAX_DISTANCE - distance) / MAX_DISTANCE) * quality;
 
-
-
-
-// cargar segun la distancia 
-
-const BaseScenePisos2 = () => {
   return (
     <>
-     
-      {/*fisica */}
+      {/* NIVEL 1: PISOS PRINCIPALES - Siempre visible */}
+      {/* Física - Pisos estructurales */}
       <PisoAula />
       <PisoCamino />
       <PisoPrueba />
-      <PisoCesped2 />
-      <PisoCesped4 />
-      <PisoCesped5I />
-     < PisoTriangulo2 />
-     <PisoVereda3 />
-     <PisoVereda4 />
-     <PisoVereda41 />
 
+      {/* NIVEL 2: PISOS MEDIOS - Distancia media */}
+      {distance < MEDIUM_DISTANCE && (
+        <>
+          <PisoTriangulo2 />
+          <PisoVereda3 />
+          <PisoVereda4 />
+          <PisoVereda41 />
+        </>
+      )}
 
-
-      </>
-    
+      {/* NIVEL 3: DETALLES DE CÉSPED - Solo muy cerca */}
+      {distance < CLOSE_DISTANCE && (
+        <>
+          <PisoCesped2 />
+          <PisoCesped4 />
+          <PisoCesped5I />
+        </>
+      )}
+    </>
   );
 };
 

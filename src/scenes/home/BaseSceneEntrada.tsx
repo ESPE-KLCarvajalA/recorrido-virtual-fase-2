@@ -1,9 +1,10 @@
-import {  Physics } from '@react-three/cannon';
+import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import BaseCharacter from '../../shared/components/BaseCharacter';
 import { PointerLockControls } from '@react-three/drei';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
+// Tus imports existentes
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
 import BaseSceneAfuera from './groups/BaseSceneAfuera';
 import BaseSceneArco from './groups/BaseSceneArco';
@@ -17,29 +18,45 @@ import BaseSceneBar2 from './groups/BaseSceneBar2';
 import BaseSceneVilla from './groups/BaseSceneVilla';
 import BaseSceneVilla2 from './groups/BaseSceneVilla2';
 
+// NUEVA IMPORTACIÓN: Monitor de rendimiento
+import { PerformanceMonitor } from '../../shared/components/PerformanceMonitor';
+
 const BaseSceneEntrada = () => {
   const controlsRef = useRef(null);
+  
+  // NUEVO: Estado para calidad global que se ajusta automáticamente
+  const [globalQuality, setGlobalQuality] = useState(1.0);
 
   return (
     <>
-      <Canvas camera={{ position: [-80, 0, 29] }}>
+      <Canvas 
+        camera={{ position: [-80, 0, 29] }}
+        // OPTIMIZACIÓN: Configuración mejorada para rendimiento
+        gl={{ 
+          antialias: true,
+          powerPreference: "high-performance"
+        }}
+      >
         <ambientLight intensity={Math.PI / 2} />
 
+        {/* NUEVO: Monitor de rendimiento - Presiona 'P' para ver */}
+        <PerformanceMonitor onQualityChange={setGlobalQuality} />
+
         <Physics gravity={[0, -100, 0]} iterations={10}>
-          <BaseSceneAfuera />
-          <BaseSceneArco />
-          <BaseSceneLab />
-          <BaseSceneLab2 />
-          <BaseSceneOficina />
-          <BaseSceneOtros />
-          <BaseScenePisos2 />
-          <BaseSceneBar />
-          <BaseSceneBar2 />
-          <BaseSceneVilla />
-          <BaseSceneVilla2 />
+          {/* OPTIMIZADO: Ahora todos los grupos reciben calidad global */}
+          <BaseSceneAfuera quality={globalQuality} />
+          <BaseSceneArco quality={globalQuality} />
+          <BaseSceneLab quality={globalQuality} />
+          <BaseSceneLab2 quality={globalQuality} />
+          <BaseSceneOficina quality={globalQuality} />
+          <BaseSceneOtros quality={globalQuality} />
+          <BaseScenePisos2 quality={globalQuality} />
+          <BaseSceneBar quality={globalQuality} />
+          <BaseSceneBar2 quality={globalQuality} />
+          <BaseSceneVilla quality={globalQuality} />
+          <BaseSceneVilla2 quality={globalQuality} />
 
-
-
+          {/* Tu personaje - mantengo exactamente tus configuraciones */}
           <BaseCharacter 
             controls 
             positionCharacter={[-80,-1, 170]} 
@@ -51,11 +68,10 @@ const BaseSceneEntrada = () => {
           />
         </Physics>
 
+        {/* Tus componentes existentes - sin cambios */}
         <HDRIEnvironment />
         <PointerLockControls ref={controlsRef} />
       </Canvas>
-
-      
     </>
   );
 };
