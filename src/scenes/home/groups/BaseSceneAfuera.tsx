@@ -20,41 +20,44 @@ import { PisoVereda5 } from "../components/primer/pisoVereda5";
 import { Vereda1 } from "../components/primer/vereda1";
 import { Vereda2 } from "../components/primer/vereda2";
 
-// NUEVO: Import para optimizaciones
+// Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
 const BaseSceneAfuera = () => {
   
-  // CORREGIDO: Posición central basada en el área real de los objetos
-  // Tu spawn está en [-80, -1, 170], centro entre spawn y estructuras principales
-  const centerPosition: [number, number, number] = [-80, 50, 400];
+  // 🎯 CENTRO CALCULADO: Punto óptimo entre spawn [-80,-1,170] y distribución de objetos
+  const centerPosition: [number, number, number] = [-40, 20, 260];
   const distance = useCameraDistance(centerPosition);
   
-  // CORREGIDO: Distancias ajustadas a tu escena real
-  const MAX_DISTANCE = 2000;    // Cubrir toda tu estructura extensa
-  const MEDIUM_DISTANCE = 800;  // Objetos medios 
-  const CLOSE_DISTANCE = 400;   // Detalles cercanos
+  // 🎯 DISTANCIAS CALCULADAS según análisis de posiciones reales:
+  const MAX_DISTANCE = 1500;     // Cubre toda la Estructura distribuida [695, 21, -200] hasta [-280, 103, 723]
+  const MEDIUM_DISTANCE = 600;   // Cubre PisoTriangulo [-156, -3, 292] y estructuras medias
+  const CLOSE_DISTANCE = 300;    // Cubre PisoLabs [-17, -1, -203] y elementos cercanos
   
   // LOD: Si está muy lejos de toda el área, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
 
   return (
     <>
-      {/* NIVEL 1: ELEMENTOS ESTRUCTURALES PRINCIPALES - Siempre visibles */}
-      {/* Pisos y estructuras básicas que están cerca del spawn */}
-      <PisoOctagono /> {/* [-63.105, -5, 133.726] - CERCA del spawn */}
-      <PisoTriangulo />
-      <PisoArco />
-      <PisoLabs />
-      <Borde />
+      {/* 🟢 NIVEL 1: ELEMENTOS SIEMPRE VISIBLES (Estructurales y cercanos al spawn) */}
       
-      {/* Estructuras principales */}
-      <Estructura /> {/* Instancias por todo el mapa */}
-      <Estructura1 /> {/* [-173.318, 104, 648.364] y [-280.251, 103, 723] */}
+      {/* Pisos principales cerca del spawn [-80,-1,170] */}
+      <PisoOctagono />      {/* [-63.105, -5, 133.726] - MUY CERCA del spawn */}
+      <PisoArco /> 
+               {/* [-2.431, 0.5, 31.138] - CERCA del spawn */}
+      <Borde />             {/* Elemento estructural */}
+      
+      {/* Estructuras principales (críticas para navegación) */}
+      <Estructura />        {/* Instancias distribuidas por todo el mapa */}
+      <Estructura1 />       {/* [-173.318, 104, 648.364] y [-280.251, 103, 723] */}
 
-      {/* NIVEL 2: DETALLES MEDIOS - Solo cuando está relativamente cerca */}
+      {/* 🟡 NIVEL 2: ELEMENTOS MEDIOS (Solo cuando está relativamente cerca) */}
       {distance < MEDIUM_DISTANCE && (
         <>
+          {/* Pisos y elementos a distancia media */}
+          <PisoTriangulo />     {/* [-156.001, -3, 292.708] - MEDIO */}
+          <PisoLabs />          {/* [-17.977, -1, -203.107] - MEDIO */}
+          
           {/* Veredas y elementos del suelo */}
           <Vereda1 />
           <Vereda2 />
@@ -65,13 +68,13 @@ const BaseSceneAfuera = () => {
           <PisoCesped3 />
           <PisoCesped5E />
           
-          {/* Elementos grandes */}
+          {/* Elementos grandes funcionales */}
           <Parqueadero />
           <Tablero />
         </>
       )}
 
-      {/* NIVEL 3: DETALLES FINOS - Solo cuando está muy cerca */}
+      {/* 🔴 NIVEL 3: DETALLES FINOS (Solo cuando está muy cerca) */}
       {distance < CLOSE_DISTANCE && (
         <>
           {/* Elementos decorativos y señalética */}
@@ -81,10 +84,10 @@ const BaseSceneAfuera = () => {
         </>
       )}
 
-      {/* DEBUG: Indicador visual opcional (descomentar para ver LOD funcionando) */}
+      {/* 🔧 DEBUG: Indicador visual (descomentar para ver LOD funcionando) */}
       {/* 
       <mesh position={centerPosition}>
-        <sphereGeometry args={[10]} />
+        <sphereGeometry args={[15]} />
         <meshBasicMaterial 
           color={
             distance < CLOSE_DISTANCE ? 'green' : 
@@ -93,7 +96,7 @@ const BaseSceneAfuera = () => {
           } 
           wireframe 
           transparent
-          opacity={0.3}
+          opacity={0.4}
         />
       </mesh>
       */}

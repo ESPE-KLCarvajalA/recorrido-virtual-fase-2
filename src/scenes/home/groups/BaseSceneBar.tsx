@@ -3,48 +3,61 @@ import { ParedesBar } from "../components/bar/ParedesBar";
 import { SobretechoBar } from "../components/bar/SobretechoBar";
 import { TechoBar } from "../components/bar/TechoBar";
 
-// NUEVO: Import para optimizaciones
+// Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
-// MODIFICADO: Función sin parámetros quality (LOD básico)
 const BaseSceneBar = () => {
   
-  // NUEVO: Configuración LOD para el área del bar
-  // Posición central del bar - ajustar según tu escena específica
-  const centerPosition: [number, number, number] = [300, 0, 200];
+  // 🎯 CENTRO CALCULADO: Centro geométrico real del área del bar
+  // Basado en promedio de todas las posiciones: ParedesBar, TechoBar (3 meshes), SobretechoBar (2 meshes)
+  const centerPosition: [number, number, number] = [-682, 60, -112];
   const distance = useCameraDistance(centerPosition);
   
-  // NUEVO: Configuración de distancias para el bar
-  const MAX_DISTANCE = 500;      // Distancia máxima para renderizar
-  const DETAIL_DISTANCE = 250;   // Distancia para detalles del techo
+  // 🎯 DISTANCIAS CALCULADAS según análisis de posiciones reales:
+  // ParedesBar: ~901 unidades del spawn (más lejano pero crítico)
+  // TechoBar y SobretechoBar: 448-795 unidades del spawn
+  const MAX_DISTANCE = 1200;     // Cubre toda el área del bar incluyendo ParedesBar
+  const MEDIUM_DISTANCE = 700;   // Cubre la mayoría de techos
+  const CLOSE_DISTANCE = 500;    // Para detalles más cercanos
   
-  // NUEVO: LOD - Si está muy lejos, no renderizar nada
+  // LOD: Si está muy lejos del área del bar, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
 
   return (
     <>
-      {/* NIVEL 1: ESTRUCTURA PRINCIPAL - Siempre visible cuando en rango */}
-      {/* Física - Paredes del bar (estructura principal) */}
-      <ParedesBar />
+      {/* 🟢 NIVEL 1: ESTRUCTURA PRINCIPAL - Siempre visible */}
+      {/* Física - Paredes del bar (críticas para colisiones) */}
+      <ParedesBar />            {/* [-854.077, -9.046, -291.626] - ESTRUCTURA PRINCIPAL con física */}
 
-      {/* NIVEL 2: DETALLES DEL TECHO - Solo cuando está relativamente cerca */}
-      {distance < DETAIL_DISTANCE && (
+      {/* 🟡 NIVEL 2: TECHOS PRINCIPALES - Solo cuando está relativamente cerca */}
+      {distance < MEDIUM_DISTANCE && (
         <>
-          {/* Sin física - Techos con detalles */}
-          <TechoBar />
-          <SobretechoBar />
+          {/* Sin física - Techos principales del bar */}
+          <TechoBar />          {/* 3 meshes: techo022, techo024, techo004 - TECHOS PRINCIPALES */}
         </>
       )}
 
-      {/* Indicador visual opcional - Descomentar para ver el LOD funcionando */}
+      {/* 🔴 NIVEL 3: DETALLES FINOS - Solo cuando está cerca */}
+      {distance < CLOSE_DISTANCE && (
+        <>
+          {/* Sin física - Sobretechos decorativos */}
+          <SobretechoBar />     {/* 2 meshes: pared_vertical_2028, pared_vertical_2020 - DETALLES */}
+        </>
+      )}
+
+      {/* 🔧 DEBUG: Indicador visual (descomentar para ver LOD funcionando) */}
       {/* 
       <mesh position={centerPosition}>
-        <sphereGeometry args={[2]} />
+        <sphereGeometry args={[20]} />
         <meshBasicMaterial 
-          color={distance < DETAIL_DISTANCE ? 'green' : 'yellow'} 
+          color={
+            distance < CLOSE_DISTANCE ? 'green' : 
+            distance < MEDIUM_DISTANCE ? 'yellow' : 
+            'red'
+          } 
           wireframe 
           transparent
-          opacity={0.3}
+          opacity={0.4}
         />
       </mesh>
       */}
