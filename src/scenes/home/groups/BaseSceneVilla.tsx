@@ -10,13 +10,8 @@ import { TechoVilla7 } from "../components/villas/TechoVilla7";
 // NUEVO: Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
-// NUEVO: Interface para recibir calidad desde BaseSceneEntrada
-interface BaseSceneVillaProps {
-  quality?: number;
-}
-
-// MODIFICADO: Agregar prop quality con valor por defecto
-const BaseSceneVilla = ({ quality = 1.0 }: BaseSceneVillaProps) => {
+// MODIFICADO: Función sin parámetros quality (LOD básico)
+const BaseSceneVilla = () => {
   
   // NUEVO: Configuración LOD para villas (están lejos, distancias mayores)
   const centerPosition: [number, number, number] = [500, 0, 500];
@@ -29,9 +24,6 @@ const BaseSceneVilla = ({ quality = 1.0 }: BaseSceneVillaProps) => {
   
   // NUEVO: LOD - Si está muy lejos, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
-  
-  // NUEVO: Calidad adaptativa
-  const adaptiveQuality = Math.min(1.0, (MAX_DISTANCE - distance) / MAX_DISTANCE) * quality;
 
   return (
     <>

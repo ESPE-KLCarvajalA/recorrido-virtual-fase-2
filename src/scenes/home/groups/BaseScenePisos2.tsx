@@ -13,13 +13,8 @@ import { PisoVereda41 } from "../components/pisos/pisoVereda41";
 // NUEVO: Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
-// NUEVO: Interface para recibir calidad desde BaseSceneEntrada
-interface BaseScenePisos2Props {
-  quality?: number;
-}
-
-// MODIFICADO: Agregar prop quality con valor por defecto
-const BaseScenePisos2 = ({ quality = 1.0 }: BaseScenePisos2Props) => {
+// MODIFICADO: Función sin parámetros quality (LOD básico)
+const BaseScenePisos2 = () => {
   
   // NUEVO: Configuración LOD para pisos del segundo nivel
   const centerPosition: [number, number, number] = [100, 40, 100];
@@ -32,9 +27,6 @@ const BaseScenePisos2 = ({ quality = 1.0 }: BaseScenePisos2Props) => {
   
   // NUEVO: LOD - Si está muy lejos, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
-  
-  // NUEVO: Calidad adaptativa
-  const adaptiveQuality = Math.min(1.0, (MAX_DISTANCE - distance) / MAX_DISTANCE) * quality;
 
   return (
     <>

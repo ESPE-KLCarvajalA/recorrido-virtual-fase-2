@@ -6,13 +6,8 @@ import { TechoBar } from "../components/bar/TechoBar";
 // NUEVO: Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
-// NUEVO: Interface para recibir calidad desde BaseSceneEntrada
-interface BaseSceneBarProps {
-  quality?: number;
-}
-
-// MODIFICADO: Agregar prop quality con valor por defecto
-const BaseSceneBar = ({ quality = 1.0 }: BaseSceneBarProps) => {
+// MODIFICADO: Función sin parámetros quality (LOD básico)
+const BaseSceneBar = () => {
   
   // NUEVO: Configuración LOD para el área del bar
   // Posición central del bar - ajustar según tu escena específica
@@ -25,9 +20,6 @@ const BaseSceneBar = ({ quality = 1.0 }: BaseSceneBarProps) => {
   
   // NUEVO: LOD - Si está muy lejos, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
-  
-  // NUEVO: Calidad adaptativa basada en distancia y calidad global
-  const adaptiveQuality = Math.min(1.0, (MAX_DISTANCE - distance) / MAX_DISTANCE) * quality;
 
   return (
     <>

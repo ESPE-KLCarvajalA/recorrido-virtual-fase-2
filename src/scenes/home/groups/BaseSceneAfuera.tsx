@@ -23,13 +23,8 @@ import { Vereda2 } from "../components/primer/vereda2";
 // NUEVO: Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
-// NUEVO: Interface para recibir calidad desde BaseSceneEntrada
-interface BaseSceneAfueraProps {
-  quality?: number;
-}
-
-// MODIFICADO: Agregar prop quality con valor por defecto
-const BaseSceneAfuera = ({ quality = 1.0 }: BaseSceneAfueraProps) => {
+// MODIFICADO: Función sin parámetros quality (LOD básico)
+const BaseSceneAfuera = () => {
   
   // NUEVO: Configuración LOD para área exterior
   // Posición central cerca del spawn del personaje [-80, -1, 170]
@@ -43,9 +38,6 @@ const BaseSceneAfuera = ({ quality = 1.0 }: BaseSceneAfueraProps) => {
   
   // NUEVO: LOD - Si está muy lejos, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
-  
-  // NUEVO: Calidad adaptativa basada en distancia y calidad global
-  const adaptiveQuality = Math.min(1.0, (MAX_DISTANCE - distance) / MAX_DISTANCE) * quality;
 
   return (
     <>

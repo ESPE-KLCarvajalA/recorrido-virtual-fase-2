@@ -13,13 +13,8 @@ import { Pared3 } from '../components/oficina/Pared3';
 // NUEVO: Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
-// NUEVO: Interface para recibir calidad desde BaseSceneEntrada
-interface BaseSceneOficinaProps {
-  quality?: number;
-}
-
-// MODIFICADO: Agregar prop quality con valor por defecto
-const BaseSceneOficina = ({ quality = 1.0 }: BaseSceneOficinaProps) => {
+// MODIFICADO: Función sin parámetros quality (LOD básico)
+const BaseSceneOficina = () => {
   
   // NUEVO: Configuración LOD para área de oficinas
   const centerPosition: [number, number, number] = [150, 20, 50];
@@ -32,9 +27,6 @@ const BaseSceneOficina = ({ quality = 1.0 }: BaseSceneOficinaProps) => {
   
   // NUEVO: LOD - Si está muy lejos, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
-  
-  // NUEVO: Calidad adaptativa
-  const adaptiveQuality = Math.min(1.0, (MAX_DISTANCE - distance) / MAX_DISTANCE) * quality;
 
   return (
     <>

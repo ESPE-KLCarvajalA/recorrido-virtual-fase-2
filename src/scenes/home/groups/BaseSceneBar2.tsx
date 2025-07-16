@@ -8,13 +8,8 @@ import { PisoBar } from "../components/bar/PisoBar";
 // NUEVO: Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
-// NUEVO: Interface para recibir calidad desde BaseSceneEntrada
-interface BaseSceneBar2Props {
-  quality?: number;
-}
-
-// MODIFICADO: Agregar prop quality con valor por defecto
-const BaseSceneBar2 = ({ quality = 1.0 }: BaseSceneBar2Props) => {
+// MODIFICADO: Función sin parámetros quality (LOD básico)
+const BaseSceneBar2 = () => {
   
   // NUEVO: Configuración LOD para el segundo área del bar
   // Posición central del segundo bar - diferente al Bar1
@@ -27,9 +22,6 @@ const BaseSceneBar2 = ({ quality = 1.0 }: BaseSceneBar2Props) => {
   
   // NUEVO: LOD - Si está muy lejos, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
-  
-  // NUEVO: Calidad adaptativa basada en distancia y calidad global
-  const adaptiveQuality = Math.min(1.0, (MAX_DISTANCE - distance) / MAX_DISTANCE) * quality;
 
   return (
     <>

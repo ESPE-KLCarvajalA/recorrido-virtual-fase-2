@@ -44,17 +44,17 @@ const BaseSceneEntrada = () => {
 
         <Physics gravity={[0, -100, 0]} iterations={10}>
           {/* OPTIMIZADO: Ahora todos los grupos reciben calidad global */}
-          <BaseSceneAfuera quality={globalQuality} />
-          <BaseSceneArco quality={globalQuality} />
-          <BaseSceneLab quality={globalQuality} />
-          <BaseSceneLab2 quality={globalQuality} />
-          <BaseSceneOficina quality={globalQuality} />
-          <BaseSceneOtros quality={globalQuality} />
-          <BaseScenePisos2 quality={globalQuality} />
-          <BaseSceneBar quality={globalQuality} />
-          <BaseSceneBar2 quality={globalQuality} />
-          <BaseSceneVilla quality={globalQuality} />
-          <BaseSceneVilla2 quality={globalQuality} />
+          <BaseSceneAfuera />
+          <BaseSceneArco />
+          <BaseSceneLab />
+          <BaseSceneLab2 />
+          <BaseSceneOficina />
+          <BaseSceneOtros />
+          <BaseScenePisos2 />
+          <BaseSceneBar />
+          <BaseSceneBar2 />
+          <BaseSceneVilla />
+          <BaseSceneVilla2  />
 
           {/* Tu personaje - mantengo exactamente tus configuraciones */}
           <BaseCharacter 

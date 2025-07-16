@@ -5,13 +5,8 @@ import { TechoLabCom1 } from "../components/labCompu1/TechoLabCom1";
 // NUEVO: Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
-// NUEVO: Interface para recibir calidad desde BaseSceneEntrada
-interface BaseSceneLabProps {
-  quality?: number;
-}
-
-// MODIFICADO: Agregar prop quality con valor por defecto
-const BaseSceneLab = ({ quality = 1.0 }: BaseSceneLabProps) => {
+// MODIFICADO: Función sin parámetros quality (LOD básico)
+const BaseSceneLab = () => {
   
   // NUEVO: Configuración LOD para el laboratorio de computación
   // Posición central del laboratorio - ajustar según tu escena específica
@@ -24,9 +19,6 @@ const BaseSceneLab = ({ quality = 1.0 }: BaseSceneLabProps) => {
   
   // NUEVO: LOD - Si está muy lejos, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
-  
-  // NUEVO: Calidad adaptativa basada en distancia y calidad global
-  const adaptiveQuality = Math.min(1.0, (MAX_DISTANCE - distance) / MAX_DISTANCE) * quality;
 
   return (
     <>

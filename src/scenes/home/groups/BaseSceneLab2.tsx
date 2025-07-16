@@ -8,13 +8,8 @@ import PisoMedio from "../components/pisos/PisoMedio";
 // NUEVO: Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
-// NUEVO: Interface para recibir calidad desde BaseSceneEntrada
-interface BaseSceneLab2Props {
-  quality?: number;
-}
-
-// MODIFICADO: Agregar prop quality con valor por defecto
-const BaseSceneLab2 = ({ quality = 1.0 }: BaseSceneLab2Props) => {
+// MODIFICADO: Función sin parámetros quality (LOD básico)
+const BaseSceneLab2 = () => {
   
   // NUEVO: Configuración LOD para el segundo laboratorio
   const centerPosition: [number, number, number] = [250, 0, 150];
@@ -26,9 +21,6 @@ const BaseSceneLab2 = ({ quality = 1.0 }: BaseSceneLab2Props) => {
   
   // NUEVO: LOD - Si está muy lejos, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
-  
-  // NUEVO: Calidad adaptativa
-  const adaptiveQuality = Math.min(1.0, (MAX_DISTANCE - distance) / MAX_DISTANCE) * quality;
 
   return (
     <>

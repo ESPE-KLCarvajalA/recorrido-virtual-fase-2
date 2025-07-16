@@ -8,13 +8,8 @@ import { Rejilla } from "../components/rejilla/rejilla";
 // NUEVO: Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
-// NUEVO: Interface para recibir calidad desde BaseSceneEntrada
-interface BaseSceneOtrosProps {
-  quality?: number;
-}
-
-// MODIFICADO: Agregar prop quality con valor por defecto
-const BaseSceneOtros = ({ quality = 1.0 }: BaseSceneOtrosProps) => {
+// MODIFICADO: Función sin parámetros quality (LOD básico)
+const BaseSceneOtros = () => {
   
   // NUEVO: Configuración LOD para elementos varios
   const centerPosition: [number, number, number] = [0, 0, 200];
@@ -27,9 +22,6 @@ const BaseSceneOtros = ({ quality = 1.0 }: BaseSceneOtrosProps) => {
   
   // NUEVO: LOD - Si está muy lejos, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
-  
-  // NUEVO: Calidad adaptativa
-  const adaptiveQuality = Math.min(1.0, (MAX_DISTANCE - distance) / MAX_DISTANCE) * quality;
 
   return (
     <>

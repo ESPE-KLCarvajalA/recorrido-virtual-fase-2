@@ -5,13 +5,8 @@ import { TechoEntrada } from "../components/entrada2/TechoEntrada";
 // NUEVO: Import para optimizaciones
 import useCameraDistance from '../../../utils/useCameraDistance';
 
-// NUEVO: Interface para recibir calidad desde BaseSceneEntrada
-interface BaseSceneArcoProps {
-  quality?: number;
-}
-
-// MODIFICADO: Agregar prop quality con valor por defecto
-const BaseSceneArco = ({ quality = 1.0 }: BaseSceneArcoProps) => {
+// MODIFICADO: Función sin parámetros quality (LOD básico)
+const BaseSceneArco = () => {
   
   // NUEVO: Configuración LOD para el arco de entrada
   // Posición central del arco - probablemente cerca de la entrada principal
@@ -24,9 +19,6 @@ const BaseSceneArco = ({ quality = 1.0 }: BaseSceneArcoProps) => {
   
   // NUEVO: LOD - Si está muy lejos, no renderizar nada
   if (distance > MAX_DISTANCE) return null;
-  
-  // NUEVO: Calidad adaptativa basada en distancia y calidad global
-  const adaptiveQuality = Math.min(1.0, (MAX_DISTANCE - distance) / MAX_DISTANCE) * quality;
 
   return (
     <>
