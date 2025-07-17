@@ -12,7 +12,7 @@ type GLTFResult = GLTF & {
   }
 }
 
-export function Model(props: ThreeElements['group']) {
+export function Estructura(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/estructura/estructura.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
