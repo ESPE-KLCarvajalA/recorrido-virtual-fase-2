@@ -5,7 +5,7 @@
 
 
 
-// import { Estructura } from "../components/estructura/estructura";
+import { Estructura } from "../components/estructura/estructura";
 // import { Estructura1 } from "../components/estructura/estructura1";
 // import { Cartelera } from "../components/otros/cartelera";
 // import { Frases } from "../components/otros/frases";
@@ -52,8 +52,8 @@ const BaseSceneAfuera = () => {
  {/* sin fisica */}
       {/* <Frases />
       <Senaleticas /> */}
-      {/* <Estructura />
-      <Estructura1 /> */}
+      <Estructura />
+      {/* <Estructura1 /> */}
 
       {/* <Cartelera />
 
