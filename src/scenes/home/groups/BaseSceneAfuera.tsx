@@ -6,7 +6,7 @@
 
 
 import { Estructura } from "../components/estructura/estructura";
-// import { Estructura1 } from "../components/estructura/estructura1";
+import { Estructura1 } from "../components/estructura/estructura1";
 // import { Cartelera } from "../components/otros/cartelera";
 // import { Frases } from "../components/otros/frases";
 // import { Senaleticas } from "../components/otros/senaleticas";
@@ -53,7 +53,7 @@ const BaseSceneAfuera = () => {
       {/* <Frases />
       <Senaleticas /> */}
       <Estructura />
-      {/* <Estructura1 /> */}
+      <Estructura1 />
 
       {/* <Cartelera />
 
