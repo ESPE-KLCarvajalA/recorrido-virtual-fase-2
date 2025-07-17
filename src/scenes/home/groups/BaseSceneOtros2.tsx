@@ -13,6 +13,7 @@ const BaseSceneOtros = () => {
     <Pizarron />
     <Compus />
     
+    
      
   </>
   );
