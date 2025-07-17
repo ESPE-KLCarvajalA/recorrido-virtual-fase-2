@@ -1,5 +1,3 @@
-
-
 import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
@@ -14,18 +12,18 @@ type GLTFResult = GLTF & {
   }
 }
 
-export function Estructura(props: ThreeElements['group']) { 
-    const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/estructura/estructura.glb') as unknown as GLTFResult;
+export function Model(props: ThreeElements['group']) {
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/estructura/estructura.glb') as unknown as GLTFResult
+  return (
+    <group {...props} dispose={null}>
+      <mesh
+        name="forma050"
+        geometry={nodes.forma050.geometry}
+        material={materials['Material.045']}
+        position={[-144.055, 29.922, 628.158]}
+      />
+    </group>
+  )
+}
 
-    return (
-        <group {...props} dispose={null}>
-          <mesh
-            name="forma050"
-            geometry={nodes.forma050.geometry}
-            material={materials['Material.045']}
-            position={[-150.296, 35.787, 633.673]}
-          />
-        </group>
-      )
-    }
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/estructura/estructura.glb');
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/estructura/estructura.glb')
