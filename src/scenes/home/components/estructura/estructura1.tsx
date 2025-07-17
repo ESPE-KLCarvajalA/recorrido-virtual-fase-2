@@ -22,7 +22,7 @@ type Instance = {
 // Lista de instancias para Estructura1
 const instances: Instance[] = [
   { position: [-173.318, 144.23, 648.364], rotation: [0, -0.018, 0], scale: [1, 1, 1] },
-  { position: [-280.251, 103, 723], rotation: [0, -0.018, 0], scale: [1, 1, 1] },
+  { position: [-280.251, 110, 723], rotation: [0, -0.018, 0], scale: [1, 1, 1] },
 
 ];
 
