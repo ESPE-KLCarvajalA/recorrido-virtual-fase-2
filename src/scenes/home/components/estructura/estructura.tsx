@@ -20,7 +20,6 @@ type Instance = {
     scale: [number, number, number];
 };
 
-
 const instances: Instance[] = [
     { position: [-58.822, 23, 553.073], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [-18.424, 23, 517.935], rotation: [0, 0, 0], scale: [1, 1, 1] },
