@@ -25,6 +25,7 @@ import { PisoVereda2 } from "../components/primer/pisoVereda2";
 import { PisoVereda5 } from "../components/primer/pisoVereda5";
 import { Vereda1 } from "../components/primer/vereda1";
 import { Vereda2 } from "../components/primer/vereda2";
+import { VentanaNueva } from "../components/ventana/Ventana3";
 
 
 // cargar segun la distancia 
@@ -59,6 +60,8 @@ const BaseSceneAfuera = () => {
 
       <Parqueadero />
       <Tablero /> */}
+
+      <VentanaNueva />
 
       </>
     
