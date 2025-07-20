@@ -23,7 +23,7 @@ type InstanceData = {
 // ✅ Lista de instancias
 const instances: InstanceData[] = [
 
-  { position: [240.26, 34, -94.596], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  // { position: [240.26, 34, -94.596], rotation: [0, 0, 0], scale: [1, 1, 1] },
   { position: [240.258, 34, -35.451], rotation: [0, 0, 0], scale: [1, 1, 1] },
   // { position: [309.261, 32, -167.015], rotation: [0, 0, 0], scale: [1, 1, 1] },
   // { position: [309.261, 32, -230.993], rotation: [0, 0, 0], scale: [1, 1, 1] },
