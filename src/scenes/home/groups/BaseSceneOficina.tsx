@@ -6,7 +6,7 @@ import { ParedS2 } from '../components/secretaria/ParedS2';
 
 // Componentes sin física
 import { TechoOficina } from '../components/oficina/TechoOficina';
-import { Ventana1 } from '../components/ventana/Ventana1';
+// import { Ventana1 } from '../components/ventana/Ventana1';
 import { Ventana2 } from '../components/ventana/Ventana2';
 import { Pared3 } from '../components/oficina/Pared3';
 
@@ -27,7 +27,7 @@ const BaseSceneOficina = () => {
     
      {/* sin fisica */}
       <TechoOficina />
-      <Ventana1 />
+      {/* <Ventana1 /> */}
       <Ventana2 />
   </>
   );
