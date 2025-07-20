@@ -16,7 +16,7 @@ type GLTFResult = GLTF & {
 }
 
 export function VentanaNueva(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('/ventana8Vertices.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana8Vertices.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
       <group name="WindowL010" position={[242.022, 36.015, -94.585]}>
@@ -36,4 +36,4 @@ export function VentanaNueva(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('/ventana8Vertices.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana8Vertices.glb')
