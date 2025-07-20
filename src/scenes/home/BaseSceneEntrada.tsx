@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
 import BaseSceneAfuera from './groups/BaseSceneAfuera';
 import BaseSceneArco from './groups/BaseSceneArco';
-// import BaseSceneLab from './groups/BaseSceneLab';
+import BaseSceneLab from './groups/BaseSceneLab';
 // import BaseSceneLab2 from './groups/BaseSceneLab2';
 // import BaseSceneOficina from './groups/BaseSceneOficina';
 // import BaseSceneOtros from './groups/BaseSceneOtros';
@@ -28,8 +28,8 @@ const BaseSceneEntrada = () => {
         <Physics gravity={[0, -100, 0]} iterations={10}>
           <BaseSceneAfuera />
           <BaseSceneArco />
-          {/* <BaseSceneLab />
-          <BaseSceneLab2 />
+          <BaseSceneLab />
+           {/*<BaseSceneLab2 />
           <BaseSceneOficina />
           <BaseSceneOtros />
           <BaseScenePisos2 />
