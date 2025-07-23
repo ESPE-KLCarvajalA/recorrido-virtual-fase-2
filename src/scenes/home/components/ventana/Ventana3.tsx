@@ -9,7 +9,7 @@ type GLTFResult = GLTF & {
     WindowL005_1: THREE.Mesh
   }
   materials: {
-    ['Material.099']: THREE.MeshPhysicalMaterial
+    ['Material.099']: THREE.MeshStandardMaterial
     ['Material.098']: THREE.MeshStandardMaterial
   }
 }
@@ -153,7 +153,7 @@ export function Ventana3() {
     <group>
       <instancedMesh ref={WindowL005} args={[null, null, instances.length]}>
         <bufferGeometry attach="geometry" {...nodes.WindowL005.geometry} />
-        <meshPhysicalMaterial attach="material" {...materials['Material.099']} />
+        <meshStandardMaterial attach="material" {...materials['Material.099']} />
       </instancedMesh>
       <instancedMesh ref={WindowL005_1} args={[null, null, instances.length]}>
         <bufferGeometry attach="geometry" {...nodes.WindowL005_1.geometry} />
