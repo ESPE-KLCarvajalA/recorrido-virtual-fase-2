@@ -9,7 +9,7 @@ type GLTFResult = GLTF & {
     WindowL005_1: THREE.Mesh;
   };
   materials: {
-    ['Material.099']: THREE.MeshStandardMaterial;
+    ['Material.099']: THREE.MeshPhysicalMaterial;
     ['Material.098']: THREE.MeshStandardMaterial;
   };
 };

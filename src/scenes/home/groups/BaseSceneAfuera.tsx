@@ -25,7 +25,8 @@ import { PisoVereda2 } from "../components/primer/pisoVereda2";
 import { PisoVereda5 } from "../components/primer/pisoVereda5";
 import { Vereda1 } from "../components/primer/vereda1";
 import { Vereda2 } from "../components/primer/vereda2";
-import { Ventana2 } from "../components/ventana/Ventana2";
+// import { Ventana2 } from "../components/ventana/Ventana2";
+import { Ventana3 } from "../components/ventana/Ventana3";
 
 
 
@@ -62,7 +63,7 @@ const BaseSceneAfuera = () => {
       <Parqueadero />
       <Tablero /> */}
 
-      <Ventana2 />
+      <Ventana3 />
 
       </>
     
