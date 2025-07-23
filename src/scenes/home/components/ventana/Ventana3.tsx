@@ -1,32 +1,25 @@
-import * as THREE from 'three'
-import { useGLTF } from '@react-three/drei'
-import { useEffect, useRef } from 'react'
-import { GLTF } from 'three-stdlib'
+import * as THREE from 'three';
+import { useGLTF } from '@react-three/drei';
+import { useEffect, useRef } from 'react';
+import { GLTF } from 'three-stdlib';
 
 type GLTFResult = GLTF & {
   nodes: {
-    WindowL005: THREE.Mesh
-    WindowL005_1: THREE.Mesh
-  }
+    WindowL005: THREE.Mesh;
+    WindowL005_1: THREE.Mesh;
+  };
   materials: {
-    ['Material.099']: THREE.MeshStandardMaterial
-    ['Material.098']: THREE.MeshStandardMaterial
-  }
-}
+    ['Material.099']: THREE.MeshStandardMaterial;
+    ['Material.098']: THREE.MeshStandardMaterial;
+  };
+};
 
 type InstanceData = {
-  position: [number, number, number]
-  rotation: [number, number, number]
-  scale: [number, number, number]
-}
+  position: [number, number, number];
+  rotation: [number, number, number];
+  scale: [number, number, number];
+};
 
-export function Ventana3() {
-  const { nodes, materials } = useGLTF(
-    'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana8Vertices.glb'
-  ) as unknown as GLTFResult
-
-  const WindowL005 = useRef<THREE.InstancedMesh>(null)
-  const WindowL005_1 = useRef<THREE.InstancedMesh>(null)
 
   const instances: InstanceData[] = [
     { position: [240.26, 34, -94.596], rotation: [0, 0, 0], scale: [1, 1, 1] },
@@ -129,38 +122,54 @@ export function Ventana3() {
   
   ]
 
-  useEffect(() => {
-    instances.forEach((instance, i) => {
-      const matrix = new THREE.Matrix4()
-      matrix.compose(
-        new THREE.Vector3(...instance.position),
-        new THREE.Quaternion().setFromEuler(new THREE.Euler(...instance.rotation)),
-        new THREE.Vector3(...instance.scale)
-      )
+  export function Ventana3() {
+    const { nodes, materials } = useGLTF(
+      'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana8Vertices.glb'
+    ) as unknown as GLTFResult;
+  
+    const frameRef = useRef<THREE.InstancedMesh>(null);
+    const glassRef = useRef<THREE.InstancedMesh>(null);
+  
+    useEffect(() => {
+      if (!frameRef.current || !glassRef.current) return;
+  
+      const matrix = new THREE.Matrix4();
+      const quaternion = new THREE.Quaternion();
+  
+      instances.forEach((inst, i) => {
+        const position = new THREE.Vector3(...inst.position);
+        const rotation = new THREE.Euler(...inst.rotation);
+        const scale = new THREE.Vector3(...inst.scale);
+  
+        quaternion.setFromEuler(rotation);
+        matrix.compose(position, quaternion, scale);
+  
+        frameRef.current!.setMatrixAt(i, matrix);
+        glassRef.current!.setMatrixAt(i, matrix);
+      });
+  
+      frameRef.current.instanceMatrix.needsUpdate = true;
+      glassRef.current.instanceMatrix.needsUpdate = true;
+  
 
-      WindowL005.current!.setMatrixAt(i, matrix)
-      WindowL005_1.current!.setMatrixAt(i, matrix)
-    })
-
-    WindowL005.current!.instanceMatrix.needsUpdate = true
-    WindowL005_1.current!.instanceMatrix.needsUpdate = true
-
-    WindowL005.current!.frustumCulled = false
-    WindowL005_1.current!.frustumCulled = false
-  }, [instances])
-
-  return (
-    <group>
-      <instancedMesh ref={WindowL005} args={[null, null, instances.length]}>
-        <bufferGeometry attach="geometry" {...nodes.WindowL005.geometry} />
-        <meshStandardMaterial attach="material" {...materials['Material.099']} />
-      </instancedMesh>
-      <instancedMesh ref={WindowL005_1} args={[null, null, instances.length]}>
-        <bufferGeometry attach="geometry" {...nodes.WindowL005_1.geometry} />
-        <meshStandardMaterial attach="material" {...materials['Material.098']} />
-      </instancedMesh>
-    </group>
-  )
-}
-
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana8Vertices.glb')
+      frameRef.current.frustumCulled = false;
+      glassRef.current.frustumCulled = false;
+    }, []);
+  
+    return (
+      <group>
+        <instancedMesh
+          ref={frameRef}
+          args={[nodes.WindowL005.geometry, materials['Material.099'], instances.length]}
+        />
+        <instancedMesh
+          ref={glassRef}
+          args={[nodes.WindowL005_1.geometry, materials['Material.098'], instances.length]}
+        />
+      </group>
+    );
+  }
+  
+  useGLTF.preload(
+    'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/ventana/ventana8Vertices.glb'
+  );
