@@ -23,7 +23,7 @@ export function ParedVilla5(props: ThreeElements['group']) {
     <group {...props} dispose={null}>
       <group
         name="Room025"
-        position={[-485.492, 25.797, -729.139]} // Posición original del centro
+        position={[-485.492, 25.797, -729.139]}
         rotation={[0, -Math.PI / 2, 0]}
         scale={[56.293, 20.125, 56.293]}>
         <mesh
@@ -40,5 +40,6 @@ export function ParedVilla5(props: ThreeElements['group']) {
     </group>
   )
 }
+
 
 useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/villas/paredVilla5.glb')
