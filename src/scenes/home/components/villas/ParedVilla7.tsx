@@ -3,18 +3,15 @@ import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
 
+
 type GLTFResult = GLTF & {
   nodes: {
     Room080: THREE.Mesh
     Room080_1: THREE.Mesh
-    Plane088: THREE.Mesh
-    Plane088_1: THREE.Mesh
   }
   materials: {
     ['Material.096']: THREE.MeshStandardMaterial
     ['Material.097']: THREE.MeshStandardMaterial
-    ['Terrazzo Tiles']: THREE.MeshPhysicalMaterial
-    ['Material.034']: THREE.MeshStandardMaterial
   }
 }
 
@@ -39,22 +36,6 @@ export function ParedVilla7(props: ThreeElements['group']) {
           name="Room080_1"
           geometry={nodes.Room080_1.geometry}
           material={materials['Material.097']}
-        />
-      </group>
-
-      <group
-        name="piso_arco002"
-        position={[-671.147, -6.982, 188.96]}
-        scale={[4.683, 1, 1]}>
-        <mesh
-          name="Plane088"
-          geometry={nodes.Plane088.geometry}
-          material={materials['Terrazzo Tiles']}
-        />
-        <mesh
-          name="Plane088_1"
-          geometry={nodes.Plane088_1.geometry}
-          material={materials['Material.034']}
         />
       </group>
     </group>
