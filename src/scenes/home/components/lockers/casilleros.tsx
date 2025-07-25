@@ -6,23 +6,23 @@ import { GLTF } from 'three-stdlib'
 
 
 type GLTFResult = GLTF & {
-    nodes: {
-      Plane005: THREE.Mesh
-      Plane005_1: THREE.Mesh
-    }
-    materials: {
-      ['Casilleros.002']: THREE.MeshPhysicalMaterial
-      ['Material.019']: THREE.MeshPhysicalMaterial
-    }
+  nodes: {
+    Plane005: THREE.Mesh
+    Plane005_1: THREE.Mesh
   }
+  materials: {
+    ['Casilleros.002']: THREE.MeshStandardMaterial
+    ['Material.019']: THREE.MeshStandardMaterial
+  }
+}
   
   
 
 export function Casilleros(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/lockers/casilleros.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/lockers/casillero.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
-      <group name="casilleros001" position={[-79.234, 13.5, -244.023]}>
+      <group name="casilleros001" position={[-79.359, 17.8, -243.995]}>
         <mesh
           name="Plane005"
           geometry={nodes.Plane005.geometry}
@@ -38,4 +38,4 @@ export function Casilleros(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/lockers/casilleros.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/lockers/casillero.glb')
