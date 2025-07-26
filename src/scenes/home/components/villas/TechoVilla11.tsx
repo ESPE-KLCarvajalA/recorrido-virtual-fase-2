@@ -3,6 +3,8 @@ import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
+import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
+
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -18,6 +20,10 @@ type GLTFResult = GLTF & {
 
 export function TechoVilla11(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/villas/techoVilla11.glb') as unknown as GLTFResult
+ 
+  const distance = useCameraDistance([-771.598, 54.961, -378.2]); // Punto de referencia
+  if (distance > 300) return null;
+ 
   return (
     <group {...props} dispose={null}>
       <mesh

@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
 import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
-import { useSpring, a } from '@react-spring/three'
+
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -32,23 +32,12 @@ export function Paredes1(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/villas/paredes1.glb') as unknown as GLTFResult
 
 
-
-  const distance = useCameraDistance([-751.424, 24.589, -597.53])
-  const visible = distance < 300
-
-  const {  scale } = useSpring({
-    opacity: visible ? 1 : 0,
-    scale: visible ? 1 : 0,
-    config: { mass: 1, tension: 120, friction: 14 }
-  })
+  const distance = useCameraDistance([-751.424, 24.589, -597.53]); // Punto de referencia
+  if (distance > 300) return null;
+  
 
   return (
-    <a.group
-      {...props}
-      dispose={null}
-      scale={scale}
-     
-    >
+    <group {...props} dispose={null}>
       <group
         name="Room068"
         position={[-751.424, 24.589, -597.53]}
@@ -65,7 +54,6 @@ export function Paredes1(props: ThreeElements['group']) {
           material={materials['Material.097']}
         />
       </group>
-  
       <group
         name="Room001"
         position={[-530.929, 26.108, -1008.118]}
@@ -82,7 +70,6 @@ export function Paredes1(props: ThreeElements['group']) {
           material={materials['Material.097']}
         />
       </group>
-  
       <group
         name="Room006"
         position={[-746.54, 25.649, -448.642]}
@@ -99,11 +86,7 @@ export function Paredes1(props: ThreeElements['group']) {
           material={materials['Material.097']}
         />
       </group>
-  
-      <group
-        name="Room007"
-        position={[-790.295, 26.819, -766.079]}
-        scale={[0.923, 20.125, 1.714]}>
+      <group name="Room007" position={[-790.295, 26.819, -766.079]} scale={[0.923, 20.125, 1.714]}>
         <mesh
           name="Room007_1"
           geometry={nodes.Room007_1.geometry}
@@ -115,7 +98,6 @@ export function Paredes1(props: ThreeElements['group']) {
           material={materials['Material.097']}
         />
       </group>
-  
       <group
         name="Room002"
         position={[-185.163, 23.565, -747.731]}
@@ -132,7 +114,6 @@ export function Paredes1(props: ThreeElements['group']) {
           material={materials['Material.097']}
         />
       </group>
-  
       <group
         name="Room003"
         position={[-191.765, 24.323, -873.595]}
@@ -149,8 +130,8 @@ export function Paredes1(props: ThreeElements['group']) {
           material={materials['Material.097']}
         />
       </group>
-    </a.group>
+    </group>
   )
-}  
+}
 
 useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/villas/paredes1.glb')

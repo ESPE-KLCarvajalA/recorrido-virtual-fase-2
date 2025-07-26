@@ -2,7 +2,6 @@
 
 // Imports de tus componentes originales
 
-import { Paredes1 } from "../components/villas/Paredes1";
 import { TechoVilla1 } from "../components/villas/TechoVilla1";
 import { TechoVilla11 } from "../components/villas/TechoVilla11";
 import { TechoVilla2 } from "../components/villas/TechoVilla2";
@@ -19,10 +18,6 @@ const BaseSceneVilla2 = () => {
 
   return (
     <>
-       {/*fisica */}
-    
-      <Paredes1/>
-
 
     {/* sin fisica */}
     
