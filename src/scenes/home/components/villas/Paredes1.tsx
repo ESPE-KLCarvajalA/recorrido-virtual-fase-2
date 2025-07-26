@@ -36,7 +36,7 @@ export function Paredes1(props: ThreeElements['group']) {
   const distance = useCameraDistance([-751.424, 24.589, -597.53])
   const visible = distance < 300
 
-  const { opacity, scale } = useSpring({
+  const {  scale } = useSpring({
     opacity: visible ? 1 : 0,
     scale: visible ? 1 : 0,
     config: { mass: 1, tension: 120, friction: 14 }
