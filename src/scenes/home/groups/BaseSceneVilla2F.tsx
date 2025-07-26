@@ -5,9 +5,9 @@
 import { Paredes1 } from "../components/villas/Paredes1";
 
 
-// import { ParedVilla5 } from "../components/villas/ParedVilla5";
-// import { ParedVilla6 } from "../components/villas/ParedVilla6";
-// import { ParedVilla7 } from "../components/villas/ParedVilla7";
+import { ParedVilla5 } from "../components/villas/ParedVilla5";
+import { ParedVilla6 } from "../components/villas/ParedVilla6";
+import { ParedVilla7 } from "../components/villas/ParedVilla7";
 
 
 
@@ -27,9 +27,9 @@ const BaseSceneVilla2F = () => {
 
 
 
-      {/* <ParedVilla5 />
+      <ParedVilla5 />
       <ParedVilla6 />
-      <ParedVilla7 /> */}
+      <ParedVilla7 />
 
 
 
