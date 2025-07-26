@@ -19,7 +19,7 @@ import { TechoVilla7 } from "../components/villas/TechoVilla7";
 
 
 
-const BaseSceneVilla2 = () => {
+const BaseSceneVilla2SF = () => {
 
   return (
     <>
@@ -47,4 +47,4 @@ const BaseSceneVilla2 = () => {
   );
 };
 
-export default BaseSceneVilla2;
+export default BaseSceneVilla2SF;

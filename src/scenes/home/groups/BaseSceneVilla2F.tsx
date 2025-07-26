@@ -16,7 +16,7 @@ import { ParedVilla7 } from "../components/villas/ParedVilla7";
 
 
 
-const BaseSceneVilla2 = () => {
+const BaseSceneVilla2F = () => {
 
   return (
     <>
@@ -28,8 +28,8 @@ const BaseSceneVilla2 = () => {
 
 
         <ParedVilla5 />
-            <ParedVilla6/>
-            <ParedVilla7/>
+        <ParedVilla6/>
+        <ParedVilla7/>
 
 
 
@@ -37,4 +37,4 @@ const BaseSceneVilla2 = () => {
   );
 };
 
-export default BaseSceneVilla2;
+export default BaseSceneVilla2F;
