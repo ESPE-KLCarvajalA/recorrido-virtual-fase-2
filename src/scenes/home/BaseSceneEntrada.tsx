@@ -20,7 +20,7 @@ import BaseSceneBar from './groups/BaseSceneBar';
 import BaseSceneBar2 from './groups/BaseSceneBar2';
 
 import BaseSceneVilla2F from './groups/BaseSceneVilla2F';
-import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
+// import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
 
 const BaseSceneEntrada = () => {
   const controlsRef = useRef(null);
@@ -38,6 +38,7 @@ const BaseSceneEntrada = () => {
           <BaseSceneLab2 />
           <BaseSceneOtros />
           <BaseScenePisos2 />
+          
           <BaseSceneBar />
           <BaseSceneBar2 />
    
@@ -61,7 +62,7 @@ const BaseSceneEntrada = () => {
 
           {/* sinfisica */}
 
-          <BaseSceneVilla2SF />
+         
         
 
 
