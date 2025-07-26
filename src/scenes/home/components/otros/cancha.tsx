@@ -6,6 +6,8 @@ import { GLTF } from 'three-stdlib'
 
 
 
+
+
 type GLTFResult = GLTF & {
   nodes: {
     Plane008: THREE.Mesh
@@ -21,18 +23,16 @@ type GLTFResult = GLTF & {
   materials: {
     ['Material.122']: THREE.MeshStandardMaterial
     ['Material.004']: THREE.MeshStandardMaterial
-    ['Material.018']: THREE.MeshStandardMaterial
-    ['White.002']: THREE.MeshStandardMaterial
-    ['glass frosted']: THREE.MeshPhysicalMaterial
-    ['Material.002']: THREE.MeshStandardMaterial
-    ['White.002']: THREE.MeshStandardMaterial
     ['Material.003']: THREE.MeshStandardMaterial
+    ['glass frosted']: THREE.MeshStandardMaterial
+
+
   }
 }
 
+
 export function Cancha(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/cancha/cancha.glb') as unknown as GLTFResult
- 
  
  
   return (
@@ -52,11 +52,11 @@ export function Cancha(props: ThreeElements['group']) {
       <mesh
         name="Circle101"
         geometry={nodes.Circle101.geometry}
-        material={materials['Material.018']}
+        material={materials['Material.122']}
         position={[206.529, 1.338, -838.351]}
       />
       <group name="Cube007" position={[277.996, 20.221, -763.321]}>
-        <mesh name="Cube021" geometry={nodes.Cube021.geometry} material={materials['White.002']} />
+        <mesh name="Cube021" geometry={nodes.Cube021.geometry} material={materials['Material.122']} />
         <mesh
           name="Cube021_1"
           geometry={nodes.Cube021_1.geometry}
@@ -65,11 +65,11 @@ export function Cancha(props: ThreeElements['group']) {
         <mesh
           name="Cube021_2"
           geometry={nodes.Cube021_2.geometry}
-          material={materials['Material.002']}
+          material={materials['Material.003']}
         />
       </group>
       <group name="Cube037" position={[-56.729, 47.545, -1122.482]}>
-        <mesh name="Cube017" geometry={nodes.Cube017.geometry} material={materials['White.002']} />
+        <mesh name="Cube017" geometry={nodes.Cube017.geometry} material={materials['Material.122']} />
         <mesh
           name="Cube017_1"
           geometry={nodes.Cube017_1.geometry}
@@ -84,4 +84,5 @@ export function Cancha(props: ThreeElements['group']) {
     </group>
   )
 }
+
 useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/cancha/cancha.glb')
