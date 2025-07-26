@@ -14,7 +14,7 @@ import BaseSceneOtros from './groups/BaseSceneOtros';
 import BaseScenePisos2 from './groups/BaseScenePisos2';
 import BaseSceneBar from './groups/BaseSceneBar';
 import BaseSceneBar2 from './groups/BaseSceneBar2';
-// import BaseSceneVilla from './groups/BaseSceneVilla';
+import BaseSceneVilla from './groups/BaseSceneVilla';
 // import BaseSceneVilla2 from './groups/BaseSceneVilla2';
 
 const BaseSceneEntrada = () => {
@@ -35,8 +35,8 @@ const BaseSceneEntrada = () => {
           <BaseScenePisos2 />
           <BaseSceneBar />
           <BaseSceneBar2 />
-         {/* 
           <BaseSceneVilla />
+         {/* 
           <BaseSceneVilla2 /> 
           */}
 
