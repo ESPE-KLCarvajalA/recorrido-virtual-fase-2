@@ -32,7 +32,7 @@ export function Paredes1(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/villas/paredes1.glb') as unknown as GLTFResult
 
 
-  const distance = useCameraDistance([-500, 25, -750]); // Punto de referencia
+  const distance = useCameraDistance([-751.424, 24.589, -597.53]); // Punto de referencia
   if (distance > 300) return null;
 
   return (
