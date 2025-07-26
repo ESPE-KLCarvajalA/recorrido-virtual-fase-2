@@ -5,8 +5,8 @@ import { PointerLockControls } from '@react-three/drei';
 import { useRef } from 'react';
 
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
-// import BaseSceneAfuera from './groups/BaseSceneAfuera';
-// import BaseSceneArco from './groups/BaseSceneArco';
+import BaseSceneAfuera from './groups/BaseSceneAfuera';
+import BaseSceneArco from './groups/BaseSceneArco';
 // import BaseSceneLab from './groups/BaseSceneLab';
 // import BaseSceneLab2 from './groups/BaseSceneLab2';
 // import BaseSceneOficina from './groups/BaseSceneOficina';
@@ -27,8 +27,6 @@ const BaseSceneEntrada = () => {
 
         <Physics gravity={[0, -100, 0]} iterations={10}>
          {/* 
-          <BaseSceneAfuera />
-          <BaseSceneArco />
           <BaseSceneLab />
           <BaseSceneOficina />
           <BaseSceneLab2 />
@@ -38,6 +36,8 @@ const BaseSceneEntrada = () => {
           <BaseSceneBar2 />
           <BaseSceneVilla />
           */}
+          <BaseSceneAfuera />
+          <BaseSceneArco />
           <BaseSceneVilla2 /> 
 
 
