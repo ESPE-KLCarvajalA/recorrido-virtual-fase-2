@@ -1,5 +1,4 @@
 import { Cancha } from "../components/otros/cancha";
-import { Palma } from "../components/otros/palma";
 import { Puerta1 } from "../components/puerta/Puerta1";
 import { Puerta2 } from "../components/puerta/Puerta2";
 import { Puertas3 } from "../components/puerta/Puerta3";
@@ -17,7 +16,7 @@ const BaseSceneOtros = () => {
      <Puertas3 />
      <Cancha />
      <Rejilla />
-     <Palma />
+
      
   </>
   );
