@@ -14,12 +14,12 @@ import BaseSceneArco from './groups/BaseSceneArco';
 // import BaseSceneLab2 from './groups/BaseSceneLab2';
 
 // import BaseSceneOficina from './groups/BaseSceneOficina';
-// import BaseSceneOtros from './groups/BaseSceneOtros';
 // import BaseScenePisos2 from './groups/BaseScenePisos2';
 
 // import BaseSceneBar from './groups/BaseSceneBar';
 // import BaseSceneBar2 from './groups/BaseSceneBar2';
 import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
+import BaseSceneOtros from './groups/BaseSceneOtros';
 
 
 const BaseSceneEntrada = () => {
@@ -35,13 +35,13 @@ const BaseSceneEntrada = () => {
           <BaseSceneLab />
           <BaseSceneOficina />
           <BaseSceneLab2 />
-          <BaseSceneOtros />
           <BaseScenePisos2 />
           
           <BaseSceneBar />
           <BaseSceneBar2 />
           
           */}
+          <BaseSceneOtros />
           <BaseSceneAfuera />
           <BaseSceneArco />
 
