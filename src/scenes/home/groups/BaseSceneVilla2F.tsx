@@ -5,9 +5,9 @@
 import { Paredes1 } from "../components/villas/Paredes1";
 
 
-import { ParedVilla5 } from "../components/villas/ParedVilla5";
-import { ParedVilla6 } from "../components/villas/ParedVilla6";
-import { ParedVilla7 } from "../components/villas/ParedVilla7";
+// import { ParedVilla5 } from "../components/villas/ParedVilla5";
+// import { ParedVilla6 } from "../components/villas/ParedVilla6";
+// import { ParedVilla7 } from "../components/villas/ParedVilla7";
 
 
 
@@ -20,16 +20,16 @@ const BaseSceneVilla2F = () => {
 
   return (
     <>
-       {/*fisica */}
-    
-      <Paredes1/>
+      {/*fisica */}
+
+      <Paredes1 />
 
 
 
 
-        <ParedVilla5 />
-        <ParedVilla6/>
-        <ParedVilla7/>
+      {/* <ParedVilla5 />
+      <ParedVilla6 />
+      <ParedVilla7 /> */}
 
 
 
