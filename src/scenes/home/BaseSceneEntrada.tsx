@@ -10,12 +10,12 @@ import BaseSceneArco from './groups/BaseSceneArco';
 import BaseSceneLab from './groups/BaseSceneLab';
 import BaseSceneLab2 from './groups/BaseSceneLab2';
 import BaseSceneOficina from './groups/BaseSceneOficina';
-import BaseSceneOtros from './groups/BaseSceneOtros';
-import BaseScenePisos2 from './groups/BaseScenePisos2';
-import BaseSceneBar from './groups/BaseSceneBar';
-import BaseSceneBar2 from './groups/BaseSceneBar2';
-import BaseSceneVilla from './groups/BaseSceneVilla';
-import BaseSceneVilla2 from './groups/BaseSceneVilla2';
+// import BaseSceneOtros from './groups/BaseSceneOtros';
+// import BaseScenePisos2 from './groups/BaseScenePisos2';
+// import BaseSceneBar from './groups/BaseSceneBar';
+// import BaseSceneBar2 from './groups/BaseSceneBar2';
+// import BaseSceneVilla from './groups/BaseSceneVilla';
+// import BaseSceneVilla2 from './groups/BaseSceneVilla2';
 
 const BaseSceneEntrada = () => {
   const controlsRef = useRef(null);
@@ -30,14 +30,14 @@ const BaseSceneEntrada = () => {
           <BaseSceneArco />
           <BaseSceneLab />
           <BaseSceneOficina />
-           <BaseSceneLab2 />
-          <BaseSceneOficina />
+          <BaseSceneLab2 />
+          {/*<BaseSceneOficina />
           <BaseSceneOtros />
           <BaseScenePisos2 />
           <BaseSceneBar />
           <BaseSceneBar2 />
           <BaseSceneVilla />
-          <BaseSceneVilla2 />
+          <BaseSceneVilla2 /> */}
 
 
 
