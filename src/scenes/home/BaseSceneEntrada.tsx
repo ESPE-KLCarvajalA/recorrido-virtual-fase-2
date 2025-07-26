@@ -7,8 +7,8 @@ import { useRef } from 'react';
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
 import BaseSceneVilla2F from './groups/BaseSceneVilla2F';
 
-// import BaseSceneAfuera from './groups/BaseSceneAfuera';
-// import BaseSceneArco from './groups/BaseSceneArco';
+import BaseSceneAfuera from './groups/BaseSceneAfuera';
+import BaseSceneArco from './groups/BaseSceneArco';
 
 // import BaseSceneLab from './groups/BaseSceneLab';
 // import BaseSceneLab2 from './groups/BaseSceneLab2';
@@ -40,10 +40,10 @@ const BaseSceneEntrada = () => {
           
           <BaseSceneBar />
           <BaseSceneBar2 />
-   
+          
+          */}
           <BaseSceneAfuera />
           <BaseSceneArco />
-          */}
 
           <BaseSceneVilla2F /> 
 
