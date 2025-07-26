@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { ThreeElements } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
 
 
 
@@ -32,6 +33,8 @@ type GLTFResult = GLTF & {
 export function Cancha(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/cancha/cancha1.glb') as unknown as GLTFResult
  
+  const distance = useCameraDistance([104.551, -0.857, -949.428]); // Punto de referencia
+  if (distance > 300) return null;
  
   return (
     <group {...props} dispose={null}>
