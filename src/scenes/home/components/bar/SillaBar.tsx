@@ -31,7 +31,7 @@ export function SillaBar(props: ThreeElements ['group']) {
  
  
   const distance = useCameraDistance([-588.658, 5.61, -239.433]); // Punto de referencia
-  if (distance > 500) return null;
+  if (distance > 400) return null;
  
   return (
     <group {...props} dispose={null}>

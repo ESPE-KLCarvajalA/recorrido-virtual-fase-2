@@ -21,7 +21,7 @@ export function SobretechoBar(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/sobretecho.glb') as unknown as GLTFResult
   
   const distance = useCameraDistance([-708.056, 73.635, -80.187]); // Punto de referencia
-  if (distance > 600) return null;
+  if (distance > 800) return null;
   
   return (
     <group {...props} dispose={null}>
