@@ -21,7 +21,7 @@ export function Carpa(props: ThreeElements['group']) {
   
   
   const distance = useCameraDistance([-454.682, 38.02, -246.833]); // Punto de referencia
-  if (distance > 600) return null;
+  if (distance > 300) return null;
   
   return (
     <group {...props} dispose={null}>
