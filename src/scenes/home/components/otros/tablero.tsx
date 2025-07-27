@@ -3,6 +3,8 @@ import * as THREE from 'three'
 import { ThreeElements } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
+
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -15,6 +17,10 @@ type GLTFResult = GLTF & {
 
 export function Tablero(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/otros/tablero.glb') as unknown as GLTFResult
+  
+  const distance = useCameraDistance([-153.933, 16.663, 4.525]); // Punto de referencia
+  if (distance > 600) return null;
+
   return (
     <group {...props} dispose={null}>
       <mesh

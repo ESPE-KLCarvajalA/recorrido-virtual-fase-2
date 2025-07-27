@@ -3,6 +3,8 @@ import * as THREE from 'three'
 import { ThreeElements } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
+
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -26,6 +28,10 @@ type GLTFResult = GLTF & {
 
 export function Senaleticas(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/otros/senaleticas.glb') as unknown as GLTFResult
+  
+  const distance = useCameraDistance([-156.735, 39.121, -0.017]); // Punto de referencia
+  if (distance > 600) return null;
+  
   return (
     <group {...props} dispose={null}>
       <mesh

@@ -2,6 +2,8 @@ import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
+import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
+
 
 
 type GLTFResult = GLTF & {
@@ -19,6 +21,10 @@ type GLTFResult = GLTF & {
 export function ParedesBar(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/paredesBar.glb') as unknown as GLTFResult
 
+  const distance = useCameraDistance([-854.077, -9.046, -291.626]); // Punto de referencia
+  if (distance > 600) return null;
+  
+  
   return (
     <group {...props} dispose={null}>
       <group

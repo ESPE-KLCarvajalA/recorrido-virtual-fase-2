@@ -3,6 +3,8 @@ import * as THREE from 'three'
 import { ThreeElements } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+// import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
+
 
 
 type GLTFResult = GLTF & {
