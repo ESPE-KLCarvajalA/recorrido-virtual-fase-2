@@ -21,8 +21,8 @@ import BaseSceneArco from './groups/BaseSceneArco';
 import BaseSceneBar from './groups/BaseSceneBar';
 import BaseSceneBar2 from './groups/BaseSceneBar2';
 
-import BaseSceneVilla2F from './groups/BaseSceneVilla2F';
-import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
+// import BaseSceneVilla2F from './groups/BaseSceneVilla2F';
+// import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
 
 // import BaseSceneOtros from './groups/BaseSceneOtros';
 // import BaseSceneOtros2 from './groups/BaseSceneOtros2';
@@ -53,7 +53,7 @@ const BaseSceneEntrada = () => {
 
           {/* <BaseSceneOtros /> */}
 
-          <BaseSceneVilla2F /> 
+          {/* <BaseSceneVilla2F />  */}
           
 
           <BaseCharacter 
@@ -73,7 +73,7 @@ const BaseSceneEntrada = () => {
 
           {/* <BaseSceneOtros2 /> */}
 
-          <BaseSceneVilla2SF />
+          {/* <BaseSceneVilla2SF /> */}
 
         
         <HDRIEnvironment />
