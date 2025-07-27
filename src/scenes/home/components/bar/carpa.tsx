@@ -17,7 +17,7 @@ type GLTFResult = GLTF & {
 }
 
 export function Carpa(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/cancha/cancha.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/carpa.glb') as unknown as GLTFResult
   
   
   const distance = useCameraDistance([-454.682, 38.02, -246.833]); // Punto de referencia
