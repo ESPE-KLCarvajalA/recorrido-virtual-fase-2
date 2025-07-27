@@ -11,8 +11,8 @@ import BaseSceneAfuera from './groups/BaseSceneAfuera';
 import BaseScenePisos2 from './groups/BaseScenePisos2';
 import BaseSceneArco from './groups/BaseSceneArco';
 
-import BaseSceneLab from './groups/BaseSceneLab';
-import BaseSceneLab2 from './groups/BaseSceneLab2';
+// import BaseSceneLab from './groups/BaseSceneLab';
+// import BaseSceneLab2 from './groups/BaseSceneLab2';
 
 // import BaseSceneOficina from './groups/BaseSceneOficina';
 // import BaseSceneOficina2 from './groups/BaseSceneOficina2';
@@ -46,8 +46,8 @@ const BaseSceneEntrada = () => {
           <BaseSceneBar />
           <BaseSceneBar2 />
 
-          <BaseSceneLab />
-          <BaseSceneLab2 />
+          {/* <BaseSceneLab />
+          <BaseSceneLab2 /> */}
 
           {/* <BaseSceneOficina /> */}
 
