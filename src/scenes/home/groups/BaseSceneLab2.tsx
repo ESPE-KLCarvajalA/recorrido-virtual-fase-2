@@ -14,19 +14,22 @@ import PisoMedio from "../components/pisos/PisoMedio";
 
 const BaseSceneLab2 = () => {
 
-    return (
-      <>
+  return (
+    <>
+
       < ParedLabCiencias1 />
       < ParedLabCiencias2 />
       <PisoMedio />
-      <TechoLabCC /> 
-       <TechoLabCC2 />
 
-     
-     
-  
-      </>
-    );
-  };
-  
-  export default BaseSceneLab2;
+      
+      <TechoLabCC />
+      <TechoLabCC2 />
+
+
+
+
+    </>
+  );
+};
+
+export default BaseSceneLab2;
