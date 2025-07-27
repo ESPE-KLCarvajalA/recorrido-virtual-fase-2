@@ -33,7 +33,7 @@ export function Paredes1(props: ThreeElements['group']) {
 
 
   const distance = useCameraDistance([-751.424, 24.589, -597.53]); // Punto de referencia
-  if (distance > 1000) return null;
+  if (distance > 300) return null;
   
 
   return (
