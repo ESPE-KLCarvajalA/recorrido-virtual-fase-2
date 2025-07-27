@@ -3,8 +3,7 @@ import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
 import { useTrimesh } from '@react-three/cannon'
-// import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
-
+import useCameraDistance from '../../../../utils/useCameraDistance'; 
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -38,6 +37,10 @@ function CollisionMesh({
 
 export function ParedLabCiencias1(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCiencias2/plcc2.glb') as unknown as GLTFResult
+  
+  const distance = useCameraDistance([66.674, 33.7, -418.078]); // Punto de referencia
+  if (distance > 600) return null;
+
   const position: [number, number, number] = [66.674, 33.7, -418.078]
 
   return (

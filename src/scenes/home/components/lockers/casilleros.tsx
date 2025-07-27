@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { ThreeElements } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
-// import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
+import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
 
 
 
@@ -22,6 +22,10 @@ type GLTFResult = GLTF & {
 
 export function Casilleros(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/lockers/casillero.glb') as unknown as GLTFResult
+  
+  const distance = useCameraDistance([-79.359, 17.8, -243.995]); 
+  if (distance > 600) return null;
+  
   return (
     <group {...props} dispose={null}>
       <group name="casilleros001" position={[-79.359, 17.8, -243.995]}>
