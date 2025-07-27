@@ -5,23 +5,27 @@ import { PointerLockControls } from '@react-three/drei';
 import { useRef } from 'react';
 
 import HDRIEnvironment from './components/ui/HDRIEnvironment';
-import BaseSceneVilla2F from './groups/BaseSceneVilla2F';
+
 
 import BaseSceneAfuera from './groups/BaseSceneAfuera';
+import BaseScenePisos2 from './groups/BaseScenePisos2';
 import BaseSceneArco from './groups/BaseSceneArco';
 
 import BaseSceneLab from './groups/BaseSceneLab';
 import BaseSceneLab2 from './groups/BaseSceneLab2';
 
 import BaseSceneOficina from './groups/BaseSceneOficina';
-import BaseScenePisos2 from './groups/BaseScenePisos2';
+import BaseSceneOficina2 from './groups/BaseSceneOficina2';
+
 
 import BaseSceneBar from './groups/BaseSceneBar';
 import BaseSceneBar2 from './groups/BaseSceneBar2';
+
+import BaseSceneVilla2F from './groups/BaseSceneVilla2F';
 import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
+
 import BaseSceneOtros from './groups/BaseSceneOtros';
-import BaseSceneOtros2 from './groups/BaseSceneOtros2';
-import BaseSceneOficina2 from './groups/BaseSceneOficina2';
+// import BaseSceneOtros2 from './groups/BaseSceneOtros2';
 
 
 const BaseSceneEntrada = () => {
@@ -35,23 +39,22 @@ const BaseSceneEntrada = () => {
         <Physics gravity={[0, -100, 0]} iterations={10}>
          {/* 
           */}
-          <BaseSceneLab />
-          <BaseSceneOficina />
-          <BaseSceneLab2 />
-          <BaseScenePisos2 />
-
-          
-          <BaseSceneBar />
-          <BaseSceneBar2 />
-          
-          
-          <BaseSceneOtros />
           <BaseSceneAfuera />
+          <BaseScenePisos2 />
           <BaseSceneArco />
 
+          <BaseSceneBar />
+          <BaseSceneBar2 />
+
+          <BaseSceneLab />
+          <BaseSceneLab2 />
+
+          <BaseSceneOficina />
+
+          <BaseSceneOtros />
+
           <BaseSceneVilla2F /> 
-
-
+          
 
           <BaseCharacter 
             controls 
@@ -66,16 +69,13 @@ const BaseSceneEntrada = () => {
 
           {/* sinfisica */}
 
-          <BaseSceneVilla2SF />
-          <BaseSceneOtros2 />
-          <BaseSceneOtros/>
           <BaseSceneOficina2 />
 
-         
+          {/* <BaseSceneOtros2 /> */}
+
+          <BaseSceneVilla2SF />
+
         
-
-
-
         <HDRIEnvironment />
         <PointerLockControls ref={controlsRef} />
       </Canvas>
