@@ -15,7 +15,7 @@ import BaseSceneLab from './groups/BaseSceneLab';
 import BaseSceneLab2 from './groups/BaseSceneLab2';
 
 import BaseSceneOficina from './groups/BaseSceneOficina';
-import BaseSceneOficina2 from './groups/BaseSceneOficina2';
+// import BaseSceneOficina2 from './groups/BaseSceneOficina2';
 
 
 import BaseSceneBar from './groups/BaseSceneBar';
@@ -69,7 +69,7 @@ const BaseSceneEntrada = () => {
 
           {/* sinfisica */}
 
-          <BaseSceneOficina2 />
+          {/* <BaseSceneOficina2 /> */}
 
           {/* <BaseSceneOtros2 /> */}
 
