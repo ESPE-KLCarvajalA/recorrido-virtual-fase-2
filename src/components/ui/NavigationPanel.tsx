@@ -1,17 +1,79 @@
 // src/components/ui/NavigationPanel.tsx
-import  { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface NavigationPanelProps {
   currentRoute?: string;
   onNavigate?: (route: string) => void;
 }
 
+// 🗺️ Definir ubicaciones de teletransporte
+const TELEPORT_LOCATIONS = {
+  entrada: [-80, -1, 170],
+  lab1: [-99, 19, -506],
+  lab2: [-32, 20, -370],
+  lab3: [-62.334, 19.5, -221.824],
+  lab4: [-179, 20, -68.5],
+  lab5: [-165, 20, -56.541],
+  lab6: [167.089, 20, -279.414],
+  oficinas: [72.124, 20, -68.044],
+  bar: [-710.344, -6, -210.603],
+  secretaria: [-155.823, 26, -39.883],
+  enfermeria: [537.62, 25, -330.33],
+  biblioteca: [0, 20, 0],
+  auditorio: [200, 20, -100],
+  parking: [-300, 0, 100],
+  jardin: [150, 0, 300],
+} as const;
+
+type LocationKey = keyof typeof TELEPORT_LOCATIONS;
+
+// 🏷️ Nombres amigables para las ubicaciones
+const LOCATION_NAMES: Record<LocationKey, string> = {
+  entrada: 'Entrada Principal',
+  lab1: 'Laboratorio de Biotecnología 1',
+  lab2: 'Laboratorio de Biotecnología 2', 
+  lab3: 'Laboratorio de Biotecnología 3',
+  lab4: 'Laboratorio de Biotecnología 4',
+  lab5: 'Laboratorio de Biotecnología 5',
+  lab6: 'Laboratorio de Tecnologías de la Información',
+  oficinas: 'Oficinas Administrativas',
+  bar: 'Cafetería',
+  secretaria: 'Secretaría',
+  enfermeria: 'Enfermería',
+  biblioteca: 'Biblioteca',
+  auditorio: 'Auditorio',
+  parking: 'Estacionamiento',
+  jardin: 'Jardín Central',
+};
+
+// 🎨 Iconos para cada ubicación
+const LOCATION_ICONS: Record<LocationKey, string> = {
+  entrada: '🏛️',
+  lab1: '🔬',
+  lab2: '⚗️',
+  lab3: '🧪',
+  lab4: '🔍',
+  lab5: '💊',
+  lab6: '🩺',
+  oficinas: '🏢',
+  bar: '☕',
+  secretaria: '📋',
+  enfermeria: '🏥',
+  biblioteca: '📚',
+  auditorio: '🎭',
+  parking: '🚗',
+  jardin: '🌳',
+};
+
 function NavigationPanel({ 
   currentRoute = 'entrada', 
   onNavigate = (route: string) => console.log('Navigate to:', route)
 }: NavigationPanelProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activeTab, setActiveTab] = useState<'navigate' | 'teleport'>('navigate');
+  const [currentLocation, setCurrentLocation] = useState<LocationKey>('entrada');
 
+  // 🗺️ Botones de navegación (rutas a vistas 360°)
   const navigationButtons = [
     { id: 'entrada', label: 'Entrada', route: '/entrada', icon: '🏛️' },
     { id: 'lab1', label: 'Lab 1', route: '/lab1', icon: '🔬' },
@@ -22,129 +84,305 @@ function NavigationPanel({
     { id: 'lab6', label: 'Lab 6', route: '/lab6', icon: '🩺' },
   ];
 
+  // 🚀 Botones de teletransporte (generados dinámicamente)
+  const teleportButtons = Object.keys(TELEPORT_LOCATIONS).map(key => {
+    const locationKey = key as LocationKey;
+    return {
+      id: locationKey,
+      label: LOCATION_NAMES[locationKey],
+      icon: LOCATION_ICONS[locationKey],
+      coords: TELEPORT_LOCATIONS[locationKey]
+    };
+  });
+
+  // 🚀 Función de teletransporte usando CustomEvent
+  const handleTeleport = (location: LocationKey) => {
+    const newPosition = TELEPORT_LOCATIONS[location];
+    
+    // Dispatch evento personalizado para que BaseCharacter lo escuche
+    const teleportEvent = new CustomEvent('teleportCharacter', {
+      detail: {
+        position: newPosition,
+        location: location,
+        locationName: LOCATION_NAMES[location]
+      }
+    });
+    
+    window.dispatchEvent(teleportEvent);
+    setCurrentLocation(location);
+    setIsExpanded(false);
+    
+    console.log(`🚀 Teletransportando a ${LOCATION_NAMES[location]}:`, newPosition);
+  };
+
   const handleNavigation = (route: string) => {
     onNavigate(route);
     setIsExpanded(false);
   };
 
-  return (
-    <div 
+  // 🎧 Escuchar eventos de cambio de posición del personaje
+  useEffect(() => {
+    const handlePositionUpdate = (event: any) => {
+      const { position } = event.detail;
+      
+      // Determinar la ubicación más cercana
+      let closestLocation: LocationKey | null = null;
+      let minDistance = Infinity;
+      
+      Object.entries(TELEPORT_LOCATIONS).forEach(([key, pos]) => {
+        const distance = Math.sqrt(
+          Math.pow(position[0] - pos[0], 2) +
+          Math.pow(position[1] - pos[1], 2) +
+          Math.pow(position[2] - pos[2], 2)
+        );
+        
+        if (distance < minDistance && distance < 50) {
+          minDistance = distance;
+          closestLocation = key as LocationKey;
+        }
+      });
+      
+      if (closestLocation) {
+        setCurrentLocation(closestLocation);
+      }
+    };
+
+    window.addEventListener('characterPositionUpdate', handlePositionUpdate);
+    return () => window.removeEventListener('characterPositionUpdate', handlePositionUpdate);
+  }, []);
+
+  const renderTabButton = (tab: 'navigate' | 'teleport', label: string, icon: string) => (
+    <button
+      onClick={() => setActiveTab(tab)}
       style={{
-        position: 'fixed',
-        bottom: '20px',
-        right: '20px',
-        zIndex: 9999,
-        fontFamily: 'Arial, sans-serif'
+        flex: 1,
+        padding: '8px',
+        borderRadius: '8px',
+        border: 'none',
+        backgroundColor: activeTab === tab ? '#10b981' : 'rgba(255, 255, 255, 0.1)',
+        color: 'white',
+        cursor: 'pointer',
+        fontSize: '12px',
+        transition: 'all 0.3s ease',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '5px'
       }}
     >
-      {/* Panel expandido */}
-      {isExpanded && (
-        <div 
+      <span>{icon}</span>
+      <span>{label}</span>
+    </button>
+  );
+
+  const renderButtons = () => {
+    const buttons = activeTab === 'navigate' ? navigationButtons : teleportButtons;
+    
+    return buttons.map((button) => {
+      const isActive = activeTab === 'navigate' 
+        ? currentRoute.includes(button.id)
+        : currentLocation === button.id;
+        
+      return (
+        <button
+          key={button.id}
+          onClick={() => {
+            if (activeTab === 'navigate') {
+              // Solo para navigationButtons que sí tienen .route
+              const navButton = navigationButtons.find(nb => nb.id === button.id);
+              handleNavigation(navButton?.route || `/${button.id}`);
+            } else {
+              // Para teleportButtons
+              handleTeleport(button.id as LocationKey);
+            }
+          }}
           style={{
-            marginBottom: '10px',
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            borderRadius: '15px',
-            padding: '15px',
-            minWidth: '250px',
-            border: '2px solid rgba(255, 255, 255, 0.3)'
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '10px',
+            marginBottom: '5px',
+            borderRadius: '10px',
+            border: 'none',
+            backgroundColor: isActive ? '#10b981' : 'rgba(255, 255, 255, 0.1)',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '14px',
+            transition: 'all 0.3s ease'
+          }}
+          onMouseEnter={(e) => {
+            if (!isActive) {
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (!isActive) {
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            }
           }}
         >
-          <div style={{ color: 'white', marginBottom: '15px', fontWeight: 'bold' }}>
-            🎯 Navegación
+          <span style={{ fontSize: '20px' }}>{button.icon}</span>
+          <div style={{ flex: 1, textAlign: 'left' }}>
+            <div>{button.label}</div>
+            {activeTab === 'teleport' && 'coords' in button && (
+              <div style={{ fontSize: '10px', opacity: 0.7 }}>
+                [{button.coords.map((c: number) => Math.round(c)).join(', ')}]
+              </div>
+            )}
           </div>
-          
-          {/* Instrucción ESC */}
-          <div style={{ 
-            marginBottom: '15px', 
-            padding: '10px', 
-            backgroundColor: 'rgba(255, 193, 7, 0.2)', 
-            borderRadius: '8px',
-            fontSize: '12px',
-            color: '#ffc107',
-            textAlign: 'center',
-            border: '1px solid rgba(255, 193, 7, 0.3)'
-          }}>
-            ⚠️ Presiona <strong>ESC</strong> para liberar el cursor y hacer clic
-          </div>
-          
-          {navigationButtons.map((button) => {
-            const isActive = currentRoute.includes(button.id);
-            return (
-              <button
-                key={button.id}
-                onClick={() => handleNavigation(button.route)}
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '10px',
-                  marginBottom: '5px',
-                  borderRadius: '10px',
-                  border: 'none',
-                  backgroundColor: isActive ? '#10b981' : 'rgba(255, 255, 255, 0.1)',
-                  color: 'white',
-                  cursor: 'pointer',
-                  fontSize: '14px',
-                  transition: 'all 0.3s ease'
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-                  }
-                }}
-              >
-                <span style={{ fontSize: '20px' }}>{button.icon}</span>
-                <span>{button.label}</span>
-                {isActive && <span style={{ marginLeft: 'auto' }}>📍</span>}
-              </button>
-            );
-          })}
-          
-          <div style={{ 
-            marginTop: '15px', 
-            padding: '10px', 
-            backgroundColor: 'rgba(59, 130, 246, 0.2)', 
-            borderRadius: '8px',
-            fontSize: '12px',
-            color: '#93c5fd',
-            textAlign: 'center'
-          }}>
-            💡 Usa <strong>WASD</strong> para moverte
-          </div>
-        </div>
-      )}
+          {isActive && <span style={{ marginLeft: 'auto' }}>📍</span>}
+        </button>
+      );
+    });
+  };
 
-      {/* Botón principal */}
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
+  return (
+    <>
+      <div 
         style={{
-          backgroundColor: '#10b981',
-          color: 'white',
-          padding: '15px',
-          borderRadius: '50%',
-          border: '2px solid rgba(255, 255, 255, 0.3)',
-          cursor: 'pointer',
-          fontSize: '24px',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
-          transition: 'all 0.3s ease',
-          transform: isExpanded ? 'rotate(45deg)' : 'rotate(0deg)'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = isExpanded ? 'rotate(45deg) scale(1.1)' : 'rotate(0deg) scale(1.1)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = isExpanded ? 'rotate(45deg) scale(1)' : 'rotate(0deg) scale(1)';
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          zIndex: 9999,
+          fontFamily: 'Arial, sans-serif'
         }}
       >
-        {isExpanded ? '✕' : '🗺️'}
-      </button>
-    </div>
+        {/* Panel expandido */}
+        {isExpanded && (
+          <div 
+            style={{
+              marginBottom: '10px',
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              borderRadius: '15px',
+              padding: '15px',
+              minWidth: '280px',
+              maxWidth: '320px',
+              border: '2px solid rgba(255, 255, 255, 0.3)',
+              maxHeight: '70vh',
+              overflowY: 'auto'
+            }}
+          >
+            {/* Header */}
+            <div style={{ color: 'white', marginBottom: '15px', fontWeight: 'bold' }}>
+              🎯 Control de Movimiento
+            </div>
+            
+            {/* Instrucción ESC */}
+            <div style={{ 
+              marginBottom: '15px', 
+              padding: '10px', 
+              backgroundColor: 'rgba(255, 193, 7, 0.2)', 
+              borderRadius: '8px',
+              fontSize: '12px',
+              color: '#ffc107',
+              textAlign: 'center',
+              border: '1px solid rgba(255, 193, 7, 0.3)'
+            }}>
+              ⚠️ Presiona <strong>ESC</strong> para liberar el cursor y hacer clic
+            </div>
+
+            {/* Tabs */}
+            <div style={{ 
+              display: 'flex', 
+              gap: '5px', 
+              marginBottom: '15px',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '10px',
+              padding: '5px'
+            }}>
+              {renderTabButton('navigate', 'Vistas 360°', '🌐')}
+              {renderTabButton('teleport', 'Teletransporte', '🚀')}
+            </div>
+
+            {/* Descripción del tab activo */}
+            <div style={{ 
+              marginBottom: '15px', 
+              padding: '8px', 
+              backgroundColor: activeTab === 'navigate' 
+                ? 'rgba(59, 130, 246, 0.2)' 
+                : 'rgba(147, 51, 234, 0.2)', 
+              borderRadius: '8px',
+              fontSize: '11px',
+              color: activeTab === 'navigate' ? '#93c5fd' : '#c4b5fd',
+              textAlign: 'center'
+            }}>
+              {activeTab === 'navigate' 
+                ? '🌐 Cambia a vista 360° inmersiva' 
+                : '🚀 Mueve tu personaje instantáneamente'}
+            </div>
+            
+            {/* Botones dinámicos */}
+            {renderButtons()}
+            
+            {/* Controles de movimiento */}
+            <div style={{ 
+              marginTop: '15px', 
+              padding: '10px', 
+              backgroundColor: 'rgba(59, 130, 246, 0.2)', 
+              borderRadius: '8px',
+              fontSize: '12px',
+              color: '#93c5fd',
+              textAlign: 'center'
+            }}>
+              💡 Usa <strong>WASD</strong> para moverte manualmente
+            </div>
+          </div>
+        )}
+
+        {/* Botón principal */}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          style={{
+            backgroundColor: '#10b981',
+            color: 'white',
+            padding: '15px',
+            borderRadius: '50%',
+            border: '2px solid rgba(255, 255, 255, 0.3)',
+            cursor: 'pointer',
+            fontSize: '24px',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+            transition: 'all 0.3s ease',
+            transform: isExpanded ? 'rotate(45deg)' : 'rotate(0deg)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = isExpanded ? 'rotate(45deg) scale(1.1)' : 'rotate(0deg) scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = isExpanded ? 'rotate(45deg) scale(1)' : 'rotate(0deg) scale(1)';
+          }}
+        >
+          {isExpanded ? '✕' : '🗺️'}
+        </button>
+      </div>
+
+      {/* 📍 Indicador de ubicación actual */}
+      <div style={{
+        position: 'fixed',
+        top: '20px',
+        left: '20px',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        color: 'white',
+        padding: '10px 15px',
+        borderRadius: '10px',
+        fontSize: '14px',
+        zIndex: 1000,
+        border: '1px solid rgba(255, 255, 255, 0.3)',
+        transition: 'all 0.3s ease'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ fontSize: '18px' }}>{LOCATION_ICONS[currentLocation]}</span>
+          <div>
+            <div style={{ fontWeight: 'bold' }}>
+              {LOCATION_NAMES[currentLocation]}
+            </div>
+            <div style={{ fontSize: '11px', opacity: 0.7 }}>
+              [{TELEPORT_LOCATIONS[currentLocation].map(c => Math.round(c)).join(', ')}]
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 

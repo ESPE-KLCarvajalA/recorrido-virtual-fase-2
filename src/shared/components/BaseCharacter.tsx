@@ -1,3 +1,4 @@
+// src/shared/components/BaseCharacter.tsx
 import { useSphere } from '@react-three/cannon';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
@@ -8,7 +9,6 @@ const BaseCharacter = ({ positionCharacter, velocidad, altura, args, position }:
   const direction = new THREE.Vector3();
   const frontVector = new THREE.Vector3();
   const sideVector = new THREE.Vector3();
-  //const speed = new THREE.Vector3();
   const SPEED = velocidad;
 
   const { camera } = useThree();
@@ -32,10 +32,42 @@ const BaseCharacter = ({ positionCharacter, velocidad, altura, args, position }:
     }
   }, [positionCharacter, api]);
 
+  // 🚀 NUEVO: Escuchar eventos de teletransporte del NavigationPanel
+  useEffect(() => {
+    const handleTeleport = (event: any) => {
+      const { position: newPosition, locationName } = event.detail;
+      
+      // Teletransportar instantáneamente
+      api.position.set(newPosition[0], newPosition[1], newPosition[2]);
+      api.velocity.set(0, 0, 0); // Resetear velocidad
+      
+      console.log(`✨ Personaje teletransportado a: ${locationName}`);
+      
+      // Opcional: Efecto visual o sonoro aquí
+      // playTeleportSound();
+    };
+
+    // Escuchar eventos de teletransporte
+    window.addEventListener('teleportCharacter', handleTeleport);
+    
+    return () => {
+      window.removeEventListener('teleportCharacter', handleTeleport);
+    };
+  }, [api]);
+
   useFrame((_state) => {
     let spherePosition = new THREE.Vector3();
     ref.current.getWorldPosition(spherePosition);
     camera.position.set(spherePosition.x, spherePosition.y + altura, spherePosition.z);
+    
+    // 📍 NUEVO: Enviar posición actual al NavigationPanel para tracking
+    const positionUpdateEvent = new CustomEvent('characterPositionUpdate', {
+      detail: {
+        position: [spherePosition.x, spherePosition.y, spherePosition.z]
+      }
+    });
+    window.dispatchEvent(positionUpdateEvent);
+
     frontVector.set(0, 0, Number(backward) - Number(forward));
     sideVector.set(Number(left) - Number(right), 0, 0);
 
