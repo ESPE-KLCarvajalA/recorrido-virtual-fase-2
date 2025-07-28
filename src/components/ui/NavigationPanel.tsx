@@ -1,5 +1,5 @@
 // src/components/ui/NavigationPanel.tsx
-import React, { useState } from 'react';
+import  { useState } from 'react';
 
 interface NavigationPanelProps {
   currentRoute?: string;
