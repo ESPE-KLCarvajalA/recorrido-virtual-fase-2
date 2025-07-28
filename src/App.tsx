@@ -56,20 +56,7 @@ function Layout() {
     <>
       <Outlet />
       <div className="dot" />
-      
-      {/* ← AÑADIDO: Versión de prueba visible */}
-      <div style={{
-        position: 'fixed',
-        top: '10px',
-        left: '10px',
-        backgroundColor: 'red',
-        color: 'white',
-        padding: '10px',
-        zIndex: 9999,
-        borderRadius: '5px'
-      }}>
-        🔴 PRUEBA: Si ves esto, React funciona
-      </div>
+
 
       {/* Panel de navegación */}
       <NavigationPanel 
