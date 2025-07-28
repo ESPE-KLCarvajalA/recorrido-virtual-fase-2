@@ -1,7 +1,7 @@
 import './App.css'
 import { Link, Outlet, RouteObject, useRoutes, useNavigate, useLocation } from 'react-router-dom';
 
-// ← AGREGAR: Importar el componente NavigationPanel
+// ← VERIFICAR: ¿Esta línea da error en el editor?
 import NavigationPanel from './components/ui/NavigationPanel';
 
 import BaseSceneEntrada from './scenes/home/BaseSceneEntrada';
@@ -12,7 +12,6 @@ import BaseSceneLab4CC from './scenes/lab4/BaseSceneLab4CC';
 import BaseSceneLab5CC from './scenes/lab5/BaseSceneLab5CC';
 import BaseSceneLab6CC from './scenes/lab6/BaseSceneLab6CC';
 
-// ✅ SOLUCIÓN 1: Sin tipos explícitos (más simple)
 function App() {
   const routes: RouteObject[] = [
     {
@@ -41,26 +40,41 @@ function App() {
   );
 }
 
-// ✅ SOLUCIÓN 1: Sin tipos explícitos - funciona siempre
 function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleNavigate = (route: string) => {
+    console.log('🎯 Navegando a:', route); // ← AÑADIDO: Para debug
     navigate(route);
   };
+
+  // ← AÑADIDO: Para debug
+  console.log('🔍 Layout renderizado, ruta actual:', location.pathname);
 
   return (
     <>
       <Outlet />
       <div className="dot" />
       
+      {/* ← AÑADIDO: Versión de prueba visible */}
+      <div style={{
+        position: 'fixed',
+        top: '10px',
+        left: '10px',
+        backgroundColor: 'red',
+        color: 'white',
+        padding: '10px',
+        zIndex: 9999,
+        borderRadius: '5px'
+      }}>
+        🔴 PRUEBA: Si ves esto, React funciona
+      </div>
+
       {/* Panel de navegación */}
       <NavigationPanel 
         currentRoute={location.pathname}
         onNavigate={handleNavigate}
-        theme="dark"
-        position="bottom-right"
       />
     </>
   );
