@@ -1,5 +1,8 @@
 import './App.css'
-import { Link, Outlet, RouteObject, useRoutes } from 'react-router-dom';
+import { Link, Outlet, RouteObject, useRoutes, useNavigate, useLocation } from 'react-router-dom';
+
+// ← AGREGAR: Importar el componente NavigationPanel
+import NavigationPanel from './components/ui/NavigationPanel';
 
 import BaseSceneEntrada from './scenes/home/BaseSceneEntrada';
 import BaseSceneLab1CC from './scenes/lab1/BaseSceneLab1CC';
@@ -9,15 +12,14 @@ import BaseSceneLab4CC from './scenes/lab4/BaseSceneLab4CC';
 import BaseSceneLab5CC from './scenes/lab5/BaseSceneLab5CC';
 import BaseSceneLab6CC from './scenes/lab6/BaseSceneLab6CC';
 
+// ✅ SOLUCIÓN 1: Sin tipos explícitos (más simple)
 function App() {
-  let routes: RouteObject[] = [
+  const routes: RouteObject[] = [
     {
       path: "/",
       element: <Layout />,
       children: [
         { index: true, element: <BaseSceneEntrada /> },
-        
-
         { path: "entrada", element: <BaseSceneEntrada /> },
         { path: "lab1", element: <BaseSceneLab1CC /> },
         { path: "lab2", element: <BaseSceneLab2CC /> },
@@ -25,14 +27,12 @@ function App() {
         { path: "lab4", element: <BaseSceneLab4CC /> },
         { path: "lab5", element: <BaseSceneLab5CC /> },
         { path: "lab6", element: <BaseSceneLab6CC /> },
-
-
         { path: "*", element: <NoMatch /> },
       ],
     },
   ];
 
-  let element = useRoutes(routes);
+  const element = useRoutes(routes);
 
   return (
     <>
@@ -41,11 +41,27 @@ function App() {
   );
 }
 
+// ✅ SOLUCIÓN 1: Sin tipos explícitos - funciona siempre
 function Layout() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigate = (route: string) => {
+    navigate(route);
+  };
+
   return (
     <>
       <Outlet />
       <div className="dot" />
+      
+      {/* Panel de navegación */}
+      <NavigationPanel 
+        currentRoute={location.pathname}
+        onNavigate={handleNavigate}
+        theme="dark"
+        position="bottom-right"
+      />
     </>
   );
 }
@@ -61,4 +77,4 @@ function NoMatch() {
   );
 }
 
-export default App; 
+export default App;
