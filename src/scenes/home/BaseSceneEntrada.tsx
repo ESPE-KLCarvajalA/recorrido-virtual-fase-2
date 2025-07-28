@@ -26,6 +26,7 @@ import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
 
 import BaseSceneOtros from './groups/BaseSceneOtros';
 import BaseSceneOtros2 from './groups/BaseSceneOtros2';
+import NavigationPanel from '../../components/ui/NavigationPanel';
 
 
 const BaseSceneEntrada = () => {
@@ -80,6 +81,8 @@ const BaseSceneEntrada = () => {
         <PointerLockControls ref={controlsRef} />
       </Canvas>
 
+        {/* 🆕 Nuevo Panel de Navegación */}
+      <NavigationPanel />
       
     </>
   );
