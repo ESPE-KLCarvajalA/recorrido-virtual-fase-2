@@ -53,6 +53,20 @@ function NavigationPanel({
             🎯 Navegación
           </div>
           
+          {/* Instrucción ESC */}
+          <div style={{ 
+            marginBottom: '15px', 
+            padding: '10px', 
+            backgroundColor: 'rgba(255, 193, 7, 0.2)', 
+            borderRadius: '8px',
+            fontSize: '12px',
+            color: '#ffc107',
+            textAlign: 'center',
+            border: '1px solid rgba(255, 193, 7, 0.3)'
+          }}>
+            ⚠️ Presiona <strong>ESC</strong> para liberar el cursor y hacer clic
+          </div>
+          
           {navigationButtons.map((button) => {
             const isActive = currentRoute.includes(button.id);
             return (
@@ -101,7 +115,7 @@ function NavigationPanel({
             color: '#93c5fd',
             textAlign: 'center'
           }}>
-            💡 Usa WASD para moverte
+            💡 Usa <strong>WASD</strong> para moverte
           </div>
         </div>
       )}
