@@ -1,11 +1,6 @@
 // src/components/ui/NavigationPanel.tsx
 import { useState, useEffect } from 'react';
 
-interface NavigationPanelProps {
-  currentRoute?: string;
-  onNavigate?: (route: string) => void;
-}
-
 // 🗺️ Definir ubicaciones de teletransporte
 const TELEPORT_LOCATIONS = {
   entrada: [-80, -1, 170],
@@ -65,24 +60,9 @@ const LOCATION_ICONS: Record<LocationKey, string> = {
   jardin: '🌳',
 };
 
-function NavigationPanel({ 
-  currentRoute = 'entrada', 
-  onNavigate = (route: string) => console.log('Navigate to:', route)
-}: NavigationPanelProps) {
+function NavigationPanel() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [activeTab, setActiveTab] = useState<'navigate' | 'teleport'>('navigate');
   const [currentLocation, setCurrentLocation] = useState<LocationKey>('entrada');
-
-  // 🗺️ Botones de navegación (rutas a vistas 360°)
-  const navigationButtons = [
-    { id: 'entrada', label: 'Entrada', route: '/entrada', icon: '🏛️' },
-    { id: 'lab1', label: 'Lab 1', route: '/lab1', icon: '🔬' },
-    { id: 'lab2', label: 'Lab 2', route: '/lab2', icon: '⚗️' },
-    { id: 'lab3', label: 'Lab 3', route: '/lab3', icon: '🧪' },
-    { id: 'lab4', label: 'Lab 4', route: '/lab4', icon: '🔍' },
-    { id: 'lab5', label: 'Lab 5', route: '/lab5', icon: '💊' },
-    { id: 'lab6', label: 'Lab 6', route: '/lab6', icon: '🩺' },
-  ];
 
   // 🚀 Botones de teletransporte (generados dinámicamente)
   const teleportButtons = Object.keys(TELEPORT_LOCATIONS).map(key => {
@@ -113,11 +93,6 @@ function NavigationPanel({
     setIsExpanded(false);
     
     console.log(`🚀 Teletransportando a ${LOCATION_NAMES[location]}:`, newPosition);
-  };
-
-  const handleNavigation = (route: string) => {
-    onNavigate(route);
-    setIsExpanded(false);
   };
 
   // 🎧 Escuchar eventos de cambio de posición del personaje
@@ -151,87 +126,55 @@ function NavigationPanel({
     return () => window.removeEventListener('characterPositionUpdate', handlePositionUpdate);
   }, []);
 
-  const renderTabButton = (tab: 'navigate' | 'teleport', label: string, icon: string) => (
-    <button
-      onClick={() => setActiveTab(tab)}
-      style={{
-        flex: 1,
-        padding: '8px',
-        borderRadius: '8px',
-        border: 'none',
-        backgroundColor: activeTab === tab ? '#10b981' : 'rgba(255, 255, 255, 0.1)',
-        color: 'white',
-        cursor: 'pointer',
-        fontSize: '12px',
-        transition: 'all 0.3s ease',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '5px'
-      }}
-    >
-      <span>{icon}</span>
-      <span>{label}</span>
-    </button>
-  );
-
-  const renderButtons = () => {
-    const buttons = activeTab === 'navigate' ? navigationButtons : teleportButtons;
-    
-    return buttons.map((button) => {
-      const isActive = activeTab === 'navigate' 
-        ? currentRoute.includes(button.id)
-        : currentLocation === button.id;
+  const renderTeleportButtons = () => {
+    return teleportButtons.map((button) => {
+      const isActive = currentLocation === button.id;
         
       return (
         <button
           key={button.id}
-          onClick={() => {
-            if (activeTab === 'navigate') {
-              // Solo para navigationButtons que sí tienen .route
-              const navButton = navigationButtons.find(nb => nb.id === button.id);
-              handleNavigation(navButton?.route || `/${button.id}`);
-            } else {
-              // Para teleportButtons
-              handleTeleport(button.id as LocationKey);
-            }
-          }}
+          onClick={() => handleTeleport(button.id as LocationKey)}
           style={{
             width: '100%',
             display: 'flex',
             alignItems: 'center',
             gap: '10px',
-            padding: '10px',
-            marginBottom: '5px',
-            borderRadius: '10px',
+            padding: '12px',
+            marginBottom: '8px',
+            borderRadius: '12px',
             border: 'none',
             backgroundColor: isActive ? '#10b981' : 'rgba(255, 255, 255, 0.1)',
             color: 'white',
             cursor: 'pointer',
             fontSize: '14px',
-            transition: 'all 0.3s ease'
+            transition: 'all 0.3s ease',
+            transform: 'translateX(0)',
           }}
           onMouseEnter={(e) => {
             if (!isActive) {
               e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+              e.currentTarget.style.transform = 'translateX(5px)';
             }
           }}
           onMouseLeave={(e) => {
             if (!isActive) {
               e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.transform = 'translateX(0)';
             }
           }}
         >
           <span style={{ fontSize: '20px' }}>{button.icon}</span>
           <div style={{ flex: 1, textAlign: 'left' }}>
-            <div>{button.label}</div>
-            {activeTab === 'teleport' && 'coords' in button && (
-              <div style={{ fontSize: '10px', opacity: 0.7 }}>
-                [{button.coords.map((c: number) => Math.round(c)).join(', ')}]
-              </div>
-            )}
+            <div style={{ fontWeight: isActive ? 'bold' : 'normal' }}>
+              {button.label}
+            </div>
+            <div style={{ fontSize: '10px', opacity: 0.7 }}>
+              [{button.coords.map((c: number) => Math.round(c)).join(', ')}]
+            </div>
           </div>
-          {isActive && <span style={{ marginLeft: 'auto' }}>📍</span>}
+          {isActive && (
+            <span style={{ marginLeft: 'auto', fontSize: '16px' }}>📍</span>
+          )}
         </button>
       );
     });
@@ -253,27 +196,40 @@ function NavigationPanel({
           <div 
             style={{
               marginBottom: '10px',
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              borderRadius: '15px',
-              padding: '15px',
-              minWidth: '280px',
-              maxWidth: '320px',
-              border: '2px solid rgba(255, 255, 255, 0.3)',
+              backgroundColor: 'rgba(0, 0, 0, 0.85)',
+              borderRadius: '20px',
+              padding: '20px',
+              minWidth: '300px',
+              maxWidth: '350px',
+              border: '2px solid rgba(16, 185, 129, 0.3)',
               maxHeight: '70vh',
-              overflowY: 'auto'
+              overflowY: 'auto',
+              backdropFilter: 'blur(10px)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)'
             }}
           >
             {/* Header */}
-            <div style={{ color: 'white', marginBottom: '15px', fontWeight: 'bold' }}>
-              🎯 Control de Movimiento
+            <div style={{ 
+              color: 'white', 
+              marginBottom: '15px', 
+              fontWeight: 'bold',
+              fontSize: '18px',
+              textAlign: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px'
+            }}>
+              <span>🚀</span>
+              <span>Teletransporte</span>
             </div>
             
             {/* Instrucción ESC */}
             <div style={{ 
-              marginBottom: '15px', 
-              padding: '10px', 
+              marginBottom: '20px', 
+              padding: '12px', 
               backgroundColor: 'rgba(255, 193, 7, 0.2)', 
-              borderRadius: '8px',
+              borderRadius: '10px',
               fontSize: '12px',
               color: '#ffc107',
               textAlign: 'center',
@@ -282,77 +238,75 @@ function NavigationPanel({
               ⚠️ Presiona <strong>ESC</strong> para liberar el cursor y hacer clic
             </div>
 
-            {/* Tabs */}
+            {/* Descripción */}
             <div style={{ 
-              display: 'flex', 
-              gap: '5px', 
-              marginBottom: '15px',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              marginBottom: '20px', 
+              padding: '10px', 
+              backgroundColor: 'rgba(16, 185, 129, 0.2)', 
               borderRadius: '10px',
-              padding: '5px'
+              fontSize: '12px',
+              color: '#6ee7b7',
+              textAlign: 'center',
+              border: '1px solid rgba(16, 185, 129, 0.3)'
             }}>
-              {renderTabButton('navigate', 'Vistas 360°', '🌐')}
-              {renderTabButton('teleport', 'Teletransporte', '🚀')}
-            </div>
-
-            {/* Descripción del tab activo */}
-            <div style={{ 
-              marginBottom: '15px', 
-              padding: '8px', 
-              backgroundColor: activeTab === 'navigate' 
-                ? 'rgba(59, 130, 246, 0.2)' 
-                : 'rgba(147, 51, 234, 0.2)', 
-              borderRadius: '8px',
-              fontSize: '11px',
-              color: activeTab === 'navigate' ? '#93c5fd' : '#c4b5fd',
-              textAlign: 'center'
-            }}>
-              {activeTab === 'navigate' 
-                ? '🌐 Cambia a vista 360° inmersiva' 
-                : '🚀 Mueve tu personaje instantáneamente'}
+              🚀 Mueve tu personaje instantáneamente a cualquier ubicación
             </div>
             
-            {/* Botones dinámicos */}
-            {renderButtons()}
+            {/* Botones de teletransporte */}
+            <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
+              {renderTeleportButtons()}
+            </div>
             
             {/* Controles de movimiento */}
             <div style={{ 
-              marginTop: '15px', 
-              padding: '10px', 
+              marginTop: '20px', 
+              padding: '12px', 
               backgroundColor: 'rgba(59, 130, 246, 0.2)', 
-              borderRadius: '8px',
+              borderRadius: '10px',
               fontSize: '12px',
               color: '#93c5fd',
-              textAlign: 'center'
+              textAlign: 'center',
+              border: '1px solid rgba(59, 130, 246, 0.3)'
             }}>
-              💡 Usa <strong>WASD</strong> para moverte manualmente
+              💡 También puedes usar <strong>WASD</strong> + <strong>Shift</strong> para correr
             </div>
           </div>
         )}
 
-        {/* Botón principal */}
+        {/* Botón principal flotante */}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
           style={{
             backgroundColor: '#10b981',
             color: 'white',
-            padding: '15px',
+            padding: '18px',
             borderRadius: '50%',
-            border: '2px solid rgba(255, 255, 255, 0.3)',
+            border: '3px solid rgba(255, 255, 255, 0.3)',
             cursor: 'pointer',
-            fontSize: '24px',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+            fontSize: '28px',
+            boxShadow: '0 6px 25px rgba(16, 185, 129, 0.4)',
             transition: 'all 0.3s ease',
-            transform: isExpanded ? 'rotate(45deg)' : 'rotate(0deg)'
+            transform: isExpanded ? 'rotate(45deg)' : 'rotate(0deg)',
+            width: '70px',
+            height: '70px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = isExpanded ? 'rotate(45deg) scale(1.1)' : 'rotate(0deg) scale(1.1)';
+            e.currentTarget.style.transform = isExpanded 
+              ? 'rotate(45deg) scale(1.1)' 
+              : 'rotate(0deg) scale(1.1)';
+            e.currentTarget.style.boxShadow = '0 8px 30px rgba(16, 185, 129, 0.6)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.transform = isExpanded ? 'rotate(45deg) scale(1)' : 'rotate(0deg) scale(1)';
+            e.currentTarget.style.transform = isExpanded 
+              ? 'rotate(45deg) scale(1)' 
+              : 'rotate(0deg) scale(1)';
+            e.currentTarget.style.boxShadow = '0 6px 25px rgba(16, 185, 129, 0.4)';
           }}
         >
-          {isExpanded ? '✕' : '🗺️'}
+          {isExpanded ? '✕' : '🚀'}
         </button>
       </div>
 
@@ -361,22 +315,24 @@ function NavigationPanel({
         position: 'fixed',
         top: '20px',
         left: '20px',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
         color: 'white',
-        padding: '10px 15px',
-        borderRadius: '10px',
+        padding: '12px 18px',
+        borderRadius: '15px',
         fontSize: '14px',
         zIndex: 1000,
-        border: '1px solid rgba(255, 255, 255, 0.3)',
-        transition: 'all 0.3s ease'
+        border: '2px solid rgba(16, 185, 129, 0.3)',
+        transition: 'all 0.3s ease',
+        backdropFilter: 'blur(10px)',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '18px' }}>{LOCATION_ICONS[currentLocation]}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span style={{ fontSize: '20px' }}>{LOCATION_ICONS[currentLocation]}</span>
           <div>
-            <div style={{ fontWeight: 'bold' }}>
+            <div style={{ fontWeight: 'bold', marginBottom: '2px' }}>
               {LOCATION_NAMES[currentLocation]}
             </div>
-            <div style={{ fontSize: '11px', opacity: 0.7 }}>
+            <div style={{ fontSize: '11px', opacity: 0.7, fontFamily: 'monospace' }}>
               [{TELEPORT_LOCATIONS[currentLocation].map(c => Math.round(c)).join(', ')}]
             </div>
           </div>
