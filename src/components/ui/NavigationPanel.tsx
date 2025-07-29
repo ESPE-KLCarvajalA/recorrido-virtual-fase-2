@@ -70,8 +70,7 @@ function NavigationPanel() {
     return {
       id: locationKey,
       label: LOCATION_NAMES[locationKey],
-      icon: LOCATION_ICONS[locationKey],
-      coords: TELEPORT_LOCATIONS[locationKey]
+      icon: LOCATION_ICONS[locationKey]
     };
   });
 
@@ -167,9 +166,6 @@ function NavigationPanel() {
           <div style={{ flex: 1, textAlign: 'left' }}>
             <div style={{ fontWeight: isActive ? 'bold' : 'normal' }}>
               {button.label}
-            </div>
-            <div style={{ fontSize: '10px', opacity: 0.7 }}>
-              [{button.coords.map((c: number) => Math.round(c)).join(', ')}]
             </div>
           </div>
           {isActive && (
@@ -329,11 +325,8 @@ function NavigationPanel() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <span style={{ fontSize: '20px' }}>{LOCATION_ICONS[currentLocation]}</span>
           <div>
-            <div style={{ fontWeight: 'bold', marginBottom: '2px' }}>
+            <div style={{ fontWeight: 'bold' }}>
               {LOCATION_NAMES[currentLocation]}
-            </div>
-            <div style={{ fontSize: '11px', opacity: 0.7, fontFamily: 'monospace' }}>
-              [{TELEPORT_LOCATIONS[currentLocation].map(c => Math.round(c)).join(', ')}]
             </div>
           </div>
         </div>
