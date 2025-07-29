@@ -14,7 +14,7 @@ export const usePositionRestore = () => {
 
     // Si hay parámetros de posición, disparar evento personalizado
     if (x && y && z) {
-      const positionData = {
+      const doorPosition = {
         x: parseFloat(x),
         y: parseFloat(y),
         z: parseFloat(z)
@@ -22,8 +22,8 @@ export const usePositionRestore = () => {
 
       // Disparar evento personalizado que BaseCharacter puede escuchar
       window.dispatchEvent(
-        new CustomEvent('restorePlayerPosition', {
-          detail: positionData
+        new CustomEvent('restoreToDoorPosition', {
+          detail: doorPosition
         })
       );
 

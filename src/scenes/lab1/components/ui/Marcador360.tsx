@@ -57,15 +57,15 @@ export default function Marcador360({
     });
 
     const handleClick = () => {
-        // ✅ GUARDAR la posición actual del jugador/cámara antes de navegar
-        const currentPosition = {
-            x: camera.position.x,
-            y: camera.position.y - 20, // Restamos la altura de la cámara para obtener posición del personaje
-            z: camera.position.z
+        // ✅ GUARDAR la posición de la PUERTA/MARCADOR (no del jugador)
+        const doorPosition = {
+            x: position[0], // Posición X del marcador
+            y: position[1] - 1, // Posición Y del marcador (un poco más abajo para que el personaje esté en el suelo)
+            z: position[2] + 3  // Posición Z del marcador (un poco hacia afuera de la puerta)
         };
         
-        // Guardar en sessionStorage (se mantiene durante la sesión del navegador)
-        sessionStorage.setItem('playerPosition', JSON.stringify(currentPosition));
+        // Guardar en sessionStorage
+        sessionStorage.setItem('doorPosition', JSON.stringify(doorPosition));
         
         // Navegar a la vista 360
         const routePath = url.startsWith('#') ? url.substring(1) : url;

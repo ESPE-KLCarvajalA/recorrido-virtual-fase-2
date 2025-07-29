@@ -16,21 +16,21 @@ function Markers() {
   });
 
   const handleExitClick = () => {
-    // ✅ RESTAURAR la posición guardada y regresar al mundo 3D
-    const savedPositionStr = sessionStorage.getItem('playerPosition');
+    // ✅ RESTAURAR la posición de la puerta y regresar al mundo 3D
+    const savedDoorPositionStr = sessionStorage.getItem('doorPosition');
     
-    if (savedPositionStr) {
-      const savedPosition = JSON.parse(savedPositionStr);
+    if (savedDoorPositionStr) {
+      const doorPosition = JSON.parse(savedDoorPositionStr);
       
-      // Navegar con parámetros de query para la posición
-      navigate(`/entrada?x=${savedPosition.x}&y=${savedPosition.y}&z=${savedPosition.z}`);
+      // Navegar con parámetros de query para posicionar en la puerta
+      navigate(`/entrada?x=${doorPosition.x}&y=${doorPosition.y}&z=${doorPosition.z}`);
     } else {
       // Si no hay posición guardada, ir a la entrada normal
       navigate('/entrada');
     }
     
     // Limpiar la posición guardada
-    sessionStorage.removeItem('playerPosition');
+    sessionStorage.removeItem('doorPosition');
   };
 
   return (
