@@ -22,12 +22,8 @@ function Markers() {
     if (savedPositionStr) {
       const savedPosition = JSON.parse(savedPositionStr);
       
-      // Pasar la posición como estado en la navegación
-      navigate('/entrada', { 
-        state: { 
-          restorePosition: savedPosition 
-        }
-      });
+      // Navegar con parámetros de query para la posición
+      navigate(`/entrada?x=${savedPosition.x}&y=${savedPosition.y}&z=${savedPosition.z}`);
     } else {
       // Si no hay posición guardada, ir a la entrada normal
       navigate('/entrada');

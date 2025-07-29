@@ -27,6 +27,7 @@ import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
 import BaseSceneOtros from './groups/BaseSceneOtros';
 import BaseSceneOtros2 from './groups/BaseSceneOtros2';
 import NavigationPanel from '../../components/ui/NavigationPanel';
+import { PositionRestore } from '../lab1/components/PositionRestore';
 
 
 const BaseSceneEntrada = () => {
@@ -76,7 +77,8 @@ const BaseSceneEntrada = () => {
 
           <BaseSceneVilla2SF />
 
-        
+          <PositionRestore /> {/* ✅ SOLO AGREGAR ESTA LÍNEA */}
+
         <HDRIEnvironment />
         <PointerLockControls ref={controlsRef} />
       </Canvas>

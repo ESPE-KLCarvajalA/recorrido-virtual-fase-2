@@ -60,12 +60,8 @@ export default function Marcador360({
         // ✅ GUARDAR la posición actual del jugador/cámara antes de navegar
         const currentPosition = {
             x: camera.position.x,
-            y: camera.position.y,
-            z: camera.position.z,
-            // También guardar la rotación si es necesario
-            rotationX: camera.rotation.x,
-            rotationY: camera.rotation.y,
-            rotationZ: camera.rotation.z
+            y: camera.position.y - 20, // Restamos la altura de la cámara para obtener posición del personaje
+            z: camera.position.z
         };
         
         // Guardar en sessionStorage (se mantiene durante la sesión del navegador)
