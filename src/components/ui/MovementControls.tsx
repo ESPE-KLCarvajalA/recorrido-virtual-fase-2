@@ -95,7 +95,7 @@ function MovementControls() {
               transition: 'all 0.2s ease',
               position: 'relative'
             }}>
-              <div>↑</div>
+            
               <div style={{ fontSize: '9px', opacity: 0.7, marginTop: '2px' }}>W</div>
             </div>
           </div>
@@ -116,7 +116,7 @@ function MovementControls() {
               minWidth: '40px',
               transition: 'all 0.2s ease'
             }}>
-              <div>←</div>
+              
               <div style={{ fontSize: '9px', opacity: 0.7, marginTop: '2px' }}>A</div>
             </div>
             
@@ -130,7 +130,7 @@ function MovementControls() {
               minWidth: '40px',
               transition: 'all 0.2s ease'
             }}>
-              <div>↓</div>
+              
               <div style={{ fontSize: '9px', opacity: 0.7, marginTop: '2px' }}>S</div>
             </div>
             
@@ -144,13 +144,13 @@ function MovementControls() {
               minWidth: '40px',
               transition: 'all 0.2s ease'
             }}>
-              <div>→</div>
+              
               <div style={{ fontSize: '9px', opacity: 0.7, marginTop: '2px' }}>D</div>
             </div>
           </div>
           
           {/* Información adicional */}
-          <div style={{ 
+          {/* <div style={{ 
             padding: '8px 12px',
             backgroundColor: 'rgba(59, 130, 246, 0.15)',
             borderRadius: '8px',
@@ -162,7 +162,7 @@ function MovementControls() {
             <div style={{ fontSize: '11px', opacity: 0.8 }}>
               O haz <strong>clic & arrastra</strong> para moverte
             </div>
-          </div>
+          </div> */}
           
           {/* Tip adicional */}
           <div style={{ 
