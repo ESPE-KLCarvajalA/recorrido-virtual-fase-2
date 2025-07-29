@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
+import { useNavigate } from 'react-router-dom'; // ✅ AGREGADO
 import '../../styles/pointers.css';
 
 interface Props {
@@ -22,6 +23,7 @@ export default function Marcador360({
 }: Props) {
     const ref = useRef<THREE.Group>(null);
     const [visible, setVisible] = useState(true);
+    const navigate = useNavigate(); // ✅ AGREGADO
 
     useFrame(({ camera }) => {
         if (!ref.current) return;
@@ -54,7 +56,10 @@ export default function Marcador360({
     });
 
     const handleClick = () => {
-        window.open(url, '_blank'); // Abre en nueva pestaña
+        // ✅ CAMBIO: Usar React Router para navegación SPA
+        // Convertir "#/lab1" a "/lab1" si es necesario
+        const routePath = url.startsWith('#') ? url.substring(1) : url;
+        navigate(routePath);
     };
 
     return (
