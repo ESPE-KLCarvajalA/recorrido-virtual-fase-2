@@ -11,6 +11,7 @@ import BaseSceneLab3CC from './scenes/lab3/BaseSceneLab3CC';
 import BaseSceneLab4CC from './scenes/lab4/BaseSceneLab4CC';
 import BaseSceneLab5CC from './scenes/lab5/BaseSceneLab5CC';
 import BaseSceneLab6CC from './scenes/lab6/BaseSceneLab6CC';
+import MovementControls from './components/ui/MovementControls';
 
 function App() {
   const routes: RouteObject[] = [
@@ -47,7 +48,10 @@ function Layout() {
       <Outlet />
       <div className="dot" />
 
-      {/* ✅ Panel de navegación sin props - completamente autónomo */}
+      {/* Controles de movimiento - Esquina inferior izquierda */}
+      <MovementControls />
+
+      {/* Panel de navegación sin props - completamente autónomo */}
       <NavigationPanel />
     </>
   );

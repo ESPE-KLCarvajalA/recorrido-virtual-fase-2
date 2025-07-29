@@ -217,7 +217,7 @@ function NavigationPanel() {
               gap: '8px'
             }}>
               <span>🚀</span>
-              <span>Teletransporte</span>
+              <span>Panel de Navegación</span>
             </div>
             
             {/* Instrucción ESC */}
