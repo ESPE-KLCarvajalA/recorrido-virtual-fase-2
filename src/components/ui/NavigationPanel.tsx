@@ -253,19 +253,7 @@ function NavigationPanel() {
               {renderTeleportButtons()}
             </div>
             
-            {/* Controles de movimiento */}
-            <div style={{ 
-              marginTop: '20px', 
-              padding: '12px', 
-              backgroundColor: 'rgba(59, 130, 246, 0.2)', 
-              borderRadius: '10px',
-              fontSize: '12px',
-              color: '#93c5fd',
-              textAlign: 'center',
-              border: '1px solid rgba(59, 130, 246, 0.3)'
-            }}>
-              💡 También puedes usar <strong>WASD</strong> + <strong>Shift</strong> para correr
-            </div>
+           
           </div>
         )}
 

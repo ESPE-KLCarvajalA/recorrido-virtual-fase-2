@@ -149,20 +149,7 @@ function MovementControls() {
             </div>
           </div>
           
-          {/* Información adicional */}
-          {/* <div style={{ 
-            padding: '8px 12px',
-            backgroundColor: 'rgba(59, 130, 246, 0.15)',
-            borderRadius: '8px',
-            border: '1px solid rgba(59, 130, 246, 0.3)'
-          }}>
-            <div style={{ fontSize: '12px', color: '#93c5fd', marginBottom: '4px' }}>
-              Usa <strong>WASD</strong> o las <strong>flechas</strong>
-            </div>
-            <div style={{ fontSize: '11px', opacity: 0.8 }}>
-              O haz <strong>clic & arrastra</strong> para moverte
-            </div>
-          </div> */}
+         
           
           {/* Tip adicional */}
           <div style={{ 
