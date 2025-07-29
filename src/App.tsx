@@ -1,7 +1,7 @@
 import './App.css'
-import { Link, Outlet, RouteObject, useRoutes, useNavigate, useLocation } from 'react-router-dom';
+import { Link, Outlet, RouteObject, useRoutes } from 'react-router-dom';
 
-// ← VERIFICAR: ¿Esta línea da error en el editor?
+// ✅ Importación correcta - NavigationPanel ya no necesita props
 import NavigationPanel from './components/ui/NavigationPanel';
 
 import BaseSceneEntrada from './scenes/home/BaseSceneEntrada';
@@ -41,28 +41,14 @@ function App() {
 }
 
 function Layout() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleNavigate = (route: string) => {
-    console.log('🎯 Navegando a:', route); // ← AÑADIDO: Para debug
-    navigate(route);
-  };
-
-  // ← AÑADIDO: Para debug
-  console.log('🔍 Layout renderizado, ruta actual:', location.pathname);
 
   return (
     <>
       <Outlet />
       <div className="dot" />
 
-
-      {/* Panel de navegación */}
-      <NavigationPanel 
-        currentRoute={location.pathname}
-        onNavigate={handleNavigate}
-      />
+      {/* ✅ Panel de navegación sin props - completamente autónomo */}
+      <NavigationPanel />
     </>
   );
 }
