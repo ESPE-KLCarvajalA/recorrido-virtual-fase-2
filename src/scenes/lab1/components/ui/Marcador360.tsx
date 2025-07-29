@@ -24,7 +24,6 @@ export default function Marcador360({
     const ref = useRef<THREE.Group>(null);
     const [visible, setVisible] = useState(true);
     const navigate = useNavigate();
-    const { camera } = useThree(); // ✅ Para obtener la posición de la cámara
 
     useFrame(({ camera }) => {
         if (!ref.current) return;
