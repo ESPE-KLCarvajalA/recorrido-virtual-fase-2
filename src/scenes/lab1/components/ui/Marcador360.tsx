@@ -1,7 +1,7 @@
 // components/ui/Marcador360.tsx
 import * as THREE from 'three';
 import { useRef, useState } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/pointers.css';
