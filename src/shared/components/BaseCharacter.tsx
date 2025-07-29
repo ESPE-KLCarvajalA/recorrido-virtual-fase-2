@@ -1,4 +1,3 @@
-// src/shared/components/BaseCharacter.tsx
 import { useSphere } from '@react-three/cannon';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
@@ -25,49 +24,23 @@ const BaseCharacter = ({ positionCharacter, velocidad, altura, args, position }:
 
   useEffect(() => api.velocity.subscribe((v) => (velocity.current = v)), []);
 
-  // Actualiza la posición física cuando cambie `positionCharacter`
+  // ✅ Mejorado: Actualiza la posición física cuando cambie `positionCharacter`
   useEffect(() => {
-    if (positionCharacter) {
-      api.position.set(positionCharacter[0], positionCharacter[1], positionCharacter[2]);
+    if (positionCharacter && Array.isArray(positionCharacter)) {
+      // Dar un pequeño delay para asegurar que la física esté lista
+      setTimeout(() => {
+        api.position.set(positionCharacter[0], positionCharacter[1], positionCharacter[2]);
+        // También resetear la velocidad para evitar movimientos extraños
+        api.velocity.set(0, 0, 0);
+        api.angularVelocity.set(0, 0, 0);
+      }, 100);
     }
   }, [positionCharacter, api]);
-
-  // 🚀 NUEVO: Escuchar eventos de teletransporte del NavigationPanel
-  useEffect(() => {
-    const handleTeleport = (event: any) => {
-      const { position: newPosition, locationName } = event.detail;
-      
-      // Teletransportar instantáneamente
-      api.position.set(newPosition[0], newPosition[1], newPosition[2]);
-      api.velocity.set(0, 0, 0); // Resetear velocidad
-      
-      console.log(`✨ Personaje teletransportado a: ${locationName}`);
-      
-      // Opcional: Efecto visual o sonoro aquí
-      // playTeleportSound();
-    };
-
-    // Escuchar eventos de teletransporte
-    window.addEventListener('teleportCharacter', handleTeleport);
-    
-    return () => {
-      window.removeEventListener('teleportCharacter', handleTeleport);
-    };
-  }, [api]);
 
   useFrame((_state) => {
     let spherePosition = new THREE.Vector3();
     ref.current.getWorldPosition(spherePosition);
     camera.position.set(spherePosition.x, spherePosition.y + altura, spherePosition.z);
-    
-    // 📍 NUEVO: Enviar posición actual al NavigationPanel para tracking
-    const positionUpdateEvent = new CustomEvent('characterPositionUpdate', {
-      detail: {
-        position: [spherePosition.x, spherePosition.y, spherePosition.z]
-      }
-    });
-    window.dispatchEvent(positionUpdateEvent);
-
     frontVector.set(0, 0, Number(backward) - Number(forward));
     sideVector.set(Number(left) - Number(right), 0, 0);
 
