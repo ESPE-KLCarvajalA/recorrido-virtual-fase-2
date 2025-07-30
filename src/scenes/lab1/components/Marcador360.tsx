@@ -16,7 +16,7 @@ interface Props {
 
 export default function Marcador360({
     position,
-    label = '👀',
+    label = '➤', // Flecha simple y elegante
     text = 'Explorar Laboratorio',
     url,
     isEspecial = false,
@@ -47,16 +47,16 @@ export default function Marcador360({
 
         setVisible(shouldShow);
 
-        // Animación flotante
-        const time = Date.now() * 0.002;
-        const yOffset = Math.sin(time) * 0.2;
+        // Animación flotante más suave
+        const time = Date.now() * 0.001; // Más lento
+        const yOffset = Math.sin(time) * 0.15; // Menos movimiento vertical
 
         ref.current.position.set(position[0], position[1] + yOffset, position[2]);
         ref.current.lookAt(camPos);
     });
 
     const handleClick = () => {
-        // ✅ GUARDAR la posición de la PUERTA/MARCADOR (no del jugador)
+        // GUARDAR la posición de la PUERTA/MARCADOR (no del jugador)
         const doorPosition = {
             x: position[0], // Posición X del marcador
             y: position[1] - 1, // Posición Y del marcador (un poco más abajo para que el personaje esté en el suelo)
@@ -96,9 +96,12 @@ export default function Marcador360({
                         }}
                     >
                         <div
+                            className="arrow-bounce"
                             style={{
                                 fontSize: isEspecial ? '7rem' : '1.2rem',
                                 marginBottom: '5px',
+                                display: 'inline-block',
+                                animation: 'bounceArrow 1.5s ease-in-out infinite',
                             }}
                         >
                             {label}
