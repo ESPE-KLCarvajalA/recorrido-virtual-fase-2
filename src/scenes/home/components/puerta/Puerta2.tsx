@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { useEffect, useRef } from 'react';
 import { GLTF } from 'three-stdlib';
-import Marcador360 from '../../../lab1/components/Marcador360';
+import Marcador360 from '../../../lab1/components/ui/Marcador360';
 
 type GLTFResult = GLTF & {
   nodes: {
