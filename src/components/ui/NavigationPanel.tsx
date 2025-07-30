@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 // 🗺️ Definir ubicaciones de teletransporte
 const TELEPORT_LOCATIONS = {
   entrada: [-80, -1, 170],
-  lab1: [-99, 19, -506],
+  lab1: [-100, 19, -500],
   lab2: [-32, 20, -370],
   lab3: [-62.334, 19.5, -221.824],
   lab4: [-179, 20, -68.5],
