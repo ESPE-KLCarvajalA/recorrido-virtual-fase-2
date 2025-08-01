@@ -192,6 +192,7 @@
 
 /* Indicadores */
 
+/* Leyenda central */
 .rotate-hint {
   position: absolute;
   top: 20px;
@@ -210,6 +211,7 @@
   pointer-events: none;
 }
 
+/* Ícono de mouse animado */
 .mouse {
   display: inline-block;
   font-size: 22px;
@@ -221,28 +223,36 @@
   50%      { transform: scale(0.9); }
 }
 
-.arrow {
-  font-size: 18px;
-  display: inline-block;
-  opacity: 0.8;
+/* Flechas laterales */
+.arrow-hint {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  color: white;
+  opacity: 0.7;
+  z-index: 1000;
+  pointer-events: none;
 }
 
-.arrow.left {
+.left-arrow {
+  left: 20px;
   animation: moveLeft 1.5s infinite ease-in-out;
 }
 
-.arrow.right {
+.right-arrow {
+  right: 20px;
   animation: moveRight 1.5s infinite ease-in-out;
 }
 
 @keyframes moveLeft {
-  0%   { transform: translateX(0); }
-  50%  { transform: translateX(-6px); }
-  100% { transform: translateX(0); }
+  0%   { transform: translateY(-50%) translateX(0); }
+  50%  { transform: translateY(-50%) translateX(-8px); }
+  100% { transform: translateY(-50%) translateX(0); }
 }
 
 @keyframes moveRight {
-  0%   { transform: translateX(0); }
-  50%  { transform: translateX(6px); }
-  100% { transform: translateX(0); }
+  0%   { transform: translateY(-50%) translateX(0); }
+  50%  { transform: translateY(-50%) translateX(8px); }
+  100% { transform: translateY(-50%) translateX(0); }
 }

@@ -76,17 +76,21 @@ const BaseSceneLab1 = () => {
 
   return (
     <>
-      {/* 🖱️ Leyenda de ayuda */}
+     
       {showHint && (
-  <div className="rotate-hint">
-    <span className="mouse">🖱️</span>
-    <span>Arrastra para girar</span>
-    <span className="arrow left">⬅️</span>
-    <span className="arrow right">➡️</span>
-  </div>
+  <>
+    {/* Leyenda central */}
+    <div className="rotate-hint">
+      <span className="mouse">🖱️</span>
+      <span>Arrastra para girar</span>
+    </div>
 
-
+    {/* Flechas flotantes a los lados */}
+    <div className="arrow-hint left-arrow">⬅️</div>
+    <div className="arrow-hint right-arrow">➡️</div>
+  </>
 )}
+
 
 
       {/* 🌐 Visor 360 */}
