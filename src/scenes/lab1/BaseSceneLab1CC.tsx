@@ -4,12 +4,14 @@ import * as THREE from 'three';
 import { useState, useEffect, Suspense } from 'react';
 import Markers from './components/Markers';
 
-// Imagen 360°
 const store = [
-  { name: '1', url: 'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/360/lab1/lab1.webp', link: 1 },
+  {
+    name: '1',
+    url: 'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/360/lab1/lab1.webp',
+    link: 1,
+  },
 ];
 
-// Malla esférica invertida para simular entorno 360°
 function Dome({ texture }: any) {
   return (
     <group>
@@ -22,7 +24,6 @@ function Dome({ texture }: any) {
   );
 }
 
-// Componente que maneja cambio de escenas (si hubiera más de una)
 function Portals() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const maps = useLoader(THREE.TextureLoader, store.map((entry) => entry.url));
@@ -48,9 +49,7 @@ function Portals() {
   );
 }
 
-// 🎯 Componente principal
 const BaseSceneLab1 = () => {
-  const [autoRotate, setAutoRotate] = useState(true);
   const [showHint, setShowHint] = useState(true);
 
   useEffect(() => {
@@ -58,14 +57,11 @@ const BaseSceneLab1 = () => {
 
     const resetHintTimeout = () => {
       setShowHint(false);
-      setAutoRotate(false);
       clearTimeout(timeout);
 
-      // Si no hay interacción por 15s, vuelve a mostrar el hint y girar
       timeout = setTimeout(() => {
         setShowHint(true);
-        setAutoRotate(true);
-      }, 15000);
+      }, 15000); // Muestra el hint otra vez si no hay interacción
     };
 
     window.addEventListener('mousedown', resetHintTimeout);
@@ -80,14 +76,14 @@ const BaseSceneLab1 = () => {
 
   return (
     <>
-      {/* 🖱️ Hint visual */}
+      {/* 🖱️ Leyenda de ayuda */}
       {showHint && (
         <div className="rotate-hint">
           <span className="hand">🤚</span> Arrastra para girar
         </div>
       )}
 
-      {/* 🌐 Visor 360° */}
+      {/* 🌐 Visor 360 */}
       <Canvas frameloop="demand" camera={{ position: [0, 0, 0.1] }}>
         <OrbitControls
           enableZoom={false}
@@ -95,7 +91,7 @@ const BaseSceneLab1 = () => {
           enableDamping
           dampingFactor={0.2}
           rotateSpeed={-0.4}
-          autoRotate={autoRotate}
+          autoRotate={false} // 🔒 Desactivado completamente
         />
         <Suspense fallback={null}>
           <Preload all />
