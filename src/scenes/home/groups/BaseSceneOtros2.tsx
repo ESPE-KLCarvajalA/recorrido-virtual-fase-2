@@ -3,6 +3,7 @@ import { Pizarron } from "../components/labCompu1/Pizarron";
 import { Escritorio } from "../components/oficina/Escritorio";
 
 import { Palma } from "../components/otros/palma";
+import { SillasLab } from "../components/sillas/sillasLab";
 
 
 
@@ -14,6 +15,7 @@ const BaseSceneOtros2 = () => {
     <Pizarron />
     <Compus />
       <Palma />
+      <SillasLab />
     
     
      
