@@ -256,3 +256,27 @@
   50%  { transform: translateY(-50%) translateX(8px); }
   100% { transform: translateY(-50%) translateX(0); }
 }
+
+
+/* Botón de información */
+.info-button {
+  position: absolute;
+  top: 20px;
+  left: 20px; /* Puedes cambiar a right: 20px si lo quieres al otro lado */
+  font-size: 24px;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.info-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

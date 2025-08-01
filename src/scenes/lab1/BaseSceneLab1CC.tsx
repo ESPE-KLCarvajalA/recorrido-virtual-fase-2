@@ -77,19 +77,22 @@ const BaseSceneLab1 = () => {
   return (
     <>
      
-      {showHint && (
+     {showHint && (
   <>
-    {/* Leyenda central */}
+    <div className="info-button" onClick={() => alert("Aquí puedes mostrar información adicional.")}>
+      ℹ️
+    </div>
+
     <div className="rotate-hint">
       <span className="mouse">🖱️</span>
       <span>Arrastra para girar</span>
     </div>
 
-    {/* Flechas flotantes a los lados */}
     <div className="arrow-hint left-arrow">⬅️</div>
     <div className="arrow-hint right-arrow">➡️</div>
   </>
 )}
+
 
 
 
