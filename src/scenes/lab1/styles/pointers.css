@@ -210,18 +210,15 @@
   pointer-events: none;
 }
 
-.hand {
+.mouse {
   display: inline-block;
-  animation: rotateHand 1.5s infinite ease-in-out;
   font-size: 22px;
+  animation: clickMouse 1.5s infinite ease-in-out;
 }
 
-@keyframes rotateHand {
-  0%   { transform: rotate(0deg); }
-  25%  { transform: rotate(-15deg); }
-  50%  { transform: rotate(15deg); }
-  75%  { transform: rotate(-10deg); }
-  100% { transform: rotate(0deg); }
+@keyframes clickMouse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(0.9); }
 }
 
 .arrow {

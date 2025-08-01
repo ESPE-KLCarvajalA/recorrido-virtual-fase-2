@@ -79,10 +79,13 @@ const BaseSceneLab1 = () => {
       {/* 🖱️ Leyenda de ayuda */}
       {showHint && (
   <div className="rotate-hint">
+    <span className="mouse">🖱️</span>
+    <span>Arrastra para girar</span>
     <span className="arrow left">⬅️</span>
-    <span className="hand">🤚</span> Arrastra para girar
     <span className="arrow right">➡️</span>
   </div>
+
+
 )}
 
 
