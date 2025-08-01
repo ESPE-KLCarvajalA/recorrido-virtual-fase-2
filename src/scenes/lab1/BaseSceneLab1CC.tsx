@@ -79,9 +79,9 @@ const BaseSceneLab1 = () => {
      
      {showHint && (
   <>
-    <div className="info-button" onClick={() => alert("Aquí puedes mostrar información adicional.")}>
+    {/* <div className="info-button" onClick={() => alert("Aquí puedes mostrar información adicional.")}>
       ℹ️
-    </div>
+    </div> */}
 
     <div className="rotate-hint">
       <span className="mouse">🖱️</span>

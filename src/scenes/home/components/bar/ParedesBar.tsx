@@ -22,7 +22,7 @@ export function ParedesBar(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/paredesBar.glb') as unknown as GLTFResult
 
   const distance = useCameraDistance([-854.077, -9.046, -291.626]); // Punto de referencia
-  if (distance > 900) return null;
+  if (distance > 1000) return null;
   
   
   return (
