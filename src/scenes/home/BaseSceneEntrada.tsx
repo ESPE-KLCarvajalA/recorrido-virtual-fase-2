@@ -9,7 +9,7 @@ import HDRIEnvironment from './components/ui/HDRIEnvironment';
 
 import BaseSceneAfuera from './groups/BaseSceneAfuera';
 import BaseScenePisos2 from './groups/BaseScenePisos2';
-// import BaseSceneArco from './groups/BaseSceneArco';
+import BaseSceneArco from './groups/BaseSceneArco';
 
 import BaseSceneLab from './groups/BaseSceneLab';
 import BaseSceneLab2 from './groups/BaseSceneLab2';
@@ -43,7 +43,7 @@ const BaseSceneEntrada = () => {
           */}
           <BaseSceneAfuera />
           <BaseScenePisos2 />
-          {/* <BaseSceneArco /> */}
+          <BaseSceneArco />
 
           <BaseSceneBar />
           <BaseSceneBar2 />
