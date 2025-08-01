@@ -223,3 +223,29 @@
   75%  { transform: rotate(-10deg); }
   100% { transform: rotate(0deg); }
 }
+
+.arrow {
+  font-size: 18px;
+  display: inline-block;
+  opacity: 0.8;
+}
+
+.arrow.left {
+  animation: moveLeft 1.5s infinite ease-in-out;
+}
+
+.arrow.right {
+  animation: moveRight 1.5s infinite ease-in-out;
+}
+
+@keyframes moveLeft {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes moveRight {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}

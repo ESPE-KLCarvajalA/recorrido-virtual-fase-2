@@ -78,10 +78,13 @@ const BaseSceneLab1 = () => {
     <>
       {/* 🖱️ Leyenda de ayuda */}
       {showHint && (
-        <div className="rotate-hint">
-          <span className="hand">🤚</span> Arrastra para girar
-        </div>
-      )}
+  <div className="rotate-hint">
+    <span className="arrow left">⬅️</span>
+    <span className="hand">🤚</span> Arrastra para girar
+    <span className="arrow right">➡️</span>
+  </div>
+)}
+
 
       {/* 🌐 Visor 360 */}
       <Canvas frameloop="demand" camera={{ position: [0, 0, 0.1] }}>
