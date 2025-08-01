@@ -1,3 +1,5 @@
+import { Casilleros } from "../components/lockers/casilleros";
+import { LockerM } from "../components/lockers/locker-m";
 import { Cancha } from "../components/otros/cancha";
 import { Puerta1 } from "../components/puerta/Puerta1";
 import { Puerta2 } from "../components/puerta/Puerta2";
@@ -19,6 +21,9 @@ const BaseSceneOtros = () => {
       {/* <Rejilla /> */}
 
       <Ventana1/>
+
+      <Casilleros/>
+      <LockerM />
 
      
   </>
