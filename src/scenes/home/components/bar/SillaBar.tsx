@@ -27,7 +27,7 @@ export function SillaBar() {
   const ref2 = useRef<THREE.InstancedMesh>(null);
 
   const instances: InstanceData[] = [
-    { position: [-588.595, 1.219, -226.82], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [-588.595, 5, -226.82], rotation: [0, 0, 0], scale: [1, 1, 1] },
   // { position: [-409.935, 3, -209.586], rotation: [0, 0, 0], scale: [1, 1, 1] },
   // { position: [-409.935, 3, -262.61], rotation: [0, 0, 0], scale: [1, 1, 1] },
   // { position: [-448.575, 3, -262.61], rotation: [0, 0, 0], scale: [1, 1, 1] },
