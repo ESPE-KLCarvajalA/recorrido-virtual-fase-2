@@ -36,7 +36,7 @@ export function Compus() {
   const Cube078_3 = useRef<THREE.InstancedMesh>(null);
 
   const instances: InstanceData[] = [
-    { position: [163.33, 5, -23.434], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [163.33, 10, -23.434], rotation: [0, 0, 0], scale: [1, 1, 1] },
    
 { position: [160.675, 10, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
 { position: [160.675, 10, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },

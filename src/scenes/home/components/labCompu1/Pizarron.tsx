@@ -2,54 +2,47 @@ import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
-import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
 
 
 type GLTFResult = GLTF & {
   nodes: {
-    Plane152: THREE.Mesh
-    Plane152_1: THREE.Mesh
-    Plane152_2: THREE.Mesh
+    Plane126: THREE.Mesh
+    Plane126_1: THREE.Mesh
+    Plane126_2: THREE.Mesh
   }
   materials: {
-    ['WB_Metal.001']: THREE.MeshStandardMaterial
-    ['WB_Plastic.001']: THREE.MeshPhysicalMaterial
-    ['WB_Board.001']: THREE.MeshStandardMaterial
+    WB_Metal: THREE.MeshStandardMaterial
+    ['Material.007']: THREE.MeshStandardMaterial
+    ['Material.008']: THREE.MeshStandardMaterial
   }
 }
 
 export function Pizarron(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/pizarron.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/pizarron1.glb') as unknown as GLTFResult
   
   
-  const distance = useCameraDistance([103.759, 24.852, -77.841]); 
-  if (distance > 600) return null;
   
   return (
     <group {...props} dispose={null}>
       <group
-        name="Whiteboard002"
-        position={[103.759, 24.852, -77.841]}
-        rotation={[0, 1.571, 0]}
+        name="Whiteboard001"
+        position={[234.566, 46.906, -133.209]}
+        rotation={[Math.PI, 0, Math.PI]}
         scale={50.608}>
+        <mesh name="Plane126" geometry={nodes.Plane126.geometry} material={materials.WB_Metal} />
         <mesh
-          name="Plane152"
-          geometry={nodes.Plane152.geometry}
-          material={materials['WB_Metal.001']}
+          name="Plane126_1"
+          geometry={nodes.Plane126_1.geometry}
+          material={materials['Material.007']}
         />
         <mesh
-          name="Plane152_1"
-          geometry={nodes.Plane152_1.geometry}
-          material={materials['WB_Plastic.001']}
-        />
-        <mesh
-          name="Plane152_2"
-          geometry={nodes.Plane152_2.geometry}
-          material={materials['WB_Board.001']}
+          name="Plane126_2"
+          geometry={nodes.Plane126_2.geometry}
+          material={materials['Material.008']}
         />
       </group>
     </group>
   )
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/pizarron.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/pizarron1.glb')
