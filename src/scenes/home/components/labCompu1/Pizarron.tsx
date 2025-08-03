@@ -5,16 +5,16 @@ import { GLTF } from 'three-stdlib';
 
 type GLTFResult = GLTF & {
   nodes: {
-    Plane126: THREE.Mesh
-    Plane126_1: THREE.Mesh
-    Plane126_2: THREE.Mesh
-  }
+    Plane126: THREE.Mesh;
+    Plane126_1: THREE.Mesh;
+    Plane126_2: THREE.Mesh;
+  };
   materials: {
-    WB_Metal: THREE.MeshStandardMaterial
-    ['Material.007']: THREE.MeshStandardMaterial
-    ['Material.008']: THREE.MeshStandardMaterial
-  }
-}
+    WB_Metal: THREE.MeshStandardMaterial;
+    ['Material.007']: THREE.MeshStandardMaterial;
+    ['Material.008']: THREE.MeshStandardMaterial;
+  };
+};
 
 type InstanceData = {
   position: [number, number, number];
@@ -22,7 +22,7 @@ type InstanceData = {
   scale: [number, number, number];
 };
 
-export function Pizarron() {
+export function PizarronInstanciado() {
   const { nodes, materials } = useGLTF(
     'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/pizarron1.glb'
   ) as unknown as GLTFResult;
@@ -32,9 +32,9 @@ export function Pizarron() {
   const ref3 = useRef<THREE.InstancedMesh>(null);
 
   const instances: InstanceData[] = [
-    { position: [234.566, 46.906, -133.209], rotation: [Math.PI, 0, Math.PI], scale: [1,1,1] },
-    { position: [103.759, 24.852, -77.841], rotation: [0, 1.571, 0], scale: [1,1,1] },
-   
+    { position: [234.566, 46.906, -133.209], rotation: [Math.PI, 0, Math.PI], scale: [50.608, 50.608, 50.608] },
+    { position: [103.759, 24.852, -77.841], rotation: [0, 1.571, 0], scale: [50.608, 50.608, 50.608] },
+    
   ];
 
   useEffect(() => {
