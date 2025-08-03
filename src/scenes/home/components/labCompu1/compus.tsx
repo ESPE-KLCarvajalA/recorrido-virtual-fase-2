@@ -38,32 +38,32 @@ export function Compus() {
   const instances: InstanceData[] = [
     { position: [163.33, 5, -23.434], rotation: [0, 0, 0], scale: [1, 1, 1] },
    
-{ position: [160.675, 7, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [160.675, 7, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [160.675, 7, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [189.58,  7, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [189.58,  7, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [189.58,  7, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [189.58,  7, -23.539], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [218.572, 7, -23.539], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [218.572, 7, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [218.572, 7, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [218.572, 7, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [160.675, 8, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [160.675, 8, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [160.675, 8, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [189.58,  8, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [189.58,  8, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [189.58,  8, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [189.58,  8, -23.539], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [218.572, 8, -23.539], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [218.572, 8, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [218.572, 8, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [218.572, 8, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
 
 /* lab de computacion */
 
-    { position: [285.081, 7, -185.711], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [253.041, 7, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [221.002, 7, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [188.203, 7, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [188.203, 7, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [221.002, 7, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [253.041, 7, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [285.081, 7, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [285.081, 7, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [253.041, 7, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [221.002, 7, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [188.203, 7, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] }
+    { position: [285.081, 8, -185.711], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [253.041, 8, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [221.002, 8, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [188.203, 8, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [188.203, 8, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [221.002, 8, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [253.041, 8, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [285.081, 8, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [285.081, 8, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [253.041, 8, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [221.002, 8, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [188.203, 8, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] }
   
 
 
