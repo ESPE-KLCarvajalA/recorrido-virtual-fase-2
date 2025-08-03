@@ -30,11 +30,11 @@ export function SillasLab() {
     { position: [19.402, 3, -335.884], rotation: [0, 0, 0], scale: [1, 1, 1] },
     { position: [158, 3, -307], rotation: [0, -Math.PI / 2, 0], scale: [1, 1, 1] },
     
-    { position: [-19, 3, -179], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [-19, 3, -210], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [-19, 3, -170], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [-19, 3, -200], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
     
-    { position: [71, 3, -155], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
-    { position: [35, 3, -155], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
+    { position: [71, 3, -140], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
+    { position: [35, 3, -140], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
 
 
     // Puedes agregar más aquí...

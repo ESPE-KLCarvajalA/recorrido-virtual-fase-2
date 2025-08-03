@@ -14,10 +14,8 @@ const TELEPORT_LOCATIONS = {
   bar: [-710.344, -6, -210.603],
   secretaria: [-155.823, 26, -39.883],
   enfermeria: [537.62, 25, -330.33],
-  biblioteca: [0, 20, 0],
-  auditorio: [200, 20, -100],
   parking: [-300, 0, 100],
-  jardin: [150, 0, 300],
+ 
 } as const;
 
 type LocationKey = keyof typeof TELEPORT_LOCATIONS;
@@ -35,10 +33,9 @@ const LOCATION_NAMES: Record<LocationKey, string> = {
   bar: 'Cafetería',
   secretaria: 'Secretaría',
   enfermeria: 'Enfermería',
-  biblioteca: 'Biblioteca',
-  auditorio: 'Auditorio',
+
   parking: 'Estacionamiento',
-  jardin: 'Jardín Central',
+ 
 };
 
 // 🎨 Iconos para cada ubicación
@@ -54,10 +51,8 @@ const LOCATION_ICONS: Record<LocationKey, string> = {
   bar: '☕',
   secretaria: '📋',
   enfermeria: '🏥',
-  biblioteca: '📚',
-  auditorio: '🎭',
   parking: '🚗',
-  jardin: '🌳',
+  
 };
 
 function NavigationPanel() {
