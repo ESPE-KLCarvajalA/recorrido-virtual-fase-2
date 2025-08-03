@@ -38,32 +38,32 @@ export function Compus() {
   const instances: InstanceData[] = [
     { position: [163.33, 5, -23.434], rotation: [0, 0, 0], scale: [1, 1, 1] },
    
-{ position: [160.675, 5, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [160.675, 5, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [160.675, 5, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [189.58, 5, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [189.58, 5, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [189.58, 5, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [189.58, 5, -23.539], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [218.572, 5, -23.539], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [218.572, 5, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [218.572,5, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
-{ position: [218.572, 5, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [160.675, 6, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [160.675, 6, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [160.675, 6, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [189.58, 6, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [189.58,6, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [189.58, 6, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [189.58, 6, -23.539], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [218.572, 6, -23.539], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [218.572, 6, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [218.572,6, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [218.572, 6, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
 
 /* lab de computacion */
 
-    { position: [285.081, 16.999, -185.711], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [253.041, 16.999, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [221.002, 16.999, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [188.203, 16.999, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [188.203, 16.999, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [221.002, 16.999, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [253.041, 16.999, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [285.081, 16.999, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [285.081, 16.999, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [253.041, 16.999, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [221.002, 16.999, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [188.203, 16.999, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] }
+    { position: [285.081, 6, -185.711], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [253.041, 6, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [221.002, 6, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [188.203, 6, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [188.203, 6, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [221.002, 6, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [253.041, 6, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [285.081, 6, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [285.081, 6, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [253.041, 6, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [221.002, 6, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [188.203, 6, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] }
   
 
 
