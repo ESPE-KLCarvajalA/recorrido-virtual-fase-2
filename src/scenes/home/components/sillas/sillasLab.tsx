@@ -34,7 +34,7 @@ export function SillasLab() {
     { position: [-19, 3, -195], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
     
     { position: [73, 3, -140], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
-    { position: [43, 3, -138], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
+    { position: [30, 3, -138], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
 
 
     // Puedes agregar más aquí...
