@@ -33,7 +33,7 @@ export function Pizarron() {
 
   const instances: InstanceData[] = [
     { position: [234.566, 46.906, -133.209], rotation: [Math.PI, 0, Math.PI], scale: [50.608, 50.608, 50.608] },
-    { position: [103.759, 24.852, -77.841], rotation: [0, 1.571, 0], scale: [50.608, 50.608, 50.608] },
+    { position: [103.759, 46.906, -77.841], rotation: [0, 1.571, 0], scale: [50.608, 50.608, 50.608] },
     
   ];
 
