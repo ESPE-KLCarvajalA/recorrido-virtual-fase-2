@@ -60,7 +60,7 @@ const BaseSceneEntrada = () => {
 
           <BaseCharacter 
             controls 
-            positionCharacter={[9.373, -4, -247.046]} 
+            positionCharacter={[-80,-1, 170]} 
             args={[2.2]} 
             altura={20} 
             velocidad={40} 
