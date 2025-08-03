@@ -52,18 +52,18 @@ export function Compus() {
 
 /* lab de computacion */
 
-    { position: [285.081, 16.999, -185.711], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [253.041, 16.999, -185.712], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [221.002, 16.999, -185.712], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [188.203, 16.999, -185.712], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [188.203, 16.999, -217.717], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [221.002, 16.999, -217.717], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [253.041, 16.999, -217.717], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [285.081, 16.999, -217.717], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [285.081, 16.999, -249.82], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [253.041, 16.999, -249.82], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [221.002, 16.999, -249.82], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [188.203, 16.999, -249.82], rotation: [0, 0, 0], scale: [1, 1, 1] }
+    { position: [285.081, 16.999, -185.711], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [253.041, 16.999, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [221.002, 16.999, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [188.203, 16.999, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [188.203, 16.999, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [221.002, 16.999, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [253.041, 16.999, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [285.081, 16.999, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [285.081, 16.999, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [253.041, 16.999, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [221.002, 16.999, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [188.203, 16.999, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] }
   
 
 
