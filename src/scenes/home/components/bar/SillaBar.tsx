@@ -21,7 +21,7 @@ type InstanceData = {
 };
 
 export function SillaBar() {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/sillaBar.glb') as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/sillaBar1.glb') as unknown as GLTFResult;
 
   const ref1 = useRef<THREE.InstancedMesh>(null);
   const ref2 = useRef<THREE.InstancedMesh>(null);
@@ -75,4 +75,4 @@ export function SillaBar() {
   );
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/sillaBar.glb');
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/bar/sillaBar1.glb');
