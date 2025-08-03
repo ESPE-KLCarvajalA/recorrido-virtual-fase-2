@@ -28,13 +28,13 @@ export function SillasLab() {
 
   const instances: InstanceData[] = [
     { position: [19.402, 3, -335.884], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [157.668, 3, -295], rotation: [0, -Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [158, 3, -299.409], rotation: [0, -Math.PI / 2, 0], scale: [1, 1, 1] },
     
-    { position: [-21.618, 3, -165], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [-21.618, 3, -200], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [-20, 3, -167.891], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [-20, 3, -203.551], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
     
-    { position: [65, 3, -135], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
-    { position: [28, 3, -135], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
+    { position: [71, 3, -140], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
+    { position: [35, 3, -140], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
 
 
     // Puedes agregar más aquí...
