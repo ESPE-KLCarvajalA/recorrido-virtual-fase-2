@@ -22,7 +22,7 @@ type GLTFResult = GLTF & {
 }
 
 export function Compus(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/compus.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/computadora.glb') as unknown as GLTFResult
   
   // const distance = useCameraDistance([161.535, 16.867, -22.455]); 
   // if (distance > 600) return null;
@@ -53,4 +53,4 @@ export function Compus(props: ThreeElements['group']) {
 
 
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/compus.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/computadora.glb')
