@@ -29,7 +29,7 @@ export function Compus(props: ThreeElements['group']) {
   
   return (
     <group {...props} dispose={null}>
-      <group name="Moniter023" position={[163.33, 13.208, -23.434]}>
+      <group name="Moniter023" position={[163.33, 13.208, -23.434]} rotation={[0,0, 0]} scale={1.5}>
         <mesh name="Cube078" geometry={nodes.Cube078.geometry} material={materials['black.005']} />
         <mesh
           name="Cube078_1"
