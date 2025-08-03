@@ -22,7 +22,7 @@ type InstanceData = {
   scale: [number, number, number];
 };
 
-export function PizarronInstanciado() {
+export function Pizarron() {
   const { nodes, materials } = useGLTF(
     'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/pizarron1.glb'
   ) as unknown as GLTFResult;
