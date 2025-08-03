@@ -14,8 +14,10 @@ const BaseSceneOtros2 = () => {
     <Escritorio />
     <Pizarron />
     <Compus />
+
       <Palma />
-      <SillasLab />
+
+      {/* <SillasLab /> */}
     
     
      
