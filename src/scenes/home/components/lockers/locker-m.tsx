@@ -1,10 +1,8 @@
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
+import { useEffect, useRef } from 'react';
 import { GLTF } from 'three-stdlib';
-import { ThreeElements } from '@react-three/fiber'
-import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
-
-
+import useCameraDistance from '../../../../utils/useCameraDistance';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -17,33 +15,59 @@ type GLTFResult = GLTF & {
   }
 }
 
+type InstanceData = {
+  position: [number, number, number];
+  rotation: [number, number, number];
+  scale: [number, number, number];
+};
 
-
-export function LockerM(props: ThreeElements['group']) {
+export function LockerM() {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/lockers/locker-m.glb') as unknown as GLTFResult;
 
-  const distance = useCameraDistance([155.354, 13.603, -237.843]); 
+  const ref1 = useRef<THREE.InstancedMesh>(null);
+  const ref2 = useRef<THREE.InstancedMesh>(null);
+
+  const instances: InstanceData[] = [
+    { position: [155.354, 13.603, -237.843], rotation: [0, Math.PI / 2, 0], scale: [0.905, 0.88, 1] },
+    { position: [155.354, 13.603, -204.404], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [155.354, 13.603, -170.849], rotation: [0, 0, 0], scale: [1, 1, 1] },
+
+  ];
+
+  const distance = useCameraDistance([155.354, 13.603, -237.843]);
   if (distance > 600) return null;
 
+  useEffect(() => {
+    instances.forEach((instance, i) => {
+      const position = new THREE.Vector3(...instance.position);
+      const rotation = new THREE.Euler(...instance.rotation);
+      const scale = new THREE.Vector3(...instance.scale);
+      const matrix = new THREE.Matrix4();
+      matrix.compose(position, new THREE.Quaternion().setFromEuler(rotation), scale);
+
+      ref1.current?.setMatrixAt(i, matrix);
+      ref2.current?.setMatrixAt(i, matrix);
+    });
+
+    ref1.current!.instanceMatrix.needsUpdate = true;
+    ref2.current!.instanceMatrix.needsUpdate = true;
+
+    ref1.current!.frustumCulled = false;
+    ref2.current!.frustumCulled = false;
+  }, [instances]);
+
   return (
-    <group {...props} dispose={null}>
-      <group
-        name="casilleros002"
-        position={[155.354, 13.603, -237.843]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={[0.905, 0.88, 1]}>
-        <mesh
-          name="Plane013"
-          geometry={nodes.Plane013.geometry}
-          material={materials['Material.055']}
-        />
-        <mesh
-          name="Plane013_1"
-          geometry={nodes.Plane013_1.geometry}
-          material={materials['Material.056']}
-        />
-      </group>
+    <group>
+      <instancedMesh ref={ref1} args={[null, null, instances.length]}>
+        <bufferGeometry attach="geometry" {...nodes.Plane013.geometry} />
+        <meshStandardMaterial attach="material" {...materials['Material.055']} />
+      </instancedMesh>
+      <instancedMesh ref={ref2} args={[null, null, instances.length]}>
+        <bufferGeometry attach="geometry" {...nodes.Plane013_1.geometry} />
+        <meshStandardMaterial attach="material" {...materials['Material.056']} />
+      </instancedMesh>
     </group>
-  )
+  );
 }
+
 useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/lockers/locker-m.glb');

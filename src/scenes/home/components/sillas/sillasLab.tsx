@@ -75,12 +75,3 @@ export function SillasLab() {
 
 useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/sillas/sillalab1.glb');
 
-
-
-
-
-position: [83.618, 5.343, -139.896]
-position: [47.959, 5.343, -139.896]
-position: [-21.135, 5.343, -155.442]
-position: [-21.135, 5.343, -191.403]
-position: [155.947, 5.343, -311.672]
