@@ -28,7 +28,7 @@ export function LockerM() {
   const ref2 = useRef<THREE.InstancedMesh>(null);
 
   const instances: InstanceData[] = [
-    { position: [155.354, 13.603, -230], rotation: [0, Math.PI / 2, 0], scale: [0.905, 0.88, 1] },
+    { position: [155.354, 13.603, -245], rotation: [0, Math.PI / 2, 0], scale: [0.905, 0.88, 1] },
     { position: [155.354, 13.603, -204], rotation: [0,  Math.PI / 2, 0], scale: [0.905, 0.88, 1] },
     { position: [155.354, 13.603, -171], rotation: [0,  Math.PI / 2, 0], scale: [0.905, 0.88, 1] },
 
