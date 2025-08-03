@@ -38,7 +38,6 @@ export function Compus() {
   const instances: InstanceData[] = [
     { position: [163.33, 13.208, -23.434], rotation: [0, 0, 0], scale: [1, 1, 1] },
    
-
 { position: [160.675, 16.884, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
 { position: [160.675, 16.884, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
 { position: [160.675, 16.884, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
@@ -50,6 +49,24 @@ export function Compus() {
 { position: [218.572, 16.884, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
 { position: [218.572, 16.884, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
 { position: [218.572, 16.884, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
+
+/* lab de computacion */
+
+
+  { position: [163.33, 13.208, -23.434], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  { position: [160.675, 16.884, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  { position: [160.675, 16.884, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  { position: [160.675, 16.884, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  { position: [189.58, 16.884, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  { position: [189.58, 16.884, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  { position: [189.58, 16.884, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  { position: [189.58, 16.884, -23.539], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  { position: [218.572, 16.884, -23.539], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  { position: [218.572, 16.884, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  { position: [218.572, 16.884, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
+  { position: [218.572, 16.884, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] }
+
+
 
   ];
 
