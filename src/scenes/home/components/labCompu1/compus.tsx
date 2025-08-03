@@ -1,10 +1,7 @@
-
-import * as THREE from 'three'
-import { useGLTF } from '@react-three/drei'
-import { GLTF } from 'three-stdlib'
-import { ThreeElements } from '@react-three/fiber'
-// import useCameraDistance from '../../../../utils/useCameraDistance'; // Ajusta la ruta si es necesario
-
+import * as THREE from 'three';
+import { useGLTF } from '@react-three/drei';
+import { GLTF } from 'three-stdlib';
+import { ThreeElements } from '@react-three/fiber';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -22,14 +19,13 @@ type GLTFResult = GLTF & {
 }
 
 export function Compus(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/computadora.glb') as unknown as GLTFResult
-  
-  // const distance = useCameraDistance([161.535, 16.867, -22.455]); 
-  // if (distance > 600) return null;
-  
+  const { nodes, materials } = useGLTF(
+    'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/computadora.glb'
+  ) as unknown as GLTFResult;
+
   return (
     <group {...props} dispose={null}>
-      <group name="Moniter023" position={[163.33, 13.208, -23.434]} >
+      <group name="Moniter023" position={[163.33, 13.208, -23.434]}>
         <mesh name="Cube078" geometry={nodes.Cube078.geometry} material={materials['black.005']} />
         <mesh
           name="Cube078_1"
@@ -51,6 +47,6 @@ export function Compus(props: ThreeElements['group']) {
   )
 }
 
+  
 
-
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/computadora.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/computadora.glb');
