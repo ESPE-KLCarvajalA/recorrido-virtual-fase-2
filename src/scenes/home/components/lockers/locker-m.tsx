@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { useEffect, useRef } from 'react';
 import { GLTF } from 'three-stdlib';
-import useCameraDistance from '../../../../utils/useCameraDistance';
+// import useCameraDistance from '../../../../utils/useCameraDistance';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -28,14 +28,14 @@ export function LockerM() {
   const ref2 = useRef<THREE.InstancedMesh>(null);
 
   const instances: InstanceData[] = [
-    { position: [155.354, 13.603, -237.843], rotation: [0, Math.PI / 2, 0], scale: [0.905, 0.88, 1] },
-    { position: [155.354, 13.603, -204.404], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [155.354, 13.603, -170.849], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [155.354, 13.603, -237.843], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [155.354, 13.603, -204.404], rotation: [0,  Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [155.354, 13.603, -170.849], rotation: [0,  Math.PI / 2, 0], scale: [1, 1, 1] },
 
   ];
 
-  const distance = useCameraDistance([155.354, 13.603, -237.843]);
-  if (distance > 600) return null;
+  // const distance = useCameraDistance([155.354, 13.603, -237.843]);
+  // if (distance > 600) return null;
 
   useEffect(() => {
     instances.forEach((instance, i) => {
