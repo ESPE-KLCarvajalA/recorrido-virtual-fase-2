@@ -27,12 +27,12 @@ export function SillasLab() {
   const ref2 = useRef<THREE.InstancedMesh>(null);
 
   const instances: InstanceData[] = [
-    { position: [19.402, 10.034, -335.884], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [157.668, 11.64, -299.409], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [-21.618, 11.768, -167.891], rotation: [0, -Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [-21.618, 11.768, -203.551], rotation: [0, -Math.PI / 2, 0], scale: [1, 1, 1] },
-    { position: [71.222, 11.64, -137.708], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [35.563, 11.64, -137.708], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [19.402, 10, -335.884], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [157.668, 10, -299.409], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [-21.618, 10, -167.891], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [-21.618, 10, -203.551], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [71.222, 10, -137.708], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [35.563, 10, -137.708], rotation: [0, 0, 0], scale: [1, 1, 1] },
 
 
     // Puedes agregar más aquí...
