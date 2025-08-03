@@ -20,7 +20,7 @@ type InstanceData = {
   scale: [number, number, number];
 };
 
-export function SillasLabInstanciadas() {
+export function SillasLab() {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/sillas/sillalab1.glb') as unknown as GLTFResult;
 
   const ref1 = useRef<THREE.InstancedMesh>(null);
