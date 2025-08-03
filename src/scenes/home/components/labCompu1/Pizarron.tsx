@@ -5,16 +5,16 @@ import { GLTF } from 'three-stdlib';
 
 type GLTFResult = GLTF & {
   nodes: {
-    Plane126: THREE.Mesh;
-    Plane126_1: THREE.Mesh;
-    Plane126_2: THREE.Mesh;
-  };
+    Plane126: THREE.Mesh
+    Plane126_1: THREE.Mesh
+    Plane126_2: THREE.Mesh
+  }
   materials: {
-    WB_Metal: THREE.MeshStandardMaterial;
-    ['Material.007']: THREE.MeshStandardMaterial;
-    ['Material.008']: THREE.MeshStandardMaterial;
-  };
-};
+    WB_Metal: THREE.MeshStandardMaterial
+    ['Material.007']: THREE.MeshStandardMaterial
+    ['Material.008']: THREE.MeshStandardMaterial
+  }
+}
 
 type InstanceData = {
   position: [number, number, number];
