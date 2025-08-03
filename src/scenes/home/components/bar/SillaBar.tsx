@@ -27,15 +27,17 @@ export function SillaBar() {
   const ref2 = useRef<THREE.InstancedMesh>(null);
 
   const instances: InstanceData[] = [
-    { position: [-588.595, 5, -226.82], rotation: [0, 0, 0], scale: [1, 1, 1] },
-  { position: [-409.935, 3, -209.586], rotation: [0, 0, 0], scale: [1, 1, 1] },
-  { position: [-409.935, 3, -262.61], rotation: [0, 0, 0], scale: [1, 1, 1] },
-  { position: [-448.575, 3, -262.61], rotation: [0, 0, 0], scale: [1, 1, 1] },
-  {  position: [-488.381, 3, -262.61], rotation: [0, 0, 0], scale: [1, 1, 1] },
-  { position: [-448.402, 3, -209.586], rotation: [0, 0, 0], scale: [1, 1, 1] },
-  { position: [-488.142, 3, -209.586], rotation: [0, 0, 0], scale: [1, 1, 1] },
-  { position: [-527.578, 3, -209.586], rotation: [0, 0, 0], scale: [1, 1, 1] },
-  { position: [-527.662, 3, -262.61], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [-588.595, 3, -226.82], rotation: [0, 0, 0], scale: [1, 1, 1] },
+
+  { position: [-409.935, 3, -209.586], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+  { position: [-409.935, 3, -262.61], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+  { position: [-448.575, 3, -262.61], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+  {  position: [-488.381, 3, -262.61], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+  { position: [-448.402, 3, -209.586], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+  { position: [-488.142, 3, -209.586], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+  { position: [-527.578, 3, -209.586], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+  { position: [-527.662, 3, -262.61], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+
   { position: [-588.652, 3.573, -265.136], rotation: [0, 0, 0], scale: [1, 1, 1] },
   { position: [-636.002, 3.182, -265.032], rotation: [0, 0, 0], scale: [1, 1, 1] },
   { position: [-635.799, 3.13, -227.498], rotation: [0, 0, 0], scale: [1, 1, 1] },
