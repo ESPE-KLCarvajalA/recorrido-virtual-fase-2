@@ -17,10 +17,10 @@ type GLTFResult = GLTF & {
     ['Material.211']: THREE.MeshStandardMaterial
   }
 }
+
 export function Escritorio(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/escritorio.glb') as unknown as GLTFResult
   
-
   
   return (
     <group {...props} dispose={null}>
@@ -48,5 +48,6 @@ export function Escritorio(props: ThreeElements['group']) {
     </group>
   )
 }
+
 
 useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/escritorio.glb')
