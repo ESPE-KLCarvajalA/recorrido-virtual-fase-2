@@ -28,21 +28,21 @@ export function Palma() {
   const instancedRef = useRef<THREE.InstancedMesh>(null)
 
   const instances: InstanceData[] = [
-    { position: [-303.948, 5, -330.415], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [-303.948, 5, -431.053], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [-308.25, 5, -82.042], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [-299.473, 5, -622.537], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [-299.473, 5, -787.342], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [-9.968, 5, -764.204], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [-9.968, 5, -657.544], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [-9.404, 5, -545.241], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [101.206, 5, -544.677], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [77.504, 5, -656.98], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [175.134, 5, -544.677], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [443.346, 5, -197.827], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [533.218, 5, -129.019], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [448.963, 5, -54.593], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
-    { position: [342.24, 5, -34.934], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 }
+    { position: [-303.948,7, -330.415], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [-303.948,7, -431.053], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [-308.25, 7, -82.042], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [-299.473,7, -622.537], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [-299.473,7, -787.342], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [-9.968,  7, -764.204], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [-9.968,  7, -657.544], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [-9.404,  7, -545.241], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [101.206, 7, -544.677], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [77.504,  7, -656.98], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [175.134, 7, -544.677], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [443.346, 7, -197.827], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [533.218, 7, -129.019], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [448.963, 7, -54.593], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 },
+    { position: [342.24,  7, -34.934], rotation: [Math.PI / 2, 0, -Math.PI / 2], scale: 34.105 }
   ]
 
   useEffect(() => {
