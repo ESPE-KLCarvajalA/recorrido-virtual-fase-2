@@ -33,11 +33,13 @@ export function Escritorio() {
 
   const instances: InstanceData[] = [
     
-      { position: [282.262, 10.037, -146.118], rotation: [0,0,0], scale: [1,1,1] },
-      { position: [116.144, 10.037, -26.286], rotation: [0,0,0], scale: [1,1,1] },
-      { position: [83.625, 10.74, -40.022], rotation: [0,0,0], scale: [1,1,1] },
-      { position: [83.354, 9.285, -83.582], rotation: [0, 0, 0], scale: [1,1,1] },
-      { position: [-52.641, 9.285, -15.636], rotation: [0,0,0], scale: [1,1,1] }
+    { position: [83.625, 9, -40.022], rotation: [0,0,0], scale: [1,1,1] },
+    { position: [83.354, 9, -83.582], rotation: [0, -0, 0], scale: [1,1,1] },
+
+    { position: [116.144, 9, -26.286], rotation: [0,Math.PI / 2,0], scale: [1,1,1] },
+      { position: [282.262, 9, -146.118], rotation: [0,0,0], scale: [1,1,1] },
+
+      { position: [-52.641, 9, -15.636], rotation: [0,0,0], scale: [1,1,1] }
     
     
   ]
