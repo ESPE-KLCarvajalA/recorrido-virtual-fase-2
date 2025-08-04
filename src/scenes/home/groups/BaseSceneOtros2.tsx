@@ -4,7 +4,7 @@ import { Escritorio } from "../components/oficina/Escritorio";
 import { Acondicionador } from "../components/otros/acondicionador";
 
 import { Palma } from "../components/otros/palma";
-// import { SillasLab } from "../components/sillas/sillasLab";
+import { SillasLab } from "../components/sillas/sillasLab";
 
 
 
@@ -21,7 +21,7 @@ const BaseSceneOtros2 = () => {
 
 
 
-      {/* <SillasLab /> */}
+      <SillasLab />
     
     
      
