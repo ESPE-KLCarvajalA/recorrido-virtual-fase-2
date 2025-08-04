@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei';
 import { useEffect, useRef } from 'react';
 import { GLTF } from 'three-stdlib';
 
-// Tipo del modelo GLB
+
 type GLTFResult = GLTF & {
   nodes: {
     Cube078: THREE.Mesh
@@ -18,6 +18,8 @@ type GLTFResult = GLTF & {
     ['Material.012']: THREE.MeshStandardMaterial
   }
 }
+
+
 type InstanceData = {
   position: [number, number, number];
   rotation: [number, number, number];
