@@ -13,11 +13,10 @@ type GLTFResult = GLTF & {
   }
   materials: {
     ['Material.209']: THREE.MeshStandardMaterial
-    ['Material.013']: THREE.MeshStandardMaterial
+    ['Material.014']: THREE.MeshStandardMaterial
     ['Material.211']: THREE.MeshStandardMaterial
   }
 }
-
 export function Escritorio(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/escritorio.glb') as unknown as GLTFResult
   
@@ -38,7 +37,7 @@ export function Escritorio(props: ThreeElements['group']) {
         <mesh
           name="Wooden_table_office-01002_2"
           geometry={nodes['Wooden_table_office-01002_2'].geometry}
-          material={materials['Material.013']}
+          material={materials['Material.014']}
         />
         <mesh
           name="Wooden_table_office-01002_3"
