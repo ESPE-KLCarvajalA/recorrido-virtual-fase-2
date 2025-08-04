@@ -18,17 +18,14 @@ type GLTFResult = GLTF & {
   }
 }
 
+
 export function Escritorio(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/escritorio.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/escritorio2.glb') as unknown as GLTFResult
   
 
   return (
     <group {...props} dispose={null}>
-      <group
-        name="Wooden_table_office-01002"
-        position={[83.625, 10.74, -40.022]}
-        rotation={[Math.PI, 0, Math.PI]}
-        scale={23.818}>
+      <group name="Wooden_table_office-01002" position={[83.625, 10.74, -40.022]}>
         <mesh
           name="Wooden_table_office-01002_1"
           geometry={nodes['Wooden_table_office-01002_1'].geometry}
@@ -49,4 +46,4 @@ export function Escritorio(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/escritorio.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/oficina/escritorio2.glb')
