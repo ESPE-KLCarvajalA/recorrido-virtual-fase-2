@@ -1,8 +1,7 @@
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
+import { useEffect, useRef } from 'react';
 import { GLTF } from 'three-stdlib';
-import { ThreeElements } from '@react-three/fiber';
-
 
 
 type GLTFResult = GLTF & {
@@ -20,34 +19,104 @@ type GLTFResult = GLTF & {
   }
 }
 
-export function Compus(props: ThreeElements['group']) {
+
+type InstanceData = {
+  position: [number, number, number];
+  rotation: [number, number, number];
+  scale: [number, number, number];
+};
+
+export function Compus() {
   const { nodes, materials } = useGLTF(
-    'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/computadora.glb'
+    'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/computadora1.glb'
   ) as unknown as GLTFResult;
 
+  const Cube078 = useRef<THREE.InstancedMesh>(null);
+  const Cube078_1 = useRef<THREE.InstancedMesh>(null);
+  const Cube078_2 = useRef<THREE.InstancedMesh>(null);
+  const Cube078_3 = useRef<THREE.InstancedMesh>(null);
+
+  const instances: InstanceData[] = [
+    { position: [163.33, 10, -23.434], rotation: [0, 0, 0], scale: [1, 1, 1] },
+   
+{ position: [160.675, 10, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [160.675, 10, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [160.675, 10, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [189.58,  10, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [189.58,  10, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [189.58,  10, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [189.58,  10, -23.539], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [218.572, 10, -23.539], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [218.572, 10, -52.474], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [218.572, 10, -81.409], rotation: [0, 0, 0], scale: [1, 1, 1] },
+{ position: [218.572, 10, -111.033], rotation: [0, 0, 0], scale: [1, 1, 1] },
+
+/* lab de computacion */
+
+    { position: [285.081, 10, -185.711], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [253.041, 10, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [221.002, 10, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [188.203, 10, -185.712], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [188.203, 10, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [221.002, 10, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [253.041, 10, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [285.081, 10, -217.717], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [285.081, 10, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [253.041, 10, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [221.002, 10, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] },
+    { position: [188.203, 10, -249.82], rotation: [0, Math.PI / 2, 0], scale: [1, 1, 1] }
   
+
+
+
+
+  ];
+
+  useEffect(() => {
+    instances.forEach((instance, i) => {
+      const position = new THREE.Vector3(...instance.position);
+      const rotation = new THREE.Euler(...instance.rotation);
+      const scale = new THREE.Vector3(...instance.scale);
+      const matrix = new THREE.Matrix4();
+      matrix.compose(position, new THREE.Quaternion().setFromEuler(rotation), scale);
+
+      Cube078.current!.setMatrixAt(i, matrix);
+      Cube078_1.current!.setMatrixAt(i, matrix);
+      Cube078_2.current!.setMatrixAt(i, matrix);
+      Cube078_3.current!.setMatrixAt(i, matrix);
+
+      Cube078.current!.frustumCulled = false;
+      Cube078_1.current!.frustumCulled = false;
+      Cube078_2.current!.frustumCulled = false;
+      Cube078_3.current!.frustumCulled = false;
+    });
+
+    Cube078.current!.instanceMatrix.needsUpdate = true;
+    Cube078_1.current!.instanceMatrix.needsUpdate = true;
+    Cube078_2.current!.instanceMatrix.needsUpdate = true;
+    Cube078_3.current!.instanceMatrix.needsUpdate = true;
+  }, [instances]);
+
   return (
-    <group {...props} dispose={null}>
-      <group name="Moniter023" position={[163.294, 12.54, -23.168]}>
-        <mesh name="Cube078" geometry={nodes.Cube078.geometry} material={materials['black.005']} />
-        <mesh
-          name="Cube078_1"
-          geometry={nodes.Cube078_1.geometry}
-          material={materials['Material.013']}
-        />
-        <mesh
-          name="Cube078_2"
-          geometry={nodes.Cube078_2.geometry}
-          material={materials['Material.011']}
-        />
-        <mesh
-          name="Cube078_3"
-          geometry={nodes.Cube078_3.geometry}
-          material={materials['Material.012']}
-        />
-      </group>
+    <group>
+      <instancedMesh ref={Cube078} args={[null, null, instances.length]}>
+        <bufferGeometry attach="geometry" {...nodes.Cube078.geometry} />
+        <meshStandardMaterial attach="material" {...materials['black.005']} />
+      </instancedMesh>
+      <instancedMesh ref={Cube078_1} args={[null, null, instances.length]}>
+        <bufferGeometry attach="geometry" {...nodes.Cube078_1.geometry} />
+        <meshStandardMaterial attach="material" {...materials['Material.013']} />
+      </instancedMesh>
+      <instancedMesh ref={Cube078_2} args={[null, null, instances.length]}>
+        <bufferGeometry attach="geometry" {...nodes.Cube078_2.geometry} />
+        <meshStandardMaterial attach="material" {...materials['Material.011']} />
+      </instancedMesh>
+      <instancedMesh ref={Cube078_3} args={[null, null, instances.length]}>
+        <bufferGeometry attach="geometry" {...nodes.Cube078_3.geometry} />
+        <meshStandardMaterial attach="material" {...materials['Material.012']} />
+      </instancedMesh>
     </group>
-  )
+  );
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/computadora.glb');
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/labCom1/computadora1.glb');
