@@ -6,19 +6,18 @@ import { GLTF } from 'three-stdlib';
 // Tipo del modelo GLB
 type GLTFResult = GLTF & {
   nodes: {
-    Cube078: THREE.Mesh;
-    Cube078_1: THREE.Mesh;
-    Cube078_2: THREE.Mesh;
-    Cube078_3: THREE.Mesh;
-  };
+    Cube078: THREE.Mesh
+    Cube078_1: THREE.Mesh
+    Cube078_2: THREE.Mesh
+    Cube078_3: THREE.Mesh
+  }
   materials: {
-    ['black.005']: THREE.MeshStandardMaterial;
-    ['Material.200']: THREE.MeshStandardMaterial;
-    ['Material.011']: THREE.MeshStandardMaterial;
-    ['Material.012']: THREE.MeshStandardMaterial;
-  };
-};
-
+    ['black.005']: THREE.MeshStandardMaterial
+    ['Material.013']: THREE.MeshStandardMaterial
+    ['Material.011']: THREE.MeshStandardMaterial
+    ['Material.012']: THREE.MeshStandardMaterial
+  }
+}
 type InstanceData = {
   position: [number, number, number];
   rotation: [number, number, number];
@@ -104,7 +103,7 @@ export function Compus() {
       </instancedMesh>
       <instancedMesh ref={Cube078_1} args={[null, null, instances.length]}>
         <bufferGeometry attach="geometry" {...nodes.Cube078_1.geometry} />
-        <meshStandardMaterial attach="material" {...materials['Material.200']} />
+        <meshStandardMaterial attach="material" {...materials['Material.013']} />
       </instancedMesh>
       <instancedMesh ref={Cube078_2} args={[null, null, instances.length]}>
         <bufferGeometry attach="geometry" {...nodes.Cube078_2.geometry} />
