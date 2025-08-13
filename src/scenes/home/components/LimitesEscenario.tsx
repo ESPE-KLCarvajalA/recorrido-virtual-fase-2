@@ -56,7 +56,7 @@ const LimitesEscenario = ({ mostrarDebug = false }: LimitesEscenarioProps) => {
 
   // Suelo de seguridad (evita caídas infinitas)
   const [refSuelo] = useBox(() => ({
-    position: [0, -50, 200], // Bien debajo del nivel del suelo
+    position: [0, -5, 200], // Bien debajo del nivel del suelo
     args: [config.anchoCampus, 10, config.profundidadCampus],
     type: 'Static',
   }));
@@ -158,12 +158,6 @@ const LimitesEscenario = ({ mostrarDebug = false }: LimitesEscenarioProps) => {
 
 export default LimitesEscenario;
 
-// INSTRUCCIONES DE USO:
-// 1. Guarda este archivo como: src/scenes/home/components/LimitesEscenario.tsx
-// 2. En tu BaseSceneEntrada.tsx, importa: import LimitesEscenario from './components/LimitesEscenario';
-// 3. Dentro del componente <Physics>, agrega: <LimitesEscenario mostrarDebug={false} />
-// 4. Para testear, cambia mostrarDebug={true} y verás los límites
-// 5. Una vez que funcione bien, cambia a mostrarDebug={false}
 
 // COORDENADAS CONFIGURADAS:
 // - Norte: hasta z = 1600 (cubre todas tus estructuras)

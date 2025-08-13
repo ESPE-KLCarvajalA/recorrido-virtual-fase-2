@@ -42,7 +42,7 @@ const BaseSceneEntrada = () => {
 
         <Physics gravity={[0, -100, 0]} iterations={10}>
 
-          <LimitesEscenario mostrarDebug={false} />
+          <LimitesEscenario mostrarDebug={true} />
           {/* 
           */}
           <BaseSceneAfuera />
