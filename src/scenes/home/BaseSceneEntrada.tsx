@@ -9,27 +9,27 @@ import HDRIEnvironment from './components/ui/HDRIEnvironment';
 
 import BaseSceneAfuera from './groups/BaseSceneAfuera';
 import BaseScenePisos2 from './groups/BaseScenePisos2';
-import BaseSceneArco from './groups/BaseSceneArco';
+// import BaseSceneArco from './groups/BaseSceneArco';
 
-import BaseSceneLab from './groups/BaseSceneLab';
+// import BaseSceneLab from './groups/BaseSceneLab';
 import BaseSceneLab2 from './groups/BaseSceneLab2';
 
-import BaseSceneOficina from './groups/BaseSceneOficina';
+// import BaseSceneOficina from './groups/BaseSceneOficina';
 import BaseSceneOficina2 from './groups/BaseSceneOficina2';
 
 
-import BaseSceneBar from './groups/BaseSceneBar';
+// import BaseSceneBar from './groups/BaseSceneBar';
 import BaseSceneBar2 from './groups/BaseSceneBar2';
 
-import BaseSceneVilla2F from './groups/BaseSceneVilla2F';
+// import BaseSceneVilla2F from './groups/BaseSceneVilla2F';
 import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
 
-import BaseSceneOtros from './groups/BaseSceneOtros';
+// import BaseSceneOtros from './groups/BaseSceneOtros';
 import BaseSceneOtros2 from './groups/BaseSceneOtros2';
 import NavigationPanel from '../../components/ui/NavigationPanel';
 import { PositionRestore } from '../lab1/components/PositionRestore';
 
-import LimitesContornoReal from './components/LimitesContornoReal';
+// import LimitesContornoReal from './components/LimitesContornoReal';
 
 
 const BaseSceneEntrada = () => {
@@ -42,27 +42,28 @@ const BaseSceneEntrada = () => {
 
         <Physics gravity={[0, -100, 0]} iterations={10}>
 
-          <LimitesContornoReal
+          {/* <LimitesContornoReal
             mostrarDebug={true}
             precision="media"  // ← EMPEZAR CON ESTO
-          />
+          /> */}
 
 
           <BaseSceneAfuera />
           <BaseScenePisos2 />
-          <BaseSceneArco />
 
-          <BaseSceneBar />
+          {/* <BaseSceneArco /> */}
+
+          {/* <BaseSceneBar /> */}
           <BaseSceneBar2 />
 
-          <BaseSceneLab />
+          {/* <BaseSceneLab /> */}
           <BaseSceneLab2 />
 
-          <BaseSceneOficina />
+          {/* <BaseSceneOficina /> */}
 
-          <BaseSceneOtros />
+          {/* <BaseSceneOtros /> */}
 
-          <BaseSceneVilla2F />
+          {/* <BaseSceneVilla2F /> */}
 
 
           <BaseCharacter
@@ -78,13 +79,13 @@ const BaseSceneEntrada = () => {
 
         {/* sinfisica */}
 
-        <BaseSceneOficina2 />
+        {/* <BaseSceneOficina2 /> */}
 
-        <BaseSceneOtros2 />
+        {/* <BaseSceneOtros2 /> */}
 
-        <BaseSceneVilla2SF />
+        {/* <BaseSceneVilla2SF /> */}
 
-        <PositionRestore /> {/* ✅ SOLO AGREGAR ESTA LÍNEA */}
+        <PositionRestore /> 
 
         <HDRIEnvironment />
         <PointerLockControls ref={controlsRef} />

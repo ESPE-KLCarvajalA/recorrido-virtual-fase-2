@@ -17,13 +17,13 @@ const BaseSceneLab2 = () => {
   return (
     <>
 
-      < ParedLabCiencias1 />
-      < ParedLabCiencias2 />
+      {/* < ParedLabCiencias1 />
+      < ParedLabCiencias2 /> */}
       <PisoMedio />
 
       
-      <TechoLabCC />
-      <TechoLabCC2 />
+      {/* <TechoLabCC />
+      <TechoLabCC2 /> */}
 
 
 

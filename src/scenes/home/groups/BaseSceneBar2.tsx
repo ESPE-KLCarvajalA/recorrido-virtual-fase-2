@@ -19,12 +19,12 @@ const BaseSceneBar2 = () => {
       <>
    {/*fisica */}
       <PisoBar />
-      <ParedesInternasBar />
+      {/* <ParedesInternasBar /> */}
 
        {/* sin fisica */}
-      <Carpa />  
+      {/* <Carpa />  
 
-      <SillaBar />
+      <SillaBar /> */}
 
       
   
