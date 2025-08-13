@@ -29,7 +29,7 @@ import BaseSceneOtros2 from './groups/BaseSceneOtros2';
 import NavigationPanel from '../../components/ui/NavigationPanel';
 import { PositionRestore } from '../lab1/components/PositionRestore';
 
-import LimitesEscenario from './components/LimitesEscenario';
+import LimitesPersonalizados from './components/LimitesEscenario';
 
 
 const BaseSceneEntrada = () => {
@@ -42,8 +42,10 @@ const BaseSceneEntrada = () => {
 
         <Physics gravity={[0, -100, 0]} iterations={10}>
 
-          <LimitesEscenario mostrarDebug={true} />
-          {/* 
+          <LimitesPersonalizados
+            mostrarDebug={false}
+            nivelOptimizacion="alto"
+          />          {/* 
           */}
           <BaseSceneAfuera />
           <BaseScenePisos2 />
