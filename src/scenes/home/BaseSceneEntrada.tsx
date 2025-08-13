@@ -43,7 +43,7 @@ const BaseSceneEntrada = () => {
         <Physics gravity={[0, -100, 0]} iterations={10}>
 
           <LimitesContornoReal
-            mostrarDebug={false}
+            mostrarDebug={true}
             precision="media"  // ← EMPEZAR CON ESTO
           />
 
