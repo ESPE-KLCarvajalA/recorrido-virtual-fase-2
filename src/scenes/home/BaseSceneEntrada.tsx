@@ -42,11 +42,9 @@ const BaseSceneEntrada = () => {
 
         <Physics gravity={[0, -100, 0]} iterations={10}>
 
-          <LimitesPersonalizados
-            mostrarDebug={false}
-            nivelOptimizacion="alto"
-          />          {/* 
-          */}
+          
+
+          
           <BaseSceneAfuera />
           <BaseScenePisos2 />
           <BaseSceneArco />
