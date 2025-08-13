@@ -1,4 +1,4 @@
-import {  Physics } from '@react-three/cannon';
+import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import BaseCharacter from '../../shared/components/BaseCharacter';
 import { PointerLockControls } from '@react-three/drei';
@@ -29,6 +29,8 @@ import BaseSceneOtros2 from './groups/BaseSceneOtros2';
 import NavigationPanel from '../../components/ui/NavigationPanel';
 import { PositionRestore } from '../lab1/components/PositionRestore';
 
+import LimitesEscenario from './components/LimitesEscenario';
+
 
 const BaseSceneEntrada = () => {
   const controlsRef = useRef(null);
@@ -39,7 +41,9 @@ const BaseSceneEntrada = () => {
         <ambientLight intensity={Math.PI / 2} />
 
         <Physics gravity={[0, -100, 0]} iterations={10}>
-         {/* 
+
+          <LimitesEscenario mostrarDebug={false} />
+          {/* 
           */}
           <BaseSceneAfuera />
           <BaseScenePisos2 />
@@ -48,44 +52,44 @@ const BaseSceneEntrada = () => {
           <BaseSceneBar />
           <BaseSceneBar2 />
 
-           <BaseSceneLab />
-          <BaseSceneLab2 /> 
+          <BaseSceneLab />
+          <BaseSceneLab2 />
 
           <BaseSceneOficina />
 
           <BaseSceneOtros />
 
-          <BaseSceneVilla2F /> 
-          
+          <BaseSceneVilla2F />
 
-          <BaseCharacter 
-            controls 
-            positionCharacter={[-80,-1, 170]} 
-            args={[2.2]} 
-            altura={20} 
-            velocidad={40} 
-            salto={20} 
-            color="green" 
+
+          <BaseCharacter
+            controls
+            positionCharacter={[-80, -1, 170]}
+            args={[2.2]}
+            altura={20}
+            velocidad={40}
+            salto={20}
+            color="green"
           />
         </Physics>
 
-          {/* sinfisica */}
+        {/* sinfisica */}
 
-          <BaseSceneOficina2 />
+        <BaseSceneOficina2 />
 
-          <BaseSceneOtros2 />
+        <BaseSceneOtros2 />
 
-          <BaseSceneVilla2SF />
+        <BaseSceneVilla2SF />
 
-          <PositionRestore /> {/* ✅ SOLO AGREGAR ESTA LÍNEA */}
+        <PositionRestore /> {/* ✅ SOLO AGREGAR ESTA LÍNEA */}
 
         <HDRIEnvironment />
         <PointerLockControls ref={controlsRef} />
       </Canvas>
 
-        {/* 🆕 Nuevo Panel de Navegación */}
+      {/* 🆕 Nuevo Panel de Navegación */}
       <NavigationPanel />
-      
+
     </>
   );
 };
