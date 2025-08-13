@@ -15,17 +15,17 @@ import BaseScenePisos2 from './groups/BaseScenePisos2';
 import BaseSceneLab2 from './groups/BaseSceneLab2';
 
 // import BaseSceneOficina from './groups/BaseSceneOficina';
-import BaseSceneOficina2 from './groups/BaseSceneOficina2';
+// import BaseSceneOficina2 from './groups/BaseSceneOficina2';
 
 
 // import BaseSceneBar from './groups/BaseSceneBar';
 import BaseSceneBar2 from './groups/BaseSceneBar2';
 
 // import BaseSceneVilla2F from './groups/BaseSceneVilla2F';
-import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
+// import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
 
 // import BaseSceneOtros from './groups/BaseSceneOtros';
-import BaseSceneOtros2 from './groups/BaseSceneOtros2';
+// import BaseSceneOtros2 from './groups/BaseSceneOtros2';
 import NavigationPanel from '../../components/ui/NavigationPanel';
 import { PositionRestore } from '../lab1/components/PositionRestore';
 
