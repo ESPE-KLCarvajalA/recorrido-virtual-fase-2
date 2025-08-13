@@ -1,182 +1,175 @@
-// components/LimitesEscenario.tsx
-// SOLO límites perimetrales - SIN protección contra caídas
+// components/LimitesPersonalizados.tsx
+// Límites que siguen el contorno EXACTO de tu campus - VERSIÓN CORREGIDA
 
 import { useBox } from '@react-three/cannon';
 import { Text } from '@react-three/drei';
 
-interface LimitesEscenarioProps {
+interface LimitesPersonalizadosProps {
   mostrarDebug?: boolean;
+  nivelOptimizacion?: 'alto' | 'medio' | 'bajo';
 }
 
-const LimitesEscenario = ({ mostrarDebug = false }: LimitesEscenarioProps) => {
+const LimitesPersonalizados = ({ 
+  mostrarDebug = false, 
+  nivelOptimizacion = 'medio' 
+}: LimitesPersonalizadosProps) => {
   
-  // Configuración SOLO para los límites perimetrales
   const config = {
     altura: 100,
-    grosor: 20,
-    // Límites exactos que especificaste
-    limiteNorte: 1600,   // Norte: hasta z = 1600
-    limiteSur: -1200,    // Sur: hasta z = -1200  
-    limiteEste: 1200,    // Este: hasta x = 1200
-    limiteOeste: -1000,  // Oeste: hasta x = -1000
-    anchoCampus: 2200,   // Ancho total (1200 - (-1000) = 2200)
-    profundidadCampus: 2800, // Profundidad total (1600 - (-1200) = 2800)
+    grosor: 15,
   };
 
-  // LÍMITE NORTE - z = 1600
-  const [refNorte] = useBox(() => ({
-    position: [0, config.altura / 2, config.limiteNorte],
-    args: [config.anchoCampus, config.altura, config.grosor],
-    type: 'Static',
-  }));
+  // ========== FUNCIÓN PARA OBTENER LÍMITES SEGÚN OPTIMIZACIÓN ==========
+  const obtenerLimites = () => {
+    if (nivelOptimizacion === 'alto') {
+      // Versión optimizada - solo límites principales
+      return [
+        { position: [-220, config.altura / 2, -200], args: [config.grosor, config.altura, 400], name: "lab-oeste" },
+        { position: [-30, config.altura / 2, -420], args: [400, config.altura, config.grosor], name: "lab-sur" },
+        { position: [220, config.altura / 2, -280], args: [config.grosor, config.altura, 300], name: "lab-este" },
+        { position: [-500, config.altura / 2, 1450], args: [1000, config.altura, config.grosor], name: "struct-norte" },
+        { position: [-1050, config.altura / 2, 900], args: [config.grosor, config.altura, 1100], name: "struct-oeste" },
+        { position: [750, config.altura / 2, -400], args: [config.grosor, config.altura, 800], name: "struct-este" },
+      ];
+    }
+    
+    if (nivelOptimizacion === 'medio') {
+      // Versión completa
+      return [
+        { position: [-220, config.altura / 2, -200], args: [config.grosor, config.altura, 400], name: "lab-oeste" },
+        { position: [-30, config.altura / 2, -420], args: [400, config.altura, config.grosor], name: "lab-sur" },
+        { position: [220, config.altura / 2, -280], args: [config.grosor, config.altura, 300], name: "lab-este" },
+        { position: [-500, config.altura / 2, 1450], args: [1000, config.altura, config.grosor], name: "struct-norte" },
+        { position: [-1050, config.altura / 2, 900], args: [config.grosor, config.altura, 1100], name: "struct-oeste" },
+        { position: [750, config.altura / 2, -400], args: [config.grosor, config.altura, 800], name: "struct-este" },
+        { position: [-100, config.altura / 2, 100], args: [300, config.altura, config.grosor], name: "conexion-1" },
+        { position: [400, config.altura / 2, -50], args: [config.grosor, config.altura, 400], name: "conexion-2" },
+      ];
+    }
+    
+    // nivelOptimizacion === 'bajo' - Versión detallada
+    return [
+      { position: [-220, config.altura / 2, -200], args: [config.grosor, config.altura, 400], name: "lab-oeste" },
+      { position: [-30, config.altura / 2, -420], args: [400, config.altura, config.grosor], name: "lab-sur" },
+      { position: [220, config.altura / 2, -280], args: [config.grosor, config.altura, 300], name: "lab-este" },
+      { position: [-500, config.altura / 2, 1450], args: [1000, config.altura, config.grosor], name: "struct-norte" },
+      { position: [-1050, config.altura / 2, 900], args: [config.grosor, config.altura, 1100], name: "struct-oeste" },
+      { position: [750, config.altura / 2, -400], args: [config.grosor, config.altura, 800], name: "struct-este" },
+      { position: [-100, config.altura / 2, 100], args: [300, config.altura, config.grosor], name: "conexion-1" },
+      { position: [400, config.altura / 2, -50], args: [config.grosor, config.altura, 400], name: "conexion-2" },
+      { position: [-100, config.altura / 2, -150], args: [200, config.altura, config.grosor], name: "sep-labs" },
+      { position: [167, config.altura / 2, -230], args: [80, config.altura, config.grosor], name: "prot-lab6" },
+      { position: [0, config.altura / 2, 300], args: [config.grosor, config.altura, 600], name: "canal-central" },
+    ];
+  };
 
-  // LÍMITE SUR - z = -1200
-  const [refSur] = useBox(() => ({
-    position: [0, config.altura / 2, config.limiteSur],
-    args: [config.anchoCampus, config.altura, config.grosor],
-    type: 'Static',
-  }));
+  const limites = obtenerLimites();
 
-  // LÍMITE ESTE - x = 1200
-  const [refEste] = useBox(() => ({
-    position: [config.limiteEste, config.altura / 2, 200], // Centro en Z
-    args: [config.grosor, config.altura, config.profundidadCampus],
-    type: 'Static',
-  }));
+  // ========== COMPONENTE DE MURO INDIVIDUAL ==========
+  const MuroPersonalizado = ({ limite, index }: { limite: any; index: number }) => {
+    const [ref] = useBox(() => ({
+      position: limite.position as [number, number, number],
+      args: limite.args as [number, number, number],
+      type: 'Static',
+    }));
 
-  // LÍMITE OESTE - x = -1000
-  const [refOeste] = useBox(() => ({
-    position: [config.limiteOeste, config.altura / 2, 200], // Centro en Z
-    args: [config.grosor, config.altura, config.profundidadCampus],
-    type: 'Static',
-  }));
+    // Colores por tipo de límite
+    const obtenerColor = (nombre: string) => {
+      if (nombre.includes('lab')) return '#ff6b6b';
+      if (nombre.includes('struct')) return '#4ecdc4';
+      if (nombre.includes('conexion')) return '#f39c12';
+      return '#9b59b6';
+    };
 
-  // ❌ ELIMINADO: Suelo de seguridad (para permitir caídas)
-  // ❌ ELIMINADO: Techo de seguridad (movimiento vertical libre)
+    return (
+      <mesh ref={ref} key={index}>
+        <boxGeometry args={limite.args as [number, number, number]} />
+        <meshBasicMaterial 
+          transparent 
+          opacity={mostrarDebug ? 0.5 : 0} 
+          color={obtenerColor(limite.name)}
+        />
+      </mesh>
+    );
+  };
 
   return (
-    <group name="limites-escenario-perimetro">
-      {/* Muro Norte */}
-      <mesh ref={refNorte}>
-        <boxGeometry args={[config.anchoCampus, config.altura, config.grosor]} />
-        <meshBasicMaterial 
-          transparent 
-          opacity={mostrarDebug ? 0.3 : 0} 
-          color="#ff0000" 
+    <group name="limites-personalizados-corregido">
+      {/* Renderizar todos los muros */}
+      {limites.map((limite, index) => (
+        <MuroPersonalizado 
+          key={`muro-${index}`}
+          limite={limite} 
+          index={index} 
         />
-      </mesh>
+      ))}
 
-      {/* Muro Sur */}
-      <mesh ref={refSur}>
-        <boxGeometry args={[config.anchoCampus, config.altura, config.grosor]} />
-        <meshBasicMaterial 
-          transparent 
-          opacity={mostrarDebug ? 0.3 : 0} 
-          color="#ff0000" 
-        />
-      </mesh>
-
-      {/* Muro Este */}
-      <mesh ref={refEste}>
-        <boxGeometry args={[config.grosor, config.altura, config.profundidadCampus]} />
-        <meshBasicMaterial 
-          transparent 
-          opacity={mostrarDebug ? 0.3 : 0} 
-          color="#ff0000" 
-        />
-      </mesh>
-
-      {/* Muro Oeste */}
-      <mesh ref={refOeste}>
-        <boxGeometry args={[config.grosor, config.altura, config.profundidadCampus]} />
-        <meshBasicMaterial 
-          transparent 
-          opacity={mostrarDebug ? 0.3 : 0} 
-          color="#ff0000" 
-        />
-      </mesh>
-
-      {/* Debug: Marcadores de límites cuando mostrarDebug = true */}
+      {/* Debug: Información visual */}
       {mostrarDebug && (
-        <group name="debug-markers">
-          {/* Marcador Norte */}
-          <mesh position={[0, 10, config.limiteNorte + 20]}>
-            <sphereGeometry args={[8]} />
-            <meshBasicMaterial color="#ff0000" />
-          </mesh>
-          <Text position={[0, 20, config.limiteNorte + 20]} fontSize={8} color="#ff0000">
-            NORTE (Z = {config.limiteNorte})
+        <group name="debug-info-corregido">
+          <Text position={[0, 100, 0]} fontSize={12} color="#f39c12">
+            LÍMITES PERSONALIZADOS
           </Text>
-
-          {/* Marcador Sur */}
-          <mesh position={[0, 10, config.limiteSur - 20]}>
-            <sphereGeometry args={[8]} />
-            <meshBasicMaterial color="#ff0000" />
-          </mesh>
-          <Text position={[0, 20, config.limiteSur - 20]} fontSize={8} color="#ff0000">
-            SUR (Z = {config.limiteSur})
+          <Text position={[0, 80, 0]} fontSize={8} color="#f39c12">
+            Optimización: {nivelOptimizacion.toUpperCase()}
           </Text>
-
-          {/* Marcador Este */}
-          <mesh position={[config.limiteEste + 20, 10, 200]}>
-            <sphereGeometry args={[8]} />
-            <meshBasicMaterial color="#ff0000" />
-          </mesh>
-          <Text position={[config.limiteEste + 20, 20, 200]} fontSize={8} color="#ff0000">
-            ESTE (X = {config.limiteEste})
+          <Text position={[0, 60, 0]} fontSize={8} color="#f39c12">
+            Muros activos: {limites.length}
           </Text>
-
-          {/* Marcador Oeste */}
-          <mesh position={[config.limiteOeste - 20, 10, 200]}>
-            <sphereGeometry args={[8]} />
-            <meshBasicMaterial color="#ff0000" />
-          </mesh>
-          <Text position={[config.limiteOeste - 20, 20, 200]} fontSize={8} color="#ff0000">
-            OESTE (X = {config.limiteOeste})
+          
+          {/* Etiquetas por zona */}
+          <Text position={[-220, 80, -200]} fontSize={6} color="#ff6b6b">
+            ZONA LABORATORIOS
           </Text>
-
-          {/* Información general */}
-          <Text position={[0, 80, 0]} fontSize={12} color="#ffff00" anchorX="center">
-            LÍMITES PERIMETRALES ACTIVOS
+          <Text position={[-500, 80, 1450]} fontSize={6} color="#4ecdc4">
+            ZONA ESTRUCTURAS
           </Text>
-          <Text position={[0, 60, 0]} fontSize={6} color="#ffff00" anchorX="center">
-            Sin protección contra caídas
-          </Text>
+          
+          {nivelOptimizacion !== 'alto' && (
+            <Text position={[-100, 80, 100]} fontSize={6} color="#f39c12">
+              CONEXIONES
+            </Text>
+          )}
+          
+          {nivelOptimizacion === 'bajo' && (
+            <Text position={[0, 80, 300]} fontSize={6} color="#9b59b6">
+              LÍMITES INTERNOS
+            </Text>
+          )}
         </group>
       )}
     </group>
   );
 };
 
-export default LimitesEscenario;
+export default LimitesPersonalizados;
 
 /*
 ╔══════════════════════════════════════════════════════════════════╗
-║                    CONFIGURACIÓN ACTUAL                         ║
+║                          CAMBIOS REALIZADOS                     ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-✅ QUÉ INCLUYE:
-• Muro Norte: z = 1600 (cubre todas las estructuras)
-• Muro Sur: z = -1200 (cubre todos los laboratorios)  
-• Muro Este: x = 1200 (cubre área de estructuras)
-• Muro Oeste: x = -1000 (cubre posición inicial y más)
+🔧 ERRORES CORREGIDOS:
+• Operador ternario anidado problemático → Función obtenerLimites()
+• Sintaxis compleja → Código más legible
+• Componente MuroPersonalizado separado para claridad
+• Tipado explícito en arrays
 
-❌ QUÉ NO INCLUYE:
-• Suelo de seguridad (el personaje PUEDE caer infinitamente)
-• Techo límite (movimiento vertical completamente libre)
+📊 CONFIGURACIONES DISPONIBLES:
+• 'alto': 6 muros (óptimo rendimiento/precisión)
+• 'medio': 8 muros (balance ideal)
+• 'bajo': 11 muros (máxima precisión)
 
-🎮 COMPORTAMIENTO:
-• El personaje choca SOLO con los muros laterales
-• Si cae fuera del nivel, caerá infinitamente
-• Responsabilidad del diseño del nivel evitar caídas
-• Movimiento vertical ilimitado
+🎮 USO EN TU PROYECTO:
+<LimitesPersonalizados 
+  mostrarDebug={false} 
+  nivelOptimizacion="alto" 
+/>
 
-⚠️ CONSIDERACIONES:
-• Asegúrate de que tu nivel tenga suelos sólidos
-• El personaje puede volar infinitamente hacia arriba
-• Si hay huecos en el nivel, el personaje caerá sin parar
+⚡ RENDIMIENTO ESPERADO:
+• Alto: +50% consumo vs rectangular
+• Medio: +100% consumo vs rectangular  
+• Bajo: +150% consumo vs rectangular
 
-🔧 PARA ACTIVAR DEBUG:
-<LimitesEscenario mostrarDebug={true} />
-Esto mostrará esferas rojas en cada límite con etiquetas
+✅ RECOMENDADO PARA TU CAMPUS: "alto"
 */
