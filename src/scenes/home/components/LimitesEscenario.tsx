@@ -1,7 +1,8 @@
 // components/LimitesEscenario.tsx
-// Límites ajustados específicamente para TU campus virtual
+// SOLO límites perimetrales - SIN protección contra caídas
 
 import { useBox } from '@react-three/cannon';
+import { Text } from '@react-three/drei';
 
 interface LimitesEscenarioProps {
   mostrarDebug?: boolean;
@@ -9,67 +10,52 @@ interface LimitesEscenarioProps {
 
 const LimitesEscenario = ({ mostrarDebug = false }: LimitesEscenarioProps) => {
   
-  // Configuración basada en TUS coordenadas del campus
-  // Posición inicial del personaje: [-80, -1, 170]
-  // Coordenadas de laboratorios: [-165, 20, -56], [-179, 20, -68], [167, 20, -279]
-  // Estructura más lejana: aproximadamente [1000, 20, -1000]
-
+  // Configuración SOLO para los límites perimetrales
   const config = {
     altura: 100,
     grosor: 20,
-    // Expandido para cubrir todo tu campus
-    limiteNorte: 1600,   // Más al norte de tus estructuras
-    limiteSur: -1200,    // Más al sur de tus laboratorios  
-    limiteEste: 1200,    // Más al este de tus estructuras
-    limiteOeste: -1000,  // Más al oeste de tu posición inicial
-    anchoCampus: 2200,   // Ancho total
-    profundidadCampus: 2800, // Profundidad total
+    // Límites exactos que especificaste
+    limiteNorte: 1600,   // Norte: hasta z = 1600
+    limiteSur: -1200,    // Sur: hasta z = -1200  
+    limiteEste: 1200,    // Este: hasta x = 1200
+    limiteOeste: -1000,  // Oeste: hasta x = -1000
+    anchoCampus: 2200,   // Ancho total (1200 - (-1000) = 2200)
+    profundidadCampus: 2800, // Profundidad total (1600 - (-1200) = 2800)
   };
 
-  // Límite Norte
+  // LÍMITE NORTE - z = 1600
   const [refNorte] = useBox(() => ({
     position: [0, config.altura / 2, config.limiteNorte],
     args: [config.anchoCampus, config.altura, config.grosor],
     type: 'Static',
   }));
 
-  // Límite Sur
+  // LÍMITE SUR - z = -1200
   const [refSur] = useBox(() => ({
     position: [0, config.altura / 2, config.limiteSur],
     args: [config.anchoCampus, config.altura, config.grosor],
     type: 'Static',
   }));
 
-  // Límite Este
+  // LÍMITE ESTE - x = 1200
   const [refEste] = useBox(() => ({
-    position: [config.limiteEste, config.altura / 2, 200],
+    position: [config.limiteEste, config.altura / 2, 200], // Centro en Z
     args: [config.grosor, config.altura, config.profundidadCampus],
     type: 'Static',
   }));
 
-  // Límite Oeste
+  // LÍMITE OESTE - x = -1000
   const [refOeste] = useBox(() => ({
-    position: [config.limiteOeste, config.altura / 2, 200],
+    position: [config.limiteOeste, config.altura / 2, 200], // Centro en Z
     args: [config.grosor, config.altura, config.profundidadCampus],
     type: 'Static',
   }));
 
-  // Suelo de seguridad (evita caídas infinitas)
-  const [refSuelo] = useBox(() => ({
-    position: [0, -30, 200], // Bien debajo del nivel del suelo
-    args: [config.anchoCampus, 10, config.profundidadCampus],
-    type: 'Static',
-  }));
-
-  // Techo de seguridad (evita que el personaje vuele demasiado alto)
-  const [refTecho] = useBox(() => ({
-    position: [0, 200, 200], // Muy arriba
-    args: [config.anchoCampus, 10, config.profundidadCampus],
-    type: 'Static',
-  }));
+  // ❌ ELIMINADO: Suelo de seguridad (para permitir caídas)
+  // ❌ ELIMINADO: Techo de seguridad (movimiento vertical libre)
 
   return (
-    <group name="limites-escenario">
+    <group name="limites-escenario-perimetro">
       {/* Muro Norte */}
       <mesh ref={refNorte}>
         <boxGeometry args={[config.anchoCampus, config.altura, config.grosor]} />
@@ -110,46 +96,52 @@ const LimitesEscenario = ({ mostrarDebug = false }: LimitesEscenarioProps) => {
         />
       </mesh>
 
-      {/* Suelo de seguridad */}
-      <mesh ref={refSuelo}>
-        <boxGeometry args={[config.anchoCampus, 10, config.profundidadCampus]} />
-        <meshBasicMaterial 
-          transparent 
-          opacity={mostrarDebug ? 0.2 : 0} 
-          color="#00ff00" 
-        />
-      </mesh>
-
-      {/* Techo de seguridad */}
-      <mesh ref={refTecho}>
-        <boxGeometry args={[config.anchoCampus, 10, config.profundidadCampus]} />
-        <meshBasicMaterial 
-          transparent 
-          opacity={mostrarDebug ? 0.1 : 0} 
-          color="#0000ff" 
-        />
-      </mesh>
-
-      {/* Debug: Información visual cuando mostrarDebug = true */}
+      {/* Debug: Marcadores de límites cuando mostrarDebug = true */}
       {mostrarDebug && (
-        <group>
-          {/* Marcadores de esquinas */}
-          <mesh position={[config.limiteOeste + 10, 10, config.limiteNorte - 10]}>
-            <sphereGeometry args={[5]} />
-            <meshBasicMaterial color="#ffff00" />
+        <group name="debug-markers">
+          {/* Marcador Norte */}
+          <mesh position={[0, 10, config.limiteNorte + 20]}>
+            <sphereGeometry args={[8]} />
+            <meshBasicMaterial color="#ff0000" />
           </mesh>
-          <mesh position={[config.limiteEste - 10, 10, config.limiteNorte - 10]}>
-            <sphereGeometry args={[5]} />
-            <meshBasicMaterial color="#ffff00" />
+          <Text position={[0, 20, config.limiteNorte + 20]} fontSize={8} color="#ff0000">
+            NORTE (Z = {config.limiteNorte})
+          </Text>
+
+          {/* Marcador Sur */}
+          <mesh position={[0, 10, config.limiteSur - 20]}>
+            <sphereGeometry args={[8]} />
+            <meshBasicMaterial color="#ff0000" />
           </mesh>
-          <mesh position={[config.limiteOeste + 10, 10, config.limiteSur + 10]}>
-            <sphereGeometry args={[5]} />
-            <meshBasicMaterial color="#ffff00" />
+          <Text position={[0, 20, config.limiteSur - 20]} fontSize={8} color="#ff0000">
+            SUR (Z = {config.limiteSur})
+          </Text>
+
+          {/* Marcador Este */}
+          <mesh position={[config.limiteEste + 20, 10, 200]}>
+            <sphereGeometry args={[8]} />
+            <meshBasicMaterial color="#ff0000" />
           </mesh>
-          <mesh position={[config.limiteEste - 10, 10, config.limiteSur + 10]}>
-            <sphereGeometry args={[5]} />
-            <meshBasicMaterial color="#ffff00" />
+          <Text position={[config.limiteEste + 20, 20, 200]} fontSize={8} color="#ff0000">
+            ESTE (X = {config.limiteEste})
+          </Text>
+
+          {/* Marcador Oeste */}
+          <mesh position={[config.limiteOeste - 20, 10, 200]}>
+            <sphereGeometry args={[8]} />
+            <meshBasicMaterial color="#ff0000" />
           </mesh>
+          <Text position={[config.limiteOeste - 20, 20, 200]} fontSize={8} color="#ff0000">
+            OESTE (X = {config.limiteOeste})
+          </Text>
+
+          {/* Información general */}
+          <Text position={[0, 80, 0]} fontSize={12} color="#ffff00" anchorX="center">
+            LÍMITES PERIMETRALES ACTIVOS
+          </Text>
+          <Text position={[0, 60, 0]} fontSize={6} color="#ffff00" anchorX="center">
+            Sin protección contra caídas
+          </Text>
         </group>
       )}
     </group>
@@ -158,11 +150,33 @@ const LimitesEscenario = ({ mostrarDebug = false }: LimitesEscenarioProps) => {
 
 export default LimitesEscenario;
 
+/*
+╔══════════════════════════════════════════════════════════════════╗
+║                    CONFIGURACIÓN ACTUAL                         ║
+╚══════════════════════════════════════════════════════════════════╝
 
-// COORDENADAS CONFIGURADAS:
-// - Norte: hasta z = 1600 (cubre todas tus estructuras)
-// - Sur: hasta z = -1200 (cubre todos tus laboratorios)  
-// - Este: hasta x = 1200 (cubre área de estructuras)
-// - Oeste: hasta x = -1000 (cubre tu posición inicial y más)
-// - Suelo: y = -50 (evita caídas infinitas)
-// - Techo: y = 200 (evita vuelos excesivos)
+✅ QUÉ INCLUYE:
+• Muro Norte: z = 1600 (cubre todas las estructuras)
+• Muro Sur: z = -1200 (cubre todos los laboratorios)  
+• Muro Este: x = 1200 (cubre área de estructuras)
+• Muro Oeste: x = -1000 (cubre posición inicial y más)
+
+❌ QUÉ NO INCLUYE:
+• Suelo de seguridad (el personaje PUEDE caer infinitamente)
+• Techo límite (movimiento vertical completamente libre)
+
+🎮 COMPORTAMIENTO:
+• El personaje choca SOLO con los muros laterales
+• Si cae fuera del nivel, caerá infinitamente
+• Responsabilidad del diseño del nivel evitar caídas
+• Movimiento vertical ilimitado
+
+⚠️ CONSIDERACIONES:
+• Asegúrate de que tu nivel tenga suelos sólidos
+• El personaje puede volar infinitamente hacia arriba
+• Si hay huecos en el nivel, el personaje caerá sin parar
+
+🔧 PARA ACTIVAR DEBUG:
+<LimitesEscenario mostrarDebug={true} />
+Esto mostrará esferas rojas en cada límite con etiquetas
+*/
