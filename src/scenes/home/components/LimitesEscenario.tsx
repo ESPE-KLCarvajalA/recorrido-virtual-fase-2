@@ -56,7 +56,7 @@ const LimitesEscenario = ({ mostrarDebug = false }: LimitesEscenarioProps) => {
 
   // Suelo de seguridad (evita caídas infinitas)
   const [refSuelo] = useBox(() => ({
-    position: [0, -5, 200], // Bien debajo del nivel del suelo
+    position: [0, -30, 200], // Bien debajo del nivel del suelo
     args: [config.anchoCampus, 10, config.profundidadCampus],
     type: 'Static',
   }));
