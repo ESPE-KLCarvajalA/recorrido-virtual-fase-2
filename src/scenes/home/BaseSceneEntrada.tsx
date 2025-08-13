@@ -29,7 +29,7 @@ import BaseSceneOtros2 from './groups/BaseSceneOtros2';
 import NavigationPanel from '../../components/ui/NavigationPanel';
 import { PositionRestore } from '../lab1/components/PositionRestore';
 
-import LimitesPersonalizados from './components/LimitesEscenario';
+import LimitesContornoReal from './components/LimitesContornoReal';
 
 
 const BaseSceneEntrada = () => {
@@ -42,9 +42,12 @@ const BaseSceneEntrada = () => {
 
         <Physics gravity={[0, -100, 0]} iterations={10}>
 
-          
+          <LimitesContornoReal
+            mostrarDebug={false}
+            precision="media"  // ← EMPEZAR CON ESTO
+          />
 
-          
+
           <BaseSceneAfuera />
           <BaseScenePisos2 />
           <BaseSceneArco />
