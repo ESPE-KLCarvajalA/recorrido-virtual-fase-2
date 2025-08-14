@@ -17,7 +17,7 @@ interface Props {
 export default function Marcador360({
     position,
     icon = '⬇', // Icono de flecha hacia abajo
-    text = 'Explorar Laboratorio',
+    text = 'Ver Laboratorio',
     url,
     isEspecial = false,
 }: Props) {
@@ -90,11 +90,11 @@ export default function Marcador360({
                             className="marker-icon"
                             style={{
                                 fontSize: isEspecial ? '6rem' : '3rem',
-                                color: isEspecial ? '#00ff66' : '#03562C',
+                                color: '#ffffff', // ← 🎯 Flecha blanca para ambos tipos
                                 textShadow: isEspecial 
-                                    ? '0 0 20px rgba(0, 255, 102, 0.8)' 
-                                    : '0 2px 4px rgba(0, 0, 0, 0.3)',
-                                filter: isEspecial ? 'drop-shadow(0 0 10px #00ff66)' : 'none',
+                                    ? '0 0 20px rgba(255, 255, 255, 0.9)' // ← Brillo blanco para especiales
+                                    : '0 2px 8px rgba(0, 0, 0, 0.6)',      // ← Sombra más fuerte para normales
+                                filter: isEspecial ? 'drop-shadow(0 0 15px #ffffff)' : 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4))',
                                 animation: 'bounceArrow 1.5s ease-in-out infinite',
                                 display: 'flex',
                                 alignItems: 'center',
