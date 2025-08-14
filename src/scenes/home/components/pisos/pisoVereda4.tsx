@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
-import { useBox } from '@react-three/cannon'
+import { useConvexPolyhedron } from '@react-three/cannon'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -16,40 +16,80 @@ type GLTFResult = GLTF & {
 }
 
 export function PisoVereda4(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda4.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF(
+    'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda4.glb'
+  ) as unknown as GLTFResult
 
-  // Crear una caja de colisión simple para el piso
-  // Dimensiones aproximadas basadas en las escalas del modelo
-  const boxSize: [number, number, number] = [13.438 * 2, 2, 7.68 * 2] // ancho, alto, profundidad
-  
-  useBox(() => ({
-    args: boxSize,
-    position: [319.134, 0.459, -734.451], // Misma posición que el grupo
-    rotation: [0, Math.PI / 3, 0], // Simplificar rotación (quitar -Math.PI)
-    type: 'Static', // Cuerpo estático
+  const applyTransform = (
+    geometry: THREE.BufferGeometry,
+    position: [number, number, number],
+    rotation: [number, number, number],
+    scale: [number, number, number]
+  ) => {
+    const geom = geometry.clone()
+    const matrix = new THREE.Matrix4()
+    matrix.compose(
+      new THREE.Vector3(...position),
+      new THREE.Quaternion().setFromEuler(new THREE.Euler(...rotation)),
+      new THREE.Vector3(...scale)
+    )
+    geom.applyMatrix4(matrix)
+    return geom
+  }
+
+  const mapGeometryToCannon = (geometry: THREE.BufferGeometry) => {
+    const vertices: THREE.Vector3[] = []
+    const faces: number[][] = []
+
+    const positionArray = geometry.attributes.position.array as Float32Array
+    const indexArray = geometry.index?.array as Uint16Array
+
+    for (let i = 0; i < positionArray.length; i += 3) {
+      vertices.push(
+        new THREE.Vector3(positionArray[i], positionArray[i + 1], positionArray[i + 2])
+      )
+    }
+
+    if (indexArray) {
+      for (let i = 0; i < indexArray.length; i += 3) {
+        faces.push([indexArray[i], indexArray[i + 1], indexArray[i + 2]])
+      }
+    }
+
+    return { vertices, faces }
+  }
+
+  const pos: [number, number, number] = [319.134, 0.459, -734.451]
+  const rot: [number, number, number] = [0, Math.PI / 3, -Math.PI]
+  const scl: [number, number, number] = [-13.438, -11.258, -7.68]
+
+  // Aplicamos transformaciones reales a la geometría para el collider
+  const geom1 = applyTransform(nodes.Plane098.geometry, pos, rot, scl)
+  const geom2 = applyTransform(nodes.Plane098_1.geometry, pos, rot, scl)
+
+  const { vertices: v1, faces: f1 } = mapGeometryToCannon(geom1)
+  const { vertices: v2, faces: f2 } = mapGeometryToCannon(geom2)
+
+  useConvexPolyhedron(() => ({
+    mass: 0,
+    args: [v1, f1],
+  }))
+
+  useConvexPolyhedron(() => ({
+    mass: 0,
+    args: [v2, f2],
   }))
 
   return (
     <group {...props} dispose={null}>
-      <group
-        name="curb009"
-        position={[319.134, 0.459, -734.451]}
-        rotation={[0, Math.PI / 3, -Math.PI]}
-        scale={[-13.438, -11.258, -7.68]}
-      >
-        <mesh
-          name="Plane098"
-          geometry={nodes.Plane098.geometry}
-          material={materials['Material.114']}
-        />
-        <mesh
-          name="Plane098_1"
-          geometry={nodes.Plane098_1.geometry}
-          material={materials['Material.116']}
-        />
+      <group name="curb009" position={pos} rotation={rot} scale={scl}>
+        <mesh geometry={nodes.Plane098.geometry} material={materials['Material.114']} />
+        <mesh geometry={nodes.Plane098_1.geometry} material={materials['Material.116']} />
       </group>
     </group>
   )
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda4.glb')
+useGLTF.preload(
+  'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda4.glb'
+)
