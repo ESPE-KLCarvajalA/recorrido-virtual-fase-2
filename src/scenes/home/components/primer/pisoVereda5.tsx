@@ -54,7 +54,7 @@ export function PisoVereda5(props: ThreeElements['group']) {
   useConvexPolyhedron(() => ({
     mass: 0,
     args: [vertices100, faces100],
-    position: [-575.581, -10.175, 60.901],
+    position: [-575.581, -3, 60.901],
     rotation: [-Math.PI, 0.664, 0],
     // Nota: Cannon.js no maneja escalas negativas bien, usaremos valores absolutos
     scale: [13.438, 11.258, 7.68],
@@ -63,7 +63,7 @@ export function PisoVereda5(props: ThreeElements['group']) {
   useConvexPolyhedron(() => ({
     mass: 0,
     args: [vertices100_1, faces100_1],
-    position: [-575.581, -10.175, 60.901],
+    position: [-575.581, -3, 60.901],
     rotation: [-Math.PI, 0.664, 0],
     scale: [13.438, 11.258, 7.68],
   }))
@@ -75,7 +75,7 @@ export function PisoVereda5(props: ThreeElements['group']) {
   useConvexPolyhedron(() => ({
     mass: 0,
     args: [vertices085, faces085],
-    position: [-732.487, -10.693, 145.569],
+    position: [-732.487, -3, 145.569],
     rotation: [-Math.PI, 0.664, 0],
     scale: [13.438, 11.258, 7.68],
   }))
@@ -83,7 +83,7 @@ export function PisoVereda5(props: ThreeElements['group']) {
   useConvexPolyhedron(() => ({
     mass: 0,
     args: [vertices085_1, faces085_1],
-    position: [-732.487, -10.693, 145.569],
+    position: [-732.487, -3, 145.569],
     rotation: [-Math.PI, 0.664, 0],
     scale: [13.438, 11.258, 7.68],
   }))
@@ -95,14 +95,14 @@ export function PisoVereda5(props: ThreeElements['group']) {
   useConvexPolyhedron(() => ({
     mass: 0,
     args: [vertices089, faces089],
-    position: [-406.536, -10.479, -85.252],
+    position: [-406.536, -3, -85.252],
     scale: [17.387, 11.258, 10.745],
   }))
 
   useConvexPolyhedron(() => ({
     mass: 0,
     args: [vertices089_1, faces089_1],
-    position: [-406.536, -10.479, -85.252],
+    position: [-406.536, -3, -85.252],
     scale: [17.387, 11.258, 10.745],
   }))
 
@@ -110,7 +110,7 @@ export function PisoVereda5(props: ThreeElements['group']) {
     <group {...props} dispose={null}>
       <group
         name="curb003"
-        position={[-575.581, -10.175, 60.901]}
+        position={[-575.581, -3, 60.901]}
         rotation={[-Math.PI, 0.664, 0]}
         scale={[-13.438, -11.258, -7.68]}>
         <mesh
@@ -126,7 +126,7 @@ export function PisoVereda5(props: ThreeElements['group']) {
       </group>
       <group
         name="curb007"
-        position={[-732.487, -10.693, 145.569]}
+        position={[-732.487, -3, 145.569]}
         rotation={[-Math.PI, 0.664, 0]}
         scale={[-13.438, -11.258, -7.68]}>
         <mesh
@@ -142,7 +142,7 @@ export function PisoVereda5(props: ThreeElements['group']) {
       </group>
       <group
         name="road004"
-        position={[-406.536, -10.479, -85.252]}
+        position={[-406.536, -3, -85.252]}
         scale={[17.387, 11.258, 10.745]}>
         <mesh
           name="Plane089"

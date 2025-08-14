@@ -44,7 +44,7 @@ export function PisoCesped3(props: ThreeElements['group']) {
   useConvexPolyhedron(() => ({
     mass: 0, // Masa 0 = cuerpo estático
     args: [vertices, faces],
-    position: [-758.157, -11.381, -181.578], // Misma posición que el mesh visual
+    position: [-758.157, -3, -181.578], // Misma posición que el mesh visual
   }))
 
   return (
@@ -53,7 +53,7 @@ export function PisoCesped3(props: ThreeElements['group']) {
         name="Plane012"
         geometry={nodes.Plane012.geometry}
         material={materials['Material.118']}
-        position={[-758.157, -10, -181.578]}
+        position={[-758.157, -3, -181.578]}
       />
     </group>
   )
