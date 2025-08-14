@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
+import { useNavigate } from 'react-router-dom';
 import '../../styles/pointers.css';
 
 interface Props {
@@ -15,13 +16,14 @@ interface Props {
 
 export default function Marcador360({
     position,
-    label = '👀',
-    text = 'Ver Laboratorio',
+    label = '⬇', // Flecha hacia abajo
+    text = 'Explorar Laboratorio',
     url,
     isEspecial = false,
 }: Props) {
     const ref = useRef<THREE.Group>(null);
     const [visible, setVisible] = useState(true);
+    const navigate = useNavigate();
 
     useFrame(({ camera }) => {
         if (!ref.current) return;
@@ -45,16 +47,28 @@ export default function Marcador360({
 
         setVisible(shouldShow);
 
-        // Animación flotante
-        const time = Date.now() * 0.002;
-        const yOffset = Math.sin(time) * 0.2;
+        // Animación flotante más suave
+        const time = Date.now() * 0.001; // Más lento
+        const yOffset = Math.sin(time) * 0.15; // Menos movimiento vertical
 
         ref.current.position.set(position[0], position[1] + yOffset, position[2]);
         ref.current.lookAt(camPos);
     });
 
     const handleClick = () => {
-        window.open(url, '_blank'); // Abre en nueva pestaña
+        // GUARDAR la posición de la PUERTA/MARCADOR (no del jugador)
+        const doorPosition = {
+            x: position[0], // Posición X del marcador
+            y: position[1] - 1, // Posición Y del marcador (un poco más abajo para que el personaje esté en el suelo)
+            z: position[2] + 3  // Posición Z del marcador (un poco hacia afuera de la puerta)
+        };
+        
+        // Guardar en sessionStorage
+        sessionStorage.setItem('doorPosition', JSON.stringify(doorPosition));
+        
+        // Navegar a la vista 360
+        const routePath = url.startsWith('#') ? url.substring(1) : url;
+        navigate(routePath);
     };
 
     return (
@@ -82,9 +96,12 @@ export default function Marcador360({
                         }}
                     >
                         <div
+                            className="arrow-bounce"
                             style={{
                                 fontSize: isEspecial ? '7rem' : '1.2rem',
                                 marginBottom: '5px',
+                                display: 'inline-block',
+                                animation: 'bounceArrow 1.5s ease-in-out infinite',
                             }}
                         >
                             {label}
