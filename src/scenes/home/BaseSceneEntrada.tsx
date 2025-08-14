@@ -29,7 +29,7 @@ import BaseSceneOtros2 from './groups/BaseSceneOtros2';
 import NavigationPanel from '../../components/ui/NavigationPanel';
 import { PositionRestore } from '../lab1/components/PositionRestore';
 
-import LimitesContornoReal from './components/LimitesContornoReal';
+// import LimitesContornoReal from './components/LimitesContornoReal';
 
 
 const BaseSceneEntrada = () => {
