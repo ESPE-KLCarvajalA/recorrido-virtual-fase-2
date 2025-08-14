@@ -53,7 +53,7 @@ export function PisoCesped3(props: ThreeElements['group']) {
         name="Plane012"
         geometry={nodes.Plane012.geometry}
         material={materials['Material.118']}
-        position={[-758.157, -11.381, -181.578]}
+        position={[-758.157, -10, -181.578]}
       />
     </group>
   )
