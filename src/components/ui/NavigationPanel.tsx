@@ -28,7 +28,7 @@ const LOCATION_NAMES: Record<LocationKey, string> = {
   lab3: 'Laboratorio de Biotecnología 3',
   lab4: 'Laboratorio de Biotecnología 4',
   lab5: 'Laboratorio de Biotecnología 5',
-  lab6: 'Laboratorio de Tecnologías de la Información',
+  lab6: 'Laboratorio de Biotecnología 6',
   oficinas: 'Oficinas Administrativas',
   bar: 'Cafetería',
   secretaria: 'Secretaría',

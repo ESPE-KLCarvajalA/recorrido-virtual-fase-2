@@ -8,7 +8,7 @@ import '../../styles/pointers.css';
 
 interface Props {
     position: [number, number, number];
-    label?: string;
+    icon?: string;
     text?: string;
     url: string;
     isEspecial?: boolean;
@@ -16,7 +16,7 @@ interface Props {
 
 export default function Marcador360({
     position,
-    label = '⬇', // Flecha hacia abajo
+    icon = '⬇', // Icono de flecha hacia abajo
     text = 'Explorar Laboratorio',
     url,
     isEspecial = false,
@@ -78,35 +78,58 @@ export default function Marcador360({
                     <div
                         onClick={handleClick}
                         style={{
-                            width: isEspecial ? '550px' : '400px',
-                            padding: '25px',
-                            borderRadius: '20px',
-                            background: isEspecial
-                                ? 'linear-gradient(135deg, #00cc66cc, #009944cc)'
-                                : '#e5fff5',
-                            boxShadow: isEspecial
-                                ? '0 0 12px rgba(0, 200, 120, 0.7)'
-                                : '0 0 6px rgba(0, 100, 60, 0.3)',
-                            color: isEspecial ? '#fff' : '#03562C',
-                            fontSize: isEspecial ? '3rem' : '1rem',
-                            fontWeight: 'bold',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: '10px',
                             cursor: 'pointer',
-                            textAlign: 'center',
-                            animation: isEspecial ? 'pulseGreen 2s infinite' : 'none',
                         }}
                     >
+                        {/* Icono separado */}
                         <div
-                            className="arrow-bounce"
+                            className="marker-icon"
                             style={{
-                                fontSize: isEspecial ? '7rem' : '1.2rem',
-                                marginBottom: '5px',
-                                display: 'inline-block',
+                                fontSize: isEspecial ? '6rem' : '3rem',
+                                color: isEspecial ? '#00ff66' : '#03562C',
+                                textShadow: isEspecial 
+                                    ? '0 0 20px rgba(0, 255, 102, 0.8)' 
+                                    : '0 2px 4px rgba(0, 0, 0, 0.3)',
+                                filter: isEspecial ? 'drop-shadow(0 0 10px #00ff66)' : 'none',
                                 animation: 'bounceArrow 1.5s ease-in-out infinite',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: isEspecial ? '100px' : '60px',
+                                height: isEspecial ? '100px' : '60px',
+                                borderRadius: '50%',
+                                background: isEspecial 
+                                    ? 'radial-gradient(circle, rgba(0, 255, 102, 0.2), transparent)'
+                                    : 'radial-gradient(circle, rgba(3, 86, 44, 0.1), transparent)',
                             }}
                         >
-                            {label}
+                            {icon}
                         </div>
-                        <div style={{ fontSize: isEspecial ? '5rem' : '1.2rem' }}>
+
+                        {/* Texto separado */}
+                        <div
+                            className="marker-text"
+                            style={{
+                                padding: '15px 25px',
+                                borderRadius: '15px',
+                                background: isEspecial
+                                    ? 'linear-gradient(135deg, #00cc66cc, #009944cc)'
+                                    : '#e5fff5',
+                                boxShadow: isEspecial
+                                    ? '0 0 12px rgba(0, 200, 120, 0.7)'
+                                    : '0 0 6px rgba(0, 100, 60, 0.3)',
+                                color: isEspecial ? '#fff' : '#03562C',
+                                fontSize: isEspecial ? '2.5rem' : '1.2rem',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                animation: isEspecial ? 'pulseGreen 2s infinite' : 'none',
+                                whiteSpace: 'nowrap',
+                            }}
+                        >
                             {text}
                         </div>
                     </div>
