@@ -2,10 +2,10 @@
 
 // Imports de tus componentes originales
 
-// import { Carpa } from "../components/bar/carpa";
-// import { ParedesInternasBar } from "../components/bar/ParedesInternasBar";
+import { Carpa } from "../components/bar/carpa";
+import { ParedesInternasBar } from "../components/bar/ParedesInternasBar";
 import { PisoBar } from "../components/bar/PisoBar";
-// import { SillaBar } from "../components/bar/SillaBar";
+import { SillaBar } from "../components/bar/SillaBar";
 
 
 
@@ -19,12 +19,12 @@ const BaseSceneBar2 = () => {
       <>
    {/*fisica */}
       <PisoBar />
-      {/* <ParedesInternasBar /> */}
+      <ParedesInternasBar />
 
        {/* sin fisica */}
-      {/* <Carpa />  
+      <Carpa />  
 
-      <SillaBar /> */}
+      <SillaBar />
 
       
   
