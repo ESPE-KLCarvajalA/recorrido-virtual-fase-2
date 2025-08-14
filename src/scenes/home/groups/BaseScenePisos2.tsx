@@ -13,9 +13,9 @@ import { PisoVereda3 } from "../components/pisos/pisoVereda3";
 import { PisoVereda4 } from "../components/pisos/pisoVereda4";
 import { PisoVereda41 } from "../components/pisos/pisoVereda41";
 import { PisoVereda6 } from "../components/pisos/pisoVereda6";
-import { Piso7 } from "../components/primer/piso7";
-import { PisoCesped7 } from "../components/primer/pisoCesped7";
-import { PisoCesped8 } from "../components/primer/pisoCesped8";
+// import { Piso7 } from "../components/primer/piso7";
+// import { PisoCesped7 } from "../components/primer/pisoCesped7";
+// import { PisoCesped8 } from "../components/primer/pisoCesped8";
 
 
 
@@ -42,9 +42,9 @@ const BaseScenePisos2 = () => {
      <PisoVereda41 />
      <PisoVereda6 />
 
-     <PisoCesped7 />
+     {/* <PisoCesped7 />
      < Piso7 />
-     <PisoCesped8 />
+     <PisoCesped8 /> */}
 
 
 
