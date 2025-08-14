@@ -17,7 +17,7 @@ interface Props {
 export default function Marcador360({
     position,
     icon = '⬇', // Icono de flecha hacia abajo
-    text = 'Explorar Laboratorio',
+    text = 'Ver Laboratorio',
     url,
     isEspecial = false,
 }: Props) {
