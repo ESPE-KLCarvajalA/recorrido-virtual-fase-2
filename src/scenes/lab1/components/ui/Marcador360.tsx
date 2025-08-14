@@ -17,7 +17,7 @@ interface Props {
 export default function Marcador360({
     position,
     icon = '⬇', // Icono de flecha hacia abajo
-    text = 'Ver Laboratorio',
+    text = 'Explorar Laboratorio',
     url,
     isEspecial = false,
 }: Props) {
@@ -43,7 +43,7 @@ export default function Marcador360({
         const angle = camDir.angleTo(toMarker); // en radianes
 
         // Mostrar solo si estás cerca y mirando hacia él
-        const shouldShow = distance < 200 && angle < Math.PI / 4;
+        const shouldShow = distance < 400 && angle < Math.PI / 4; // ← 🎯 Mayor distancia de visibilidad
 
         setVisible(shouldShow);
 
@@ -89,7 +89,7 @@ export default function Marcador360({
                         <div
                             className="marker-icon"
                             style={{
-                                fontSize: isEspecial ? '6rem' : '3rem',
+                                fontSize: isEspecial ? '8rem' : '5rem', // ← 🎯 Iconos más grandes
                                 color: '#ffffff', // ← 🎯 Flecha blanca para ambos tipos
                                 textShadow: isEspecial 
                                     ? '0 0 20px rgba(255, 255, 255, 0.9)' // ← Brillo blanco para especiales
@@ -99,8 +99,8 @@ export default function Marcador360({
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                width: isEspecial ? '100px' : '60px',
-                                height: isEspecial ? '100px' : '60px',
+                                width: isEspecial ? '140px' : '90px',   // ← 🎯 Contenedor más grande
+                                height: isEspecial ? '140px' : '90px', // ← 🎯 Contenedor más grande
                                 borderRadius: '50%',
                                 background: isEspecial 
                                     ? 'radial-gradient(circle, rgba(0, 255, 102, 0.2), transparent)'
