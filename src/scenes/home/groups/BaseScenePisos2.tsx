@@ -12,6 +12,7 @@ import { PisoTriangulo2 } from "../components/pisos/PisoTriangulo2";
 import { PisoVereda3 } from "../components/pisos/pisoVereda3";
 import { PisoVereda4 } from "../components/pisos/pisoVereda4";
 import { PisoVereda41 } from "../components/pisos/pisoVereda41";
+import { PisoVereda6 } from "../components/pisos/pisoVereda6";
 
 
 
@@ -36,6 +37,7 @@ const BaseScenePisos2 = () => {
      <PisoVereda3 />
      <PisoVereda4 />
      <PisoVereda41 />
+     <PisoVereda6 />
 
 
 

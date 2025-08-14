@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
-import { useBox } from '@react-three/cannon'
+import { useConvexPolyhedron } from '@react-three/cannon'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -18,28 +18,57 @@ type GLTFResult = GLTF & {
 export function PisoVereda4(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda4.glb') as unknown as GLTFResult
 
-  // Define tamaño de la caja para colisión (ajusta según tu modelo)
-  // Puedes cambiar estos valores para ajustarlo mejor al modelo
-  const boxSize: [number, number, number] = [13, 11, 8] // Ancho, alto, profundidad
-  const position: [number, number, number] = [319.134, 0.459, -734.451]
-  const rotation: [number, number, number] = [0, Math.PI / 3, -Math.PI]
-  const scale: [number, number, number] = [-13.438, -11.258, -7.68]
+  // Función para convertir geometría de Three.js a formato Cannon.js
+  const mapGeometryToCannon = (geometry: THREE.BufferGeometry) => {
+    const vertices: THREE.Vector3[] = []
+    const faces = []
 
-  const [ref] = useBox(() => ({
-    args: boxSize,
-    position,
-    rotation,
-    type: 'Static',
+    const positionArray = geometry.attributes.position.array as Float32Array
+    const indexArray = geometry.index?.array as Uint16Array
+
+    for (let i = 0; i < positionArray.length; i += 3) {
+      vertices.push(new THREE.Vector3(positionArray[i], positionArray[i + 1], positionArray[i + 2]))
+    }
+
+    if (indexArray) {
+      for (let i = 0; i < indexArray.length; i += 3) {
+        faces.push([indexArray[i], indexArray[i + 1], indexArray[i + 2]])
+      }
+    }
+
+    return { vertices, faces }
+  }
+
+  // Colisiones para los dos meshes del modelo
+  const { vertices: vertices098, faces: faces098 } = mapGeometryToCannon(nodes.Plane098.geometry)
+  const { vertices: vertices098_1, faces: faces098_1 } = mapGeometryToCannon(nodes.Plane098_1.geometry)
+
+  // Crear colisión para Plane098
+  useConvexPolyhedron(() => ({
+    mass: 0,
+    args: [vertices098, faces098],
+    position: [319.134, 0.459, -734.451],
+    rotation: [0, Math.PI / 3, -Math.PI],
+    // Cannon.js no maneja bien escalas negativas, usamos valores absolutos
+    scale: [13.438, 11.258, 7.68],
+  }))
+
+  // Crear colisión para Plane098_1
+  useConvexPolyhedron(() => ({
+    mass: 0,
+    args: [vertices098_1, faces098_1],
+    position: [319.134, 0.459, -734.451],
+    rotation: [0, Math.PI / 3, -Math.PI],
+    scale: [13.438, 11.258, 7.68],
   }))
 
   return (
     <group {...props} dispose={null}>
       <group
-        ref={ref}
         name="curb009"
-        position={position}
-        rotation={rotation}
-        scale={scale}
+        position={[319.134, 0.459, -734.451]}
+        rotation={[0, Math.PI / 3, -Math.PI]}
+        scale={[-13.438, -11.258, -7.68]}
       >
         <mesh
           name="Plane098"
