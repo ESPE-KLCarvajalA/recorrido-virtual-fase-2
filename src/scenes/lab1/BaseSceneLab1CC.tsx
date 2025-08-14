@@ -17,7 +17,13 @@ function Dome({ texture }: any) {
     <group>
       <mesh scale={[-1, 1, 1]}>
         <sphereGeometry args={[500, 60, 40]} />
-        <meshBasicMaterial map={texture} side={THREE.BackSide} />
+        {/* 🎯 OPCIÓN 1: Material básico con claridad optimizada para laboratorios */}
+        <meshBasicMaterial 
+          map={texture} 
+          side={THREE.BackSide}
+          color="#ffffff"        // ← RECOMENDADO: Color neutro sin alterar tonos reales
+          transparent={false}
+        />
       </mesh>
       <Markers />
     </group>
@@ -93,11 +99,20 @@ const BaseSceneLab1 = () => {
   </>
 )}
 
-
-
-
       {/* 🌐 Visor 360 */}
-      <Canvas frameloop="demand" camera={{ position: [0, 0, 0.1] }}>
+      <Canvas 
+        frameloop="demand" 
+        camera={{ position: [0, 0, 0.1] }}
+        // 🎯 OPCIÓN 2: Ajustar la exposición general del renderizado
+        gl={{ 
+          antialias: true,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 1.2  // ← Aumenta para más brillo (1.0 = normal, 1.5 = muy brillante)
+        }}
+      >
+        {/* 🎯 OPCIÓN 3: Añadir luz ambiental para iluminar toda la escena */}
+        <ambientLight intensity={0.7} color="#ffffff" /> {/* ← RECOMENDADO: Intensidad perfecta para laboratorios */}
+        
         <OrbitControls
           enableZoom={false}
           enablePan={false}
