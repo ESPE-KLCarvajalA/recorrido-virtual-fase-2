@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { ThreeElements } from '@react-three/fiber'
-import { useConvexPolyhedron } from '@react-three/cannon'
+import { useBox } from '@react-three/cannon'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -16,50 +16,17 @@ type GLTFResult = GLTF & {
 }
 
 export function PisoVereda4(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF(
-    'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda4.glb'
-  ) as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda4.glb') as unknown as GLTFResult
 
-  // Función para convertir geometría a formato Cannon.js
-  const mapGeometryToCannon = (geometry: THREE.BufferGeometry) => {
-    const vertices: THREE.Vector3[] = []
-    const faces: number[][] = []
-
-    const positionArray = geometry.attributes.position.array as Float32Array
-    const indexArray = geometry.index?.array as Uint16Array
-
-    for (let i = 0; i < positionArray.length; i += 3) {
-      vertices.push(
-        new THREE.Vector3(positionArray[i], positionArray[i + 1], positionArray[i + 2])
-      )
-    }
-
-    if (indexArray) {
-      for (let i = 0; i < indexArray.length; i += 3) {
-        faces.push([indexArray[i], indexArray[i + 1], indexArray[i + 2]])
-      }
-    }
-
-    return { vertices, faces }
-  }
-
-  // Geometrías para colisión
-  const { vertices: v1, faces: f1 } = mapGeometryToCannon(nodes.Plane098.geometry)
-  const { vertices: v2, faces: f2 } = mapGeometryToCannon(nodes.Plane098_1.geometry)
-
-  // Bodies físicos (estáticos)
-  useConvexPolyhedron(() => ({
-    mass: 0,
-    args: [v1, f1],
-    position: [319.134, 0.459, -734.451],
-    rotation: [0, Math.PI / 3, -Math.PI],
-  }))
-
-  useConvexPolyhedron(() => ({
-    mass: 0,
-    args: [v2, f2],
-    position: [319.134, 0.459, -734.451],
-    rotation: [0, Math.PI / 3, -Math.PI],
+  // Crear una caja de colisión simple para el piso
+  // Dimensiones aproximadas basadas en las escalas del modelo
+  const boxSize: [number, number, number] = [13.438 * 2, 2, 7.68 * 2] // ancho, alto, profundidad
+  
+  useBox(() => ({
+    args: boxSize,
+    position: [319.134, 0.459, -734.451], // Misma posición que el grupo
+    rotation: [0, Math.PI / 3, 0], // Simplificar rotación (quitar -Math.PI)
+    type: 'Static', // Cuerpo estático
   }))
 
   return (
@@ -70,13 +37,19 @@ export function PisoVereda4(props: ThreeElements['group']) {
         rotation={[0, Math.PI / 3, -Math.PI]}
         scale={[-13.438, -11.258, -7.68]}
       >
-        <mesh geometry={nodes.Plane098.geometry} material={materials['Material.114']} />
-        <mesh geometry={nodes.Plane098_1.geometry} material={materials['Material.116']} />
+        <mesh
+          name="Plane098"
+          geometry={nodes.Plane098.geometry}
+          material={materials['Material.114']}
+        />
+        <mesh
+          name="Plane098_1"
+          geometry={nodes.Plane098_1.geometry}
+          material={materials['Material.116']}
+        />
       </group>
     </group>
   )
 }
 
-useGLTF.preload(
-  'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda4.glb'
-)
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda4.glb')
