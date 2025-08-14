@@ -13,6 +13,7 @@
 // import { Tablero } from "../components/otros/tablero";
 // import { Parqueadero } from "../components/parqueadero/parqueadero";
 import { Borde } from "../components/primer/Borde";
+import { Carretera } from "../components/primer/carretera";
 import { PisoArco } from "../components/primer/PisoArco";
 import { PisoCesped1 } from "../components/primer/PisoCesped1";
 import { PisoCesped3 } from "../components/primer/PisoCesped3";
@@ -51,6 +52,7 @@ const BaseSceneAfuera = () => {
         <PisoLabs />
        <PisoVereda5 />
        <PisoCesped6 />
+       <Carretera />
        
       
  {/* sin fisica */}
