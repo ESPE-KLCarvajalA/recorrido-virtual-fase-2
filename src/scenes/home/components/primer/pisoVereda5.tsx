@@ -1,9 +1,8 @@
 import * as THREE from 'three'
-import { ThreeElements } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { ThreeElements } from '@react-three/fiber'
 import { useConvexPolyhedron } from '@react-three/cannon'
-import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry.js'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -11,151 +10,153 @@ type GLTFResult = GLTF & {
     Plane100_1: THREE.Mesh
     Plane085: THREE.Mesh
     Plane085_1: THREE.Mesh
-    Plane099: THREE.Mesh
-    Plane099_1: THREE.Mesh
-    piso_gris001: THREE.Mesh
-    road004: THREE.Mesh
-    Plane094: THREE.Mesh
-    Plane094_1: THREE.Mesh
+    Plane089: THREE.Mesh
+    Plane089_1: THREE.Mesh
   }
   materials: {
     ['Material.128']: THREE.MeshStandardMaterial
     ['Material.129']: THREE.MeshStandardMaterial
     ['Material.130']: THREE.MeshStandardMaterial
     ['Material.131']: THREE.MeshStandardMaterial
-    ['Material.126']: THREE.MeshStandardMaterial
-    ['Material.127']: THREE.MeshStandardMaterial
-    ['Material.031']: THREE.MeshStandardMaterial
-    ['Material.154']: THREE.MeshStandardMaterial
-    ['Material.039']: THREE.MeshStandardMaterial
-    ['Material.121']: THREE.MeshStandardMaterial
+    ['Material.152']: THREE.MeshStandardMaterial
+    ['Material.153']: THREE.MeshStandardMaterial
   }
 }
 
-function getConvexHullFromMeshes(meshes: THREE.Mesh[], position: THREE.Vector3, rotation: THREE.Euler, scale: THREE.Vector3) {
-  // Recolecta todos los vértices transformados por posición, rotación y escala
-  const points: THREE.Vector3[] = []
-
-  const matrix = new THREE.Matrix4()
-  matrix.compose(position, new THREE.Quaternion().setFromEuler(rotation), scale)
-
-  meshes.forEach(mesh => {
-    const posAttr = mesh.geometry.attributes.position
-    for (let i = 0; i < posAttr.count; i++) {
-      const vertex = new THREE.Vector3(posAttr.getX(i), posAttr.getY(i), posAttr.getZ(i))
-      vertex.applyMatrix4(matrix)
-      points.push(vertex)
-    }
-  })
-
-  return new ConvexGeometry(points)
-}
-
 export function PisoVereda5(props: ThreeElements['group']) {
-  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda5.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda5Modificado.glb') as unknown as GLTFResult
 
-  // Definición de grupos con sus transformaciones y meshes
-  const groups = [
-    {
-      name: 'curb003',
-      position: new THREE.Vector3(-575.581, -4.216, 60.901),
-      rotation: new THREE.Euler(-Math.PI, 0.664, 0),
-      scale: new THREE.Vector3(-13.438, -11.258, -7.68),
-      meshes: [nodes.Plane100, nodes.Plane100_1],
-      materials: [materials['Material.128'], materials['Material.129']],
-    },
-    {
-      name: 'curb007',
-      position: new THREE.Vector3(-732.487, -4.216, 145.569),
-      rotation: new THREE.Euler(-Math.PI, 0.664, 0),
-      scale: new THREE.Vector3(-13.438, -11.258, -7.68),
-      meshes: [nodes.Plane085, nodes.Plane085_1],
-      materials: [materials['Material.130'], materials['Material.131']],
-    },
-    {
-      name: 'road007',
-      position: new THREE.Vector3(-465.979, -4.216, -164.703),
-      rotation: new THREE.Euler(0, -1.568, 0),
-      scale: new THREE.Vector3(5.09, 11.258, 14.195),
-      meshes: [nodes.Plane099, nodes.Plane099_1],
-      materials: [materials['Material.126'], materials['Material.127']],
-    },
-    {
-      name: 'piso_gris001',
-      position: new THREE.Vector3(-455.786, -4.216, -263.412),
-      rotation: new THREE.Euler(0, 0, -Math.PI),
-      scale: new THREE.Vector3(-0.319, -1, -0.83),
-      meshes: [nodes.piso_gris001],
-      materials: [materials['Material.031']],
-    },
-    {
-      name: 'road004',
-      position: new THREE.Vector3(-406.536, -4.216, -85.252),
-      rotation: new THREE.Euler(0, 0, 0),
-      scale: new THREE.Vector3(17.387, 11.258, 10.745),
-      meshes: [nodes.road004],
-      materials: [materials['Material.154']],
-    },
-    {
-      name: 'road002',
-      position: new THREE.Vector3(-646.937, -4.216, 8.19),
-      rotation: new THREE.Euler(-Math.PI, 1.568, -Math.PI),
-      scale: new THREE.Vector3(6.96, 11.258, 38.979),
-      meshes: [nodes.Plane094, nodes.Plane094_1],
-      materials: [materials['Material.039'], materials['Material.121']],
-    },
-  ]
-
-  // Crear colisiones con refs
-  const refs = groups.map(({ meshes, position, rotation }) => {
-    const hullGeometry = getConvexHullFromMeshes(meshes, new THREE.Vector3(0, 0, 0), new THREE.Euler(0, 0, 0), new THREE.Vector3(1, 1, 1))
-
-    // Extraer vertices y caras
+  // Función para convertir geometría de Three.js a formato Cannon.js
+  const mapGeometryToCannon = (geometry: THREE.BufferGeometry) => {
     const vertices: THREE.Vector3[] = []
-    const convexPositions = hullGeometry.attributes.position.array
-    for (let i = 0; i < convexPositions.length; i += 3) {
-      vertices.push(new THREE.Vector3(convexPositions[i], convexPositions[i + 1], convexPositions[i + 2]))
+    const faces = []
+
+    const positionArray = geometry.attributes.position.array as Float32Array
+    const indexArray = geometry.index?.array as Uint16Array
+
+    for (let i = 0; i < positionArray.length; i += 3) {
+      vertices.push(new THREE.Vector3(positionArray[i], positionArray[i + 1], positionArray[i + 2]))
     }
-    const faces: number[][] = []
-    if (hullGeometry.index) {
-      const idx = hullGeometry.index.array
-      for (let i = 0; i < idx.length; i += 3) {
-        faces.push([idx[i], idx[i + 1], idx[i + 2]])
+
+    if (indexArray) {
+      for (let i = 0; i < indexArray.length; i += 3) {
+        faces.push([indexArray[i], indexArray[i + 1], indexArray[i + 2]])
       }
     }
 
-    return useConvexPolyhedron(() => ({
-      args: [vertices, faces],
-      position: position.toArray() as [number, number, number],
-      rotation: [rotation.x, rotation.y, rotation.z],
-      type: 'Static',
-    }))[0]
-  })
+    return { vertices, faces }
+  }
+
+  // Colisiones para grupo curb003 (Plane100 y Plane100_1)
+  const { vertices: vertices100, faces: faces100 } = mapGeometryToCannon(nodes.Plane100.geometry)
+  const { vertices: vertices100_1, faces: faces100_1 } = mapGeometryToCannon(nodes.Plane100_1.geometry)
+
+  useConvexPolyhedron(() => ({
+    mass: 0,
+    args: [vertices100, faces100],
+    position: [-575.581, -10.175, 60.901],
+    rotation: [-Math.PI, 0.664, 0],
+    // Nota: Cannon.js no maneja escalas negativas bien, usaremos valores absolutos
+    scale: [13.438, 11.258, 7.68],
+  }))
+
+  useConvexPolyhedron(() => ({
+    mass: 0,
+    args: [vertices100_1, faces100_1],
+    position: [-575.581, -10.175, 60.901],
+    rotation: [-Math.PI, 0.664, 0],
+    scale: [13.438, 11.258, 7.68],
+  }))
+
+  // Colisiones para grupo curb007 (Plane085 y Plane085_1)
+  const { vertices: vertices085, faces: faces085 } = mapGeometryToCannon(nodes.Plane085.geometry)
+  const { vertices: vertices085_1, faces: faces085_1 } = mapGeometryToCannon(nodes.Plane085_1.geometry)
+
+  useConvexPolyhedron(() => ({
+    mass: 0,
+    args: [vertices085, faces085],
+    position: [-732.487, -10.693, 145.569],
+    rotation: [-Math.PI, 0.664, 0],
+    scale: [13.438, 11.258, 7.68],
+  }))
+
+  useConvexPolyhedron(() => ({
+    mass: 0,
+    args: [vertices085_1, faces085_1],
+    position: [-732.487, -10.693, 145.569],
+    rotation: [-Math.PI, 0.664, 0],
+    scale: [13.438, 11.258, 7.68],
+  }))
+
+  // Colisiones para grupo road004 (Plane089 y Plane089_1)
+  const { vertices: vertices089, faces: faces089 } = mapGeometryToCannon(nodes.Plane089.geometry)
+  const { vertices: vertices089_1, faces: faces089_1 } = mapGeometryToCannon(nodes.Plane089_1.geometry)
+
+  useConvexPolyhedron(() => ({
+    mass: 0,
+    args: [vertices089, faces089],
+    position: [-406.536, -10.479, -85.252],
+    scale: [17.387, 11.258, 10.745],
+  }))
+
+  useConvexPolyhedron(() => ({
+    mass: 0,
+    args: [vertices089_1, faces089_1],
+    position: [-406.536, -10.479, -85.252],
+    scale: [17.387, 11.258, 10.745],
+  }))
 
   return (
     <group {...props} dispose={null}>
-      {groups.map(({ name, position, rotation, scale, meshes, materials }, i) => (
-        <group
-          key={name}
-          ref={refs[i]}
-          name={name}
-          position={position.toArray()}
-          rotation={[rotation.x, rotation.y, rotation.z]}
-          scale={scale.toArray()}
-        >
-          {meshes.map((mesh, idx) => (
-            <mesh
-              key={idx}
-              geometry={mesh.geometry}
-              material={materials[idx]}
-              castShadow
-              receiveShadow
-            />
-          ))}
-        </group>
-      ))}
+      <group
+        name="curb003"
+        position={[-575.581, -10.175, 60.901]}
+        rotation={[-Math.PI, 0.664, 0]}
+        scale={[-13.438, -11.258, -7.68]}>
+        <mesh
+          name="Plane100"
+          geometry={nodes.Plane100.geometry}
+          material={materials['Material.128']}
+        />
+        <mesh
+          name="Plane100_1"
+          geometry={nodes.Plane100_1.geometry}
+          material={materials['Material.129']}
+        />
+      </group>
+      <group
+        name="curb007"
+        position={[-732.487, -10.693, 145.569]}
+        rotation={[-Math.PI, 0.664, 0]}
+        scale={[-13.438, -11.258, -7.68]}>
+        <mesh
+          name="Plane085"
+          geometry={nodes.Plane085.geometry}
+          material={materials['Material.130']}
+        />
+        <mesh
+          name="Plane085_1"
+          geometry={nodes.Plane085_1.geometry}
+          material={materials['Material.131']}
+        />
+      </group>
+      <group
+        name="road004"
+        position={[-406.536, -10.479, -85.252]}
+        scale={[17.387, 11.258, 10.745]}>
+        <mesh
+          name="Plane089"
+          geometry={nodes.Plane089.geometry}
+          material={materials['Material.152']}
+        />
+        <mesh
+          name="Plane089_1"
+          geometry={nodes.Plane089_1.geometry}
+          material={materials['Material.153']}
+        />
+      </group>
     </group>
   )
 }
 
-useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda5.glb')
+useGLTF.preload('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/pisos/pisoVereda5Modificado.glb')
