@@ -45,7 +45,7 @@ export function PisoVereda6(props: ThreeElements['group']) {
   useConvexPolyhedron(() => ({
     mass: 0, // Masa 0 = cuerpo estático
     args: [vertices1, faces1],
-    position: [-850.849, -10.492, -153.118], // Posición del grupo padre
+    position: [-850.849, -3, -153.118], // Posición del grupo padre
   }))
 
   // Crear colisiones para el segundo mesh (Plane101_1)
@@ -54,12 +54,12 @@ export function PisoVereda6(props: ThreeElements['group']) {
   useConvexPolyhedron(() => ({
     mass: 0, // Masa 0 = cuerpo estático
     args: [vertices2, faces2],
-    position: [-850.849, -10.492, -153.118], // Posición del grupo padre
+    position: [-850.849, -3, -153.118], // Posición del grupo padre
   }))
 
   return (
     <group {...props} dispose={null}>
-      <group name="road011" position={[-850.849, -10.492, -153.118]}>
+      <group name="road011" position={[-850.849, -3, -153.118]}>
         <mesh
           name="Plane101"
           geometry={nodes.Plane101.geometry}
