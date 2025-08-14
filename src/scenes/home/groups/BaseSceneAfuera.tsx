@@ -5,13 +5,13 @@
 
 
 
-import { Estructura } from "../components/estructura/estructura";
-import { Estructura1 } from "../components/estructura/estructura1";
-import { Cartelera } from "../components/otros/cartelera";
-import { Frases } from "../components/otros/frases";
-import { Senaleticas } from "../components/otros/senaleticas";
-import { Tablero } from "../components/otros/tablero";
-import { Parqueadero } from "../components/parqueadero/parqueadero";
+// import { Estructura } from "../components/estructura/estructura";
+// import { Estructura1 } from "../components/estructura/estructura1";
+// import { Cartelera } from "../components/otros/cartelera";
+// import { Frases } from "../components/otros/frases";
+// import { Senaleticas } from "../components/otros/senaleticas";
+// import { Tablero } from "../components/otros/tablero";
+// import { Parqueadero } from "../components/parqueadero/parqueadero";
 import { Borde } from "../components/primer/Borde";
 import { PisoArco } from "../components/primer/PisoArco";
 import { PisoCesped1 } from "../components/primer/PisoCesped1";
@@ -54,7 +54,7 @@ const BaseSceneAfuera = () => {
        
       
  {/* sin fisica */}
-      <Frases />
+      {/* <Frases />
       <Senaleticas />
 
       <Estructura />
@@ -64,7 +64,7 @@ const BaseSceneAfuera = () => {
 
       <Parqueadero />
 
-      <Tablero />
+      <Tablero /> */}
 
 
       </>
