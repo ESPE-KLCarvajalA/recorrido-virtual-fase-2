@@ -8,24 +8,24 @@ import HDRIEnvironment from './components/ui/HDRIEnvironment';
 
 
 import BaseSceneAfuera from './groups/BaseSceneAfuera';
-// import BaseScenePisos2 from './groups/BaseScenePisos2';
-// import BaseSceneArco from './groups/BaseSceneArco';
+import BaseScenePisos2 from './groups/BaseScenePisos2';
+import BaseSceneArco from './groups/BaseSceneArco';
 
-// import BaseSceneLab from './groups/BaseSceneLab';
-// import BaseSceneLab2 from './groups/BaseSceneLab2';
+import BaseSceneLab from './groups/BaseSceneLab';
+import BaseSceneLab2 from './groups/BaseSceneLab2';
 
-// import BaseSceneOficina from './groups/BaseSceneOficina';
-// import BaseSceneOficina2 from './groups/BaseSceneOficina2';
+import BaseSceneOficina from './groups/BaseSceneOficina';
+import BaseSceneOficina2 from './groups/BaseSceneOficina2';
 
 
-// import BaseSceneBar from './groups/BaseSceneBar';
-// import BaseSceneBar2 from './groups/BaseSceneBar2';
+import BaseSceneBar from './groups/BaseSceneBar';
+import BaseSceneBar2 from './groups/BaseSceneBar2';
 
-// import BaseSceneVilla2F from './groups/BaseSceneVilla2F';
-// import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
+import BaseSceneVilla2F from './groups/BaseSceneVilla2F';
+import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
 
-// import BaseSceneOtros from './groups/BaseSceneOtros';
-// import BaseSceneOtros2 from './groups/BaseSceneOtros2';
+import BaseSceneOtros from './groups/BaseSceneOtros';
+import BaseSceneOtros2 from './groups/BaseSceneOtros2';
 import NavigationPanel from '../../components/ui/NavigationPanel';
 import { PositionRestore } from '../lab1/components/PositionRestore';
 
@@ -49,9 +49,9 @@ const BaseSceneEntrada = () => {
 
 
           <BaseSceneAfuera />
-          {/* <BaseScenePisos2 /> */}
+          <BaseScenePisos2 />
 
-          {/* <BaseSceneArco />
+          <BaseSceneArco />
 
           <BaseSceneBar />
           <BaseSceneBar2 />
@@ -63,7 +63,7 @@ const BaseSceneEntrada = () => {
 
           <BaseSceneOtros />
 
-          <BaseSceneVilla2F /> */}
+          <BaseSceneVilla2F />
 
 
           <BaseCharacter
