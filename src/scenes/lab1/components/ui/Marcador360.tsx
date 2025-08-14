@@ -89,7 +89,7 @@ export default function Marcador360({
                         <div
                             className="marker-icon"
                             style={{
-                                fontSize: isEspecial ? '8rem' : '5rem', // ← 🎯 Iconos más grandes
+                                fontSize: isEspecial ? '10rem' : '6rem', // ← 🎯 Iconos más grandes
                                 color: '#ffffff', // ← 🎯 Flecha blanca para ambos tipos
                                 textShadow: isEspecial 
                                     ? '0 0 20px rgba(255, 255, 255, 0.9)' // ← Brillo blanco para especiales
@@ -99,8 +99,8 @@ export default function Marcador360({
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                width: isEspecial ? '140px' : '90px',   // ← 🎯 Contenedor más grande
-                                height: isEspecial ? '140px' : '90px', // ← 🎯 Contenedor más grande
+                                width: isEspecial ? '150px' : '100px',   // ← 🎯 Contenedor más grande
+                                height: isEspecial ? '150px' : '100px', // ← 🎯 Contenedor más grande
                                 borderRadius: '50%',
                                 background: isEspecial 
                                     ? 'radial-gradient(circle, rgba(0, 255, 102, 0.2), transparent)'
