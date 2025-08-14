@@ -79,11 +79,11 @@ const BaseSceneEntrada = () => {
 
         {/* sinfisica */}
 
-        {/* <BaseSceneOficina2 />
+        <BaseSceneOficina2 />
 
         <BaseSceneOtros2 />
 
-        <BaseSceneVilla2SF /> */}
+        <BaseSceneVilla2SF />
 
         <PositionRestore /> 
 
