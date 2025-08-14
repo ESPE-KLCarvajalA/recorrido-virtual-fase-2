@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 // 🗺️ Definir ubicaciones de teletransporte
 const TELEPORT_LOCATIONS = {
   entrada: [-80, -1, 170],
-  lab1: [-100, 19, -500],
-  lab2: [-32, 20, -370],
-  lab3: [-62.334, 19.5, -221.824],
-  lab4: [-179, 20, -68.5],
-  lab5: [-165, 20, -56.541],
+  lab1: [-76, 19, -500],
+  lab2: [-53, 20, -370],
+  lab3: [-37, 19.5, -221.824],
+  lab4: [-155, 20, -68.5],
+  lab5: [-152.702 , 20, -68.4816],
   lab6: [167.089, 20, -279.414],
   oficinas: [72.124, 20, -68.044],
   bar: [-710.344, -6, -210.603],
