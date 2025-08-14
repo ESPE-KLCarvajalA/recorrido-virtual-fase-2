@@ -5,7 +5,7 @@ import { useState, useEffect, Suspense } from 'react';
 import Markers from './components/Markers';
 
 const store = [
-  { name: '6', url: 'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/360/lab1/lab6.webp', link: 1 },
+  { name: '6', url: 'https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/360/lab1/lab2.webp', link: 1 },
 ];
 
 function Dome({ texture }: any) {
