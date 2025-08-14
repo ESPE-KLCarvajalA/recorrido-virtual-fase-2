@@ -16,7 +16,7 @@ interface Props {
 export default function Marcador360({
     position,
     label = '👀',
-    text = 'Explorar Laboratorio',
+    text = 'Ver Laboratorio',
     url,
     isEspecial = false,
 }: Props) {

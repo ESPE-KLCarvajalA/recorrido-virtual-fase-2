@@ -1,7 +1,7 @@
 import { Canvas, useLoader } from '@react-three/fiber';
 import { Loader, OrbitControls, Preload } from '@react-three/drei';
 import * as THREE from 'three';
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Markers from './components/Markers';
 
 const store = [
@@ -15,7 +15,7 @@ function Dome({ texture }: any) {
         <sphereGeometry args={[500, 60, 40]} />
         <meshBasicMaterial map={texture} side={THREE.BackSide} />
       </mesh>
-     
+            
       <Markers />
     </group>
   );
@@ -23,20 +23,20 @@ function Dome({ texture }: any) {
 
 function Portals() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const maps = useLoader(THREE.TextureLoader, store.map((entry) => entry.url)); 
-
+  const maps = useLoader(THREE.TextureLoader, store.map((entry) => entry.url));
+    
   const handleNext = () => {
     if (store[currentIndex].link !== null) {
       setCurrentIndex(store[currentIndex].link);
     }
   };
-
+ 
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
   };
-
+ 
   return (
     <Dome
       texture={maps[currentIndex]}
@@ -47,27 +47,68 @@ function Portals() {
 }
 
 const BaseSceneLab2CC = () => {
+  const [showHint, setShowHint] = useState(true);
+
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+
+    const resetHintTimeout = () => {
+      setShowHint(false);
+      clearTimeout(timeout);
+
+      timeout = setTimeout(() => {
+        setShowHint(true);
+      }, 15000); // Muestra el hint otra vez si no hay interacción
+    };
+
+    window.addEventListener('mousedown', resetHintTimeout);
+    window.addEventListener('touchstart', resetHintTimeout);
+
+    return () => {
+      window.removeEventListener('mousedown', resetHintTimeout);
+      window.removeEventListener('touchstart', resetHintTimeout);
+      clearTimeout(timeout);
+    };
+  }, []);
+
   return (
     <>
-    
-    <Canvas frameloop="demand" camera={{ position: [0, 0, 0.1] }}>
-      <OrbitControls
-        enableZoom={false}
-        enablePan={false}
-        enableDamping
-        dampingFactor={0.2}
-        autoRotate={false}
-        rotateSpeed={-0.4}
+     
+     {showHint && (
+  <>
+    {/* <div className="info-button" onClick={() => alert("Aquí puedes mostrar información adicional.")}>
+      ℹ️
+    </div> */}
+
+    <div className="rotate-hint">
+      <span className="mouse">🖱️</span>
+      <span>Arrastra para girar</span>
+    </div>
+
+    <div className="arrow-hint left-arrow">⬅️</div>
+    <div className="arrow-hint right-arrow">➡️</div>
+  </>
+)}
+
+      {/* 🌐 Visor 360 */}
+      <Canvas frameloop="demand" camera={{ position: [0, 0, 0.1] }}>
+        <OrbitControls
+          enableZoom={false}
+          enablePan={false}
+          enableDamping
+          dampingFactor={0.2}
+          autoRotate={false}
+          rotateSpeed={-0.4}
+              
+        />
        
-      />
+        <Suspense fallback={null}>
+          <Preload all />
+          <Portals />
+        </Suspense>
+      </Canvas>
 
-      <Suspense fallback={null}>
-        <Preload all />
-        <Portals />
-      </Suspense>
-    </Canvas>
-
-    <Loader />
+      <Loader />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { Canvas, useLoader } from '@react-three/fiber';
 import { Loader, OrbitControls, Preload } from '@react-three/drei';
 import * as THREE from 'three';
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Markers from './components/Markers';
 
 const store = [
@@ -47,9 +47,50 @@ function Portals() {
 }
 
 const BaseSceneLab5CC = () => {
+  const [showHint, setShowHint] = useState(true);
+
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+
+    const resetHintTimeout = () => {
+      setShowHint(false);
+      clearTimeout(timeout);
+
+      timeout = setTimeout(() => {
+        setShowHint(true);
+      }, 15000); // Muestra el hint otra vez si no hay interacción
+    };
+
+    window.addEventListener('mousedown', resetHintTimeout);
+    window.addEventListener('touchstart', resetHintTimeout);
+
+    return () => {
+      window.removeEventListener('mousedown', resetHintTimeout);
+      window.removeEventListener('touchstart', resetHintTimeout);
+      clearTimeout(timeout);
+    };
+  }, []);
+
   return (
     <>
     
+    {showHint && (
+  <>
+    {/* <div className="info-button" onClick={() => alert("Aquí puedes mostrar información adicional.")}>
+      ℹ️
+    </div> */}
+
+    <div className="rotate-hint">
+      <span className="mouse">🖱️</span>
+      <span>Arrastra para girar</span>
+    </div>
+
+    <div className="arrow-hint left-arrow">⬅️</div>
+    <div className="arrow-hint right-arrow">➡️</div>
+  </>
+)}
+
+    {/* 🌐 Visor 360 */}
     <Canvas frameloop="demand" camera={{ position: [0, 0, 0.1] }}>
       <OrbitControls
         enableZoom={false}
