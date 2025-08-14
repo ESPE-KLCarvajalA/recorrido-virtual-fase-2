@@ -90,7 +90,7 @@ export default function Marcador360({
                             className="marker-icon"
                             style={{
                                 fontSize: isEspecial ? '10rem' : '6rem', // ← 🎯 Iconos más grandes
-                                color: '#ffffff', // ← 🎯 Flecha blanca para ambos tipos
+                                color: '#000000', // ← 🎯 Flecha blanca para ambos tipos
                                 textShadow: isEspecial 
                                     ? '0 0 20px rgba(255, 255, 255, 0.9)' // ← Brillo blanco para especiales
                                     : '0 2px 8px rgba(0, 0, 0, 0.6)',      // ← Sombra más fuerte para normales
