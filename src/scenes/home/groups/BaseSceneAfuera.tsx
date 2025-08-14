@@ -18,13 +18,13 @@ import { PisoArco } from "../components/primer/PisoArco";
 import { PisoCesped1 } from "../components/primer/PisoCesped1";
 import { PisoCesped3 } from "../components/primer/PisoCesped3";
 import { PisoCesped5E } from "../components/primer/PisoCesped5E";
-import { PisoCesped6 } from "../components/primer/PisoCesped6";
+// import { PisoCesped6 } from "../components/primer/PisoCesped6";
 import { PisoLabs } from "../components/primer/PisoLabs";
 import { PisoOctagono } from "../components/primer/PisoOctagono";
 import { PisoTriangulo } from "../components/primer/PisoTriangulo";
 import { PisoVereda } from "../components/primer/pisoVereda";
 import { PisoVereda2 } from "../components/primer/pisoVereda2";
-// import { PisoVereda5 } from "../components/primer/pisoVereda5";
+import { PisoVereda5 } from "../components/primer/pisoVereda5";
 import { Vereda1 } from "../components/primer/vereda1";
 import { Vereda2 } from "../components/primer/vereda2";
 
@@ -52,9 +52,9 @@ const BaseSceneAfuera = () => {
         <PisoLabs />
 
 
-        {/* <PisoVereda5 /> */}
+        <PisoVereda5 />
 
-       <PisoCesped6 />
+       {/* <PisoCesped6 /> */}
        
        <Carretera /> 
       
