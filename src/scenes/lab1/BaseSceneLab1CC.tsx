@@ -17,7 +17,7 @@ function Dome({ texture }: any) {
     <group>
       <mesh scale={[-1, 1, 1]}>
         <sphereGeometry args={[500, 60, 40]} />
-        <meshBasicMaterial
+        <meshBasicMaterial 
           map={texture}
           side={THREE.BackSide}
           color="#ffffff"
@@ -72,7 +72,7 @@ const InfoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
             <h3>📋 Información General</h3>
             <p>Este es el Laboratorio de Computación 1, equipado con tecnología de última generación para el aprendizaje y desarrollo de proyectos tecnológicos.</p>
           </div>
-
+          
           <div className="info-section">
             <h3>💻 Equipamiento</h3>
             <ul>
@@ -82,7 +82,7 @@ const InfoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
               <li>Software especializado en programación y diseño</li>
             </ul>
           </div>
-
+          
           <div className="info-section">
             <h3>🎯 Actividades</h3>
             <ul>
@@ -92,11 +92,11 @@ const InfoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
               <li>Análisis de datos y bases de datos</li>
             </ul>
           </div>
-
+          
           <div className="info-section">
             <h3>⏰ Horarios</h3>
-            <p>Lunes a Viernes: 8:00 AM - 6:00 PM<br />
-              Sábados: 9:00 AM - 2:00 PM</p>
+            <p>Lunes a Viernes: 8:00 AM - 6:00 PM<br/>
+               Sábados: 9:00 AM - 2:00 PM</p>
           </div>
         </div>
       </div>
@@ -138,7 +138,7 @@ const BaseSceneLab1 = () => {
       {/* Botón de información */}
       <div className="info-button" onClick={openModal}>
         <span className="info-icon">ℹ️</span>
-
+        <span className="info-text">Info</span>
       </div>
 
       {/* Modal de información */}
@@ -156,7 +156,7 @@ const BaseSceneLab1 = () => {
       )}
 
       {/* Visor 360 */}
-      <Canvas
+      <Canvas 
         frameloop="demand"
         camera={{ position: [0, 0, 0.1] }}
         gl={{
@@ -166,7 +166,7 @@ const BaseSceneLab1 = () => {
         }}
       >
         <ambientLight intensity={0.7} color="#ffffff" />
-
+        
         <OrbitControls
           enableZoom={false}
           enablePan={false}
@@ -175,7 +175,7 @@ const BaseSceneLab1 = () => {
           rotateSpeed={-0.4}
           autoRotate={false}
         />
-
+        
         <Suspense fallback={null}>
           <Preload all />
           <Portals />
@@ -188,9 +188,8 @@ const BaseSceneLab1 = () => {
         /* Botón de información */
         .info-button {
           position: fixed;
-         top: 20px;
-          left: 50%;
-          transform: translateX(-50%);
+          top: 20px;
+          right: 20px;
           background: rgba(255, 255, 255, 0.9);
           border: 2px solid #007bff;
           border-radius: 50px;
@@ -343,23 +342,23 @@ const BaseSceneLab1 = () => {
 
         /* Hints existentes */
         .rotate-hint {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  z-index: 500;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  white-space: nowrap;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(0, 0, 0, 0.8);
+          color: white;
+          padding: 8px 16px;
+          border-radius: 20px;
+          font-size: 12px;
+          z-index: 500;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          white-space: nowrap;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
         .arrow-hint {
           position: fixed;
