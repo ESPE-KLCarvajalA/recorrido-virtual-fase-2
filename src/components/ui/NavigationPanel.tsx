@@ -1,6 +1,9 @@
 // src/components/ui/NavigationPanel.tsx
 import { useState, useEffect } from 'react';
 
+// 🔗 Configurar el enlace de salida (puedes cambiarlo por cualquier URL)
+const EXIT_URL = 'https://tour-virtual-espe.lat/';
+
 // 🗺️ Definir ubicaciones de teletransporte
 const TELEPORT_LOCATIONS = {
   entrada: [-80, -1, 170],
@@ -15,7 +18,6 @@ const TELEPORT_LOCATIONS = {
   secretaria: [-155.823, 26, -39.883],
   enfermeria: [537.62, 25, -330.33],
   parking: [-300, 0, 100],
- 
 } as const;
 
 type LocationKey = keyof typeof TELEPORT_LOCATIONS;
@@ -33,9 +35,7 @@ const LOCATION_NAMES: Record<LocationKey, string> = {
   bar: 'Cafetería',
   secretaria: 'Secretaría',
   enfermeria: 'Enfermería',
-
   parking: 'Estacionamiento',
- 
 };
 
 // 🎨 Iconos para cada ubicación
@@ -52,8 +52,56 @@ const LOCATION_ICONS: Record<LocationKey, string> = {
   secretaria: '📋',
   enfermeria: '🏥',
   parking: '🚗',
-  
 };
+
+// 🚪 Componente del botón de salida separado
+function ExitButton() {
+  const buttonStyle = {
+    position: 'fixed' as const,
+    top: '16px',
+    right: '16px',
+    zIndex: 10,
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px',
+    padding: '12px 20px',
+    background: 'linear-gradient(to right, #10b981, #059669)',
+    color: 'white',
+    textDecoration: 'none',
+    borderRadius: '8px',
+    fontWeight: '500',
+    fontSize: '14px',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+    border: 'none',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+  };
+  
+  const hoverStyle = {
+    background: 'linear-gradient(to right, #059669, #047857)',
+    transform: 'scale(1.1)',
+    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
+  };
+  
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <a
+      href={EXIT_URL}
+      style={{...buttonStyle, ...(isHovered ? hoverStyle : {})}}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-log-out" aria-hidden="true">
+        <path d="m16 17 5-5-5-5"></path>
+        <path d="M21 12H9"></path>
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+      </svg>
+      Salir
+    </a>
+  );
+}
 
 function NavigationPanel() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -173,12 +221,15 @@ function NavigationPanel() {
 
   return (
     <>
+      {/* 🚪 Botón de salida en la esquina superior derecha */}
+      <ExitButton />
+
       <div 
         style={{
           position: 'fixed',
           bottom: '20px',
           right: '20px',
-          zIndex: 9999,
+          zIndex: 20,
           fontFamily: 'Arial, sans-serif'
         }}
       >
@@ -247,8 +298,6 @@ function NavigationPanel() {
             <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
               {renderTeleportButtons()}
             </div>
-            
-           
           </div>
         )}
 
@@ -299,7 +348,7 @@ function NavigationPanel() {
         padding: '12px 18px',
         borderRadius: '15px',
         fontSize: '14px',
-        zIndex: 1000,
+        zIndex: 15,
         border: '2px solid rgba(16, 185, 129, 0.3)',
         transition: 'all 0.3s ease',
         backdropFilter: 'blur(10px)',
