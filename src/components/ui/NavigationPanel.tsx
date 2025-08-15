@@ -23,10 +23,10 @@ type LocationKey = keyof typeof TELEPORT_LOCATIONS;
 // 🏷️ Nombres amigables para las ubicaciones
 const LOCATION_NAMES: Record<LocationKey, string> = {
   entrada: 'Entrada Principal',
-  lab1: 'Laboratorio de Biotecnología 1',
-  lab2: 'Laboratorio de Biotecnología 2', 
-  lab3: 'Laboratorio de Biotecnología 3',
-  lab4: 'Laboratorio de Biotecnología 4',
+  lab1: 'Laboratorio de Fitopatología',
+  lab2: 'Laboratorio de Microbiología', 
+  lab3: 'Laboratorio de Bromatología',
+  lab4: 'Laboratorio de Biología Molecular',
   lab5: 'Laboratorio de Biotecnología 5',
   lab6: 'Laboratorio de Biotecnología 6',
   oficinas: 'Oficinas Administrativas',

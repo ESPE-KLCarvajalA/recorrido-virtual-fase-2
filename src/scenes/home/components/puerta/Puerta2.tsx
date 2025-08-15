@@ -104,16 +104,7 @@ const marcadoresPersonalizados: MarcadorData[] = [
     url: '#/lab1',
   },
   // Nuevos marcadores agregados
-  {
-    position: [30.324, 20, -71.757],
-    markerOffset: [9, 3.5, 3.5],
-    targetPosition: [50, 25, -90], // Posición donde se moverá la cámara
-  },
-  {
-    position: [30, 20, -48],
-    markerOffset: [9, 3.5, 3.5],
-    targetPosition: [10, 25, -30], // Posición donde se moverá la cámara
-  }
+ 
 ];
 
 
