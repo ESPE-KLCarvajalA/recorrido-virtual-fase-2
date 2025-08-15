@@ -1,101 +1,370 @@
-import { Physics } from '@react-three/cannon';
-import { Canvas } from '@react-three/fiber';
-import BaseCharacter from '../../shared/components/BaseCharacter';
-import { PointerLockControls } from '@react-three/drei';
-import { useRef } from 'react';
+// src/components/ui/NavigationPanel.tsx
+import { useState, useEffect } from 'react';
 
-import HDRIEnvironment from './components/ui/HDRIEnvironment';
+// 🔗 Configurar el enlace de salida (puedes cambiarlo por cualquier URL)
+const EXIT_URL = 'https://tour-virtual-espe.lat/';
 
+// 🗺️ Definir ubicaciones de teletransporte
+const TELEPORT_LOCATIONS = {
+  entrada: [-80, -1, 170],
+  lab1: [-76, 19, -500],
+  lab2: [-53, 20, -370],
+  lab3: [-37, 19.5, -221.824],
+  lab4: [-155, 20, -68.5],
+  lab5: [-152.702 , 20, -68.4816],
+  lab6: [167.089, 20, -279.414],
+  oficinas: [72.124, 20, -68.044],
+  bar: [-710.344, -6, -210.603],
+  secretaria: [-155.823, 26, -39.883],
+  enfermeria: [537.62, 25, -330.33],
+  parking: [-300, 0, 100],
+} as const;
 
-import BaseSceneAfuera from './groups/BaseSceneAfuera';
-import BaseScenePisos2 from './groups/BaseScenePisos2';
-import BaseSceneArco from './groups/BaseSceneArco';
+type LocationKey = keyof typeof TELEPORT_LOCATIONS;
 
-import BaseSceneLab from './groups/BaseSceneLab';
-import BaseSceneLab2 from './groups/BaseSceneLab2';
+// 🏷️ Nombres amigables para las ubicaciones
+const LOCATION_NAMES: Record<LocationKey, string> = {
+  entrada: 'Entrada Principal',
+  lab1: 'Laboratorio de Fitopatología',
+  lab2: 'Laboratorio de Microbiología', 
+  lab3: 'Laboratorio de Bromatología',
+  lab4: 'Laboratorio de Biología Molecular',
+  lab5: 'Laboratorio de Biotecnología 5',
+  lab6: 'Laboratorio de Biotecnología 6',
+  oficinas: 'Oficinas Administrativas',
+  bar: 'Cafetería',
+  secretaria: 'Secretaría',
+  enfermeria: 'Enfermería',
+  parking: 'Estacionamiento',
+};
 
-import BaseSceneOficina from './groups/BaseSceneOficina';
-import BaseSceneOficina2 from './groups/BaseSceneOficina2';
+// 🎨 Iconos para cada ubicación
+const LOCATION_ICONS: Record<LocationKey, string> = {
+  entrada: '🏛️',
+  lab1: '🔬',
+  lab2: '⚗️',
+  lab3: '🧪',
+  lab4: '🔍',
+  lab5: '💊',
+  lab6: '🩺',
+  oficinas: '🏢',
+  bar: '☕',
+  secretaria: '📋',
+  enfermeria: '🏥',
+  parking: '🚗',
+};
 
+// 🚪 Componente del botón de salida separado
+function ExitButton() {
+  const buttonStyle = {
+    position: 'fixed' as const,
+    top: '16px',
+    right: '16px',
+    zIndex: 50,
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px',
+    padding: '12px 20px',
+    background: 'linear-gradient(to right, #10b981, #059669)',
+    color: 'white',
+    textDecoration: 'none',
+    borderRadius: '8px',
+    fontWeight: '500',
+    fontSize: '14px',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+    border: 'none',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+  };
+  
+  const hoverStyle = {
+    background: 'linear-gradient(to right, #059669, #047857)',
+    transform: 'scale(1.1)',
+    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
+  };
+  
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <a
+      href={EXIT_URL}
+      style={{...buttonStyle, ...(isHovered ? hoverStyle : {})}}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-log-out" aria-hidden="true">
+        <path d="m16 17 5-5-5-5"></path>
+        <path d="M21 12H9"></path>
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+      </svg>
+      Salir
+    </a>
+  );
+}
 
-import BaseSceneBar from './groups/BaseSceneBar';
-import BaseSceneBar2 from './groups/BaseSceneBar2';
+function NavigationPanel() {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState<LocationKey>('entrada');
 
-import BaseSceneVilla2F from './groups/BaseSceneVilla2F';
-import BaseSceneVilla2SF from './groups/BaseSceneVilla2SF';
+  // 🚀 Botones de teletransporte (generados dinámicamente)
+  const teleportButtons = Object.keys(TELEPORT_LOCATIONS).map(key => {
+    const locationKey = key as LocationKey;
+    return {
+      id: locationKey,
+      label: LOCATION_NAMES[locationKey],
+      icon: LOCATION_ICONS[locationKey]
+    };
+  });
 
-import BaseSceneOtros from './groups/BaseSceneOtros';
-import BaseSceneOtros2 from './groups/BaseSceneOtros2';
-import NavigationPanel from '../../components/ui/NavigationPanel';
-import { PositionRestore } from '../lab1/components/PositionRestore';
+  // 🚀 Función de teletransporte usando CustomEvent
+  const handleTeleport = (location: LocationKey) => {
+    const newPosition = TELEPORT_LOCATIONS[location];
+    
+    // Dispatch evento personalizado para que BaseCharacter lo escuche
+    const teleportEvent = new CustomEvent('teleportCharacter', {
+      detail: {
+        position: newPosition,
+        location: location,
+        locationName: LOCATION_NAMES[location]
+      }
+    });
+    
+    window.dispatchEvent(teleportEvent);
+    setCurrentLocation(location);
+    setIsExpanded(false);
+    
+    console.log(`🚀 Teletransportando a ${LOCATION_NAMES[location]}:`, newPosition);
+  };
 
-// import LimitesContornoReal from './components/LimitesContornoReal';
+  // 🎧 Escuchar eventos de cambio de posición del personaje
+  useEffect(() => {
+    const handlePositionUpdate = (event: any) => {
+      const { position } = event.detail;
+      
+      // Determinar la ubicación más cercana
+      let closestLocation: LocationKey | null = null;
+      let minDistance = Infinity;
+      
+      Object.entries(TELEPORT_LOCATIONS).forEach(([key, pos]) => {
+        const distance = Math.sqrt(
+          Math.pow(position[0] - pos[0], 2) +
+          Math.pow(position[1] - pos[1], 2) +
+          Math.pow(position[2] - pos[2], 2)
+        );
+        
+        if (distance < minDistance && distance < 50) {
+          minDistance = distance;
+          closestLocation = key as LocationKey;
+        }
+      });
+      
+      if (closestLocation) {
+        setCurrentLocation(closestLocation);
+      }
+    };
 
+    window.addEventListener('characterPositionUpdate', handlePositionUpdate);
+    return () => window.removeEventListener('characterPositionUpdate', handlePositionUpdate);
+  }, []);
 
-const BaseSceneEntrada = () => {
-  const controlsRef = useRef(null);
+  const renderTeleportButtons = () => {
+    return teleportButtons.map((button) => {
+      const isActive = currentLocation === button.id;
+        
+      return (
+        <button
+          key={button.id}
+          onClick={() => handleTeleport(button.id as LocationKey)}
+          style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '12px',
+            marginBottom: '8px',
+            borderRadius: '12px',
+            border: 'none',
+            backgroundColor: isActive ? '#10b981' : 'rgba(255, 255, 255, 0.1)',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '14px',
+            transition: 'all 0.3s ease',
+            transform: 'translateX(0)',
+          }}
+          onMouseEnter={(e) => {
+            if (!isActive) {
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+              e.currentTarget.style.transform = 'translateX(5px)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (!isActive) {
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.transform = 'translateX(0)';
+            }
+          }}
+        >
+          <span style={{ fontSize: '20px' }}>{button.icon}</span>
+          <div style={{ flex: 1, textAlign: 'left' }}>
+            <div style={{ fontWeight: isActive ? 'bold' : 'normal' }}>
+              {button.label}
+            </div>
+          </div>
+          {isActive && (
+            <span style={{ marginLeft: 'auto', fontSize: '16px' }}>📍</span>
+          )}
+        </button>
+      );
+    });
+  };
 
   return (
     <>
-      <Canvas camera={{ position: [-80, -1, 170] }}>
-        <ambientLight intensity={Math.PI / 2} />
+      {/* 🚪 Botón de salida en la esquina superior derecha */}
+      <ExitButton />
 
-        <Physics gravity={[0, -100, 0]} iterations={10}>
+      <div 
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          zIndex: 9999,
+          fontFamily: 'Arial, sans-serif'
+        }}
+      >
+        {/* Panel expandido */}
+        {isExpanded && (
+          <div 
+            style={{
+              marginBottom: '10px',
+              backgroundColor: 'rgba(0, 0, 0, 0.85)',
+              borderRadius: '20px',
+              padding: '20px',
+              minWidth: '300px',
+              maxWidth: '350px',
+              border: '2px solid rgba(16, 185, 129, 0.3)',
+              maxHeight: '70vh',
+              overflowY: 'auto',
+              backdropFilter: 'blur(10px)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)'
+            }}
+          >
+            {/* Header */}
+            <div style={{ 
+              color: 'white', 
+              marginBottom: '15px', 
+              fontWeight: 'bold',
+              fontSize: '18px',
+              textAlign: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px'
+            }}>
+              <span>🚀</span>
+              <span>Panel de Navegación</span>
+            </div>
+            
+            {/* Instrucción ESC */}
+            <div style={{ 
+              marginBottom: '20px', 
+              padding: '12px', 
+              backgroundColor: 'rgba(255, 193, 7, 0.2)', 
+              borderRadius: '10px',
+              fontSize: '12px',
+              color: '#ffc107',
+              textAlign: 'center',
+              border: '1px solid rgba(255, 193, 7, 0.3)'
+            }}>
+              ⚠️ Presiona <strong>ESC</strong> para liberar el cursor y hacer clic
+            </div>
 
-          {/* <LimitesContornoReal
-            mostrarDebug={true}
-            precision="media"  // ← EMPEZAR CON ESTO
-          /> */}
+            {/* Descripción */}
+            <div style={{ 
+              marginBottom: '20px', 
+              padding: '10px', 
+              backgroundColor: 'rgba(16, 185, 129, 0.2)', 
+              borderRadius: '10px',
+              fontSize: '12px',
+              color: '#6ee7b7',
+              textAlign: 'center',
+              border: '1px solid rgba(16, 185, 129, 0.3)'
+            }}>
+              🚀 Mueve tu personaje instantáneamente a cualquier ubicación
+            </div>
+            
+            {/* Botones de teletransporte */}
+            <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
+              {renderTeleportButtons()}
+            </div>
+          </div>
+        )}
 
+        {/* Botón principal flotante */}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          style={{
+            backgroundColor: '#10b981',
+            color: 'white',
+            padding: '18px',
+            borderRadius: '50%',
+            border: '3px solid rgba(255, 255, 255, 0.3)',
+            cursor: 'pointer',
+            fontSize: '28px',
+            boxShadow: '0 6px 25px rgba(16, 185, 129, 0.4)',
+            transition: 'all 0.3s ease',
+            transform: isExpanded ? 'rotate(45deg)' : 'rotate(0deg)',
+            width: '70px',
+            height: '70px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = isExpanded 
+              ? 'rotate(45deg) scale(1.1)' 
+              : 'rotate(0deg) scale(1.1)';
+            e.currentTarget.style.boxShadow = '0 8px 30px rgba(16, 185, 129, 0.6)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = isExpanded 
+              ? 'rotate(45deg) scale(1)' 
+              : 'rotate(0deg) scale(1)';
+            e.currentTarget.style.boxShadow = '0 6px 25px rgba(16, 185, 129, 0.4)';
+          }}
+        >
+          {isExpanded ? '✕' : '🚀'}
+        </button>
+      </div>
 
-          <BaseSceneAfuera />
-          <BaseScenePisos2 />
-
-          <BaseSceneArco />
-
-          <BaseSceneBar />
-          <BaseSceneBar2 />
-
-          <BaseSceneLab />
-          <BaseSceneLab2 />
-
-          <BaseSceneOficina />
-
-          <BaseSceneOtros />
-
-          <BaseSceneVilla2F />
-
-
-          <BaseCharacter
-            controls
-            positionCharacter={[-80, -1, 170]}
-            args={[2.2]}
-            altura={20}
-            velocidad={40}
-            salto={20}
-            color="green"
-          />
-        </Physics>
-
-        {/* sinfisica */}
-
-        <BaseSceneOficina2 />
-
-        <BaseSceneOtros2 />
-
-        <BaseSceneVilla2SF />
-
-        <PositionRestore /> 
-
-        <HDRIEnvironment />
-        <PointerLockControls ref={controlsRef} />
-      </Canvas>
-
-      {/* 🆕 Nuevo Panel de Navegación */}
-      <NavigationPanel />
-
+      {/* 📍 Indicador de ubicación actual */}
+      <div style={{
+        position: 'fixed',
+        top: '20px',
+        left: '20px',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        color: 'white',
+        padding: '12px 18px',
+        borderRadius: '15px',
+        fontSize: '14px',
+        zIndex: 1000,
+        border: '2px solid rgba(16, 185, 129, 0.3)',
+        transition: 'all 0.3s ease',
+        backdropFilter: 'blur(10px)',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span style={{ fontSize: '20px' }}>{LOCATION_ICONS[currentLocation]}</span>
+          <div>
+            <div style={{ fontWeight: 'bold' }}>
+              {LOCATION_NAMES[currentLocation]}
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
-};
+}
 
-export default BaseSceneEntrada;
+export default NavigationPanel;
