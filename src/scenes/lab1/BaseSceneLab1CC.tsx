@@ -62,42 +62,42 @@ const InfoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Laboratorio de Computación 1</h2>
+          <h2>Laboratorio de Fitopatología</h2>
           <button className="close-button" onClick={onClose}>
             ✕
           </button>
         </div>
         <div className="modal-body">
           <div className="info-section">
-            <h3>📋 Información General</h3>
-            <p>Este es el Laboratorio de Computación 1, equipado con tecnología de última generación para el aprendizaje y desarrollo de proyectos tecnológicos.</p>
+            <h3>🌱 Información General</h3>
+            <p>Este es el Laboratorio de Fitopatología, especializado en el estudio, diagnóstico y control de enfermedades de plantas. Equipado con tecnología avanzada para la investigación fitosanitaria y el desarrollo de estrategias de manejo integrado.</p>
           </div>
-
+          
           <div className="info-section">
-            <h3>💻 Equipamiento</h3>
+            <h3>🔬 Equipamiento</h3>
             <ul>
-              <li>30 computadoras de escritorio con procesadores de alta gama</li>
-              <li>Proyector 4K y sistema de audio profesional</li>
-              <li>Conexión a internet de alta velocidad</li>
-              <li>Software especializado en programación y diseño</li>
+              <li>Microscopios ópticos y estereoscópicos de alta resolución</li>
+              <li>Cámaras húmedas y de crecimiento controlado</li>
+              <li>Autoclaves y equipos de esterilización</li>
+              <li>Campanas de flujo laminar bioseguridad nivel 2</li>
+              <li>Incubadoras con control de temperatura y humedad</li>
+              <li>Equipos de PCR para diagnóstico molecular</li>
             </ul>
           </div>
-
+          
           <div className="info-section">
-            <h3>🎯 Actividades</h3>
+            <h3>🧪 Actividades</h3>
             <ul>
-              <li>Programación en múltiples lenguajes</li>
-              <li>Desarrollo web y aplicaciones móviles</li>
-              <li>Diseño gráfico y multimedia</li>
-              <li>Análisis de datos y bases de datos</li>
+              <li>Aislamiento e identificación de patógenos vegetales</li>
+              <li>Diagnóstico de enfermedades fungosas, bacterianas y virales</li>
+              <li>Pruebas de patogenicidad y virulencia</li>
+              <li>Evaluación de fungicidas y bactericidas</li>
+              <li>Análisis histopatológicos de tejidos infectados</li>
+              <li>Investigación en resistencia genética de plantas</li>
             </ul>
           </div>
-
-          <div className="info-section">
-            <h3>⏰ Horarios</h3>
-            <p>Lunes a Viernes: 8:00 AM - 6:00 PM<br />
-              Sábados: 9:00 AM - 2:00 PM</p>
-          </div>
+          
+         
         </div>
       </div>
     </div>
