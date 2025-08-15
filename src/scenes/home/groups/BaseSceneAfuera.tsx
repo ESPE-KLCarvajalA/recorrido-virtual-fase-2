@@ -15,6 +15,8 @@ import { Parqueadero } from "../components/parqueadero/parqueadero";
 import { Borde } from "../components/primer/Borde";
 import { Carretera } from "../components/primer/carretera";
 import { PisoArco } from "../components/primer/PisoArco";
+import { PisoCercaBar } from "../components/primer/pisoCercaBar";
+import { PisoCercaBar2 } from "../components/primer/pisoCercaBar2";
 import { PisoCesped1 } from "../components/primer/PisoCesped1";
 import { PisoCesped3 } from "../components/primer/PisoCesped3";
 import { PisoCesped5E } from "../components/primer/PisoCesped5E";
@@ -57,6 +59,8 @@ const BaseSceneAfuera = () => {
        {/* <PisoCesped6 /> */}
        
        <Carretera /> 
+       <PisoCercaBar />
+       <PisoCercaBar2 />
       
       
  {/* sin fisica */}

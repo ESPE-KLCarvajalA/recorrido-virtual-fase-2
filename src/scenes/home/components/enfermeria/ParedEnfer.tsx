@@ -64,7 +64,7 @@ export function ParedEn(props: ThreeElements['group']) {
   const { nodes, materials } = useGLTF('https://pub-c5bac125f50b4d948ed14a01abf7fef0.r2.dev/models/enfermeria/paredEn.glb') as unknown as GLTFResult
   
   const distance = useCameraDistance([537.62, 25, -330.33]); // Punto de referencia
-  if (distance > 600) return null;
+  if (distance > 900) return null;
   
   const position: [number, number, number] = [537.62, 25, -330.33]
 
