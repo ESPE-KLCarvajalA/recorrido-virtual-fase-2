@@ -138,7 +138,7 @@ const BaseSceneLab1 = () => {
       {/* Botón de información */}
       <div className="info-button" onClick={openModal}>
         <span className="info-icon">ℹ️</span>
-        
+
       </div>
 
       {/* Modal de información */}
@@ -343,20 +343,23 @@ const BaseSceneLab1 = () => {
 
         /* Hints existentes */
         .rotate-hint {
-          position: fixed;
-          bottom: 5px;
-          left: 50%;
-          transform: translateX(-50%);
-          background: rgba(0, 0, 0, 0.7);
-          color: white;
-          padding: 10px 20px;
-          border-radius: 25px;
-          font-size: 14px;
-          z-index: 500;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
         .arrow-hint {
           position: fixed;
