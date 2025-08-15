@@ -20,6 +20,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.6.0",
+    "styled-jsx": "^5.1.7",
     "three": "^0.176.0",
     "three-stdlib": "^2.36.0"
   },
