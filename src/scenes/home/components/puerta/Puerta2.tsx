@@ -66,7 +66,8 @@ const instances: InstanceData[] = [
     { position: [-465.211, 21.092, -8.607], rotation: [0, 1.571, 0], scale: [1, 1, 1] },
     
     { position: [-445.593, 21.092, -84.581], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [-96.599, 23.092, -56.649 ], rotation: [0, 0, 0], scale: [1, 1, 1] }
+
+    { position: [-96.599, 23.092, -56.649 ], rotation: [0,1.571, 0], scale: [1, 1, 1] }
   
 
   
