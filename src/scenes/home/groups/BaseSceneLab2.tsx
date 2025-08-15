@@ -2,6 +2,7 @@
 
 // Imports de tus componentes originales
 
+import { ParedEn } from "../components/enfermeria/ParedEnfer";
 import { ParedLabCiencias1 } from "../components/labCiencias2/ParedLabCiencias1";
 import { ParedLabCiencias2 } from "../components/labCiencias2/ParedLabCiencias2";
 import { TechoLabCC } from "../components/labCiencias2/TechoLabCC";
@@ -20,10 +21,12 @@ const BaseSceneLab2 = () => {
       < ParedLabCiencias1 />
       < ParedLabCiencias2 />
       <PisoMedio />
+      <ParedEn />
 
       
       <TechoLabCC />
       <TechoLabCC2 />
+
 
 
 

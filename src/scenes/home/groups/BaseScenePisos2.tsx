@@ -40,12 +40,14 @@ const BaseScenePisos2 = () => {
      <PisoVereda3 />
      <PisoVereda4 />
      <PisoVereda41 />
+     
 
      {/* <PisoVereda6 /> */}
 
      {/* <PisoCesped7 />
      < Piso7 />
      <PisoCesped8 /> */}
+
 
 
 

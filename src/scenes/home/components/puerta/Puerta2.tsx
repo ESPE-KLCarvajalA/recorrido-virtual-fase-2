@@ -49,10 +49,10 @@ const instances: InstanceData[] = [
  
   { position: [-165, 20, -56.541], rotation: [0, -1.57, 0], scale: [1, 1, 1] },
   { position: [-179, 20, -68.5], rotation: [0, 3.14, 0], scale: [1, 1, 1.05] },
-  { position: [-810.413, -7.023, 126.962], rotation: [0, 0, 0], scale: [1, 1, 1] },
-  { position: [-725.667, -7.47, 126.962], rotation: [0, 0, 0], scale: [1, 1, 1] },
-  { position: [-586.295, -7.47, 120.231], rotation: [0, 0.914, 0], scale: [1, 1, 1] },
-  { position: [-721.177, 4.818, -454.436], rotation: [0, -1.571, 0], scale: [1, 1, 1] },
+  { position: [-810.413, 20, 126.962], rotation: [0, 1.57, 0], scale: [1, 1, 1] },
+  { position: [-725.667, 20, 126.962], rotation: [0, 1.57, 0], scale: [1, 1, 1] },
+  { position: [-586.295, 20, 120.231], rotation: [0, 0.914, 0], scale: [1, 1, 1] },
+  { position: [-721.177, 20, -454.436], rotation: [0, 0, 0], scale: [1, 1, 1] },
   { position: [-464, 23.24, -930], rotation: [0, 1.57, 0], scale: [1, 1, 1.01] },
   { position: [-713, 24.132, -835.5], rotation: [0, 3.15, 0], scale: [1, 1, 1] },
   { position: [-519, 21.658, -464], rotation: [0, 0, 0], scale: [1, 1, 1] },
@@ -60,11 +60,13 @@ const instances: InstanceData[] = [
   { position: [-210.704, 21.658, -716.5], rotation: [0, 0, 0], scale: [1, 1, 1] },
 
   //nuevas
-    { position: [-779.719, 21.092, -8.607], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [-870.001, 21.092, -8.607], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [-627.473, 21.092, -8.607], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [-465.211, 21.092, -8.607], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    { position: [-445.593, 21.092, -84.581], rotation: [0, 1.571, 0], scale: [1, 1, 1] }
+    { position: [-779.719, 21.092, -8.607], rotation: [0, 1.571, 0], scale: [1, 1, 1] },
+    { position: [-870.001, 21.092, -8.607], rotation: [0, 1.571, 0], scale: [1, 1, 1] },
+    { position: [-627.473, 21.092, -8.607], rotation: [0, 1.571, 0], scale: [1, 1, 1] },
+    { position: [-465.211, 21.092, -8.607], rotation: [0, 1.571, 0], scale: [1, 1, 1] },
+    
+    { position: [-445.593, 21.092, -84.581], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [-96.599, 23.092, -56.649 ], rotation: [0, 0, 0], scale: [1, 1, 1] }
   
 
   
