@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 // 🔗 Configurar el enlace de salida (puedes cambiarlo por cualquier URL)
-const EXIT_URL = 'https://example.com'; // Cambia esta URL por la que necesites
+const EXIT_URL = 'https://tour-virtual-espe.lat/'; // Cambia esta URL por la que necesites
 
 // 🗺️ Definir ubicaciones de teletransporte
 const TELEPORT_LOCATIONS = {
