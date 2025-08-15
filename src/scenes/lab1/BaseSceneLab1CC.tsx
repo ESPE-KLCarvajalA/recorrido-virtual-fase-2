@@ -345,7 +345,7 @@ const BaseSceneLab1 = () => {
         .rotate-hint {
           position: fixed;
           bottom: 20px;
-          left: 50%;
+          left: 20%;
           transform: translateX(-50%);
           background: rgba(0, 0, 0, 0.7);
           color: white;
