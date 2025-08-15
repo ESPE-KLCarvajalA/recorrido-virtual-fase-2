@@ -150,10 +150,10 @@ const BaseSceneLab4CC = () => {
 
       {showHint && (
         <>
-          <div className="rotate-hint">
+          {/* <div className="rotate-hint">
             <span className="mouse">🖱️</span>
             <span>Arrastra para girar</span>
-          </div>
+          </div> */}
           <div className="arrow-hint left-arrow">⬅️</div>
           <div className="arrow-hint right-arrow">➡️</div>
         </>
@@ -190,8 +190,9 @@ const BaseSceneLab4CC = () => {
       <style >{`
         .info-button {
           position: fixed;
-          top: 20px;
-          right: 20px;
+         top: 20px;
+          left: 50%;
+          transform: translateX(-50%);
           background: rgba(255, 255, 255, 0.9);
           border: 2px solid #007bff;
           border-radius: 50px;
@@ -205,7 +206,6 @@ const BaseSceneLab4CC = () => {
           backdrop-filter: blur(10px);
           box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
         }
-
         .info-button:hover {
           background: rgba(0, 123, 255, 0.1);
           transform: scale(1.05);
