@@ -1,6 +1,9 @@
 // src/components/ui/NavigationPanel.tsx
 import { useState, useEffect } from 'react';
 
+// 🔗 Configurar el enlace de salida (puedes cambiarlo por cualquier URL)
+const EXIT_URL = 'https://example.com'; // Cambia esta URL por la que necesites
+
 // 🗺️ Definir ubicaciones de teletransporte
 const TELEPORT_LOCATIONS = {
   entrada: [-80, -1, 170],
@@ -15,7 +18,6 @@ const TELEPORT_LOCATIONS = {
   secretaria: [-155.823, 26, -39.883],
   enfermeria: [537.62, 25, -330.33],
   parking: [-300, 0, 100],
- 
 } as const;
 
 type LocationKey = keyof typeof TELEPORT_LOCATIONS;
@@ -33,9 +35,7 @@ const LOCATION_NAMES: Record<LocationKey, string> = {
   bar: 'Cafetería',
   secretaria: 'Secretaría',
   enfermeria: 'Enfermería',
-
   parking: 'Estacionamiento',
- 
 };
 
 // 🎨 Iconos para cada ubicación
@@ -52,7 +52,6 @@ const LOCATION_ICONS: Record<LocationKey, string> = {
   secretaria: '📋',
   enfermeria: '🏥',
   parking: '🚗',
-  
 };
 
 function NavigationPanel() {
@@ -87,6 +86,12 @@ function NavigationPanel() {
     setIsExpanded(false);
     
     console.log(`🚀 Teletransportando a ${LOCATION_NAMES[location]}:`, newPosition);
+  };
+
+  // 🚪 Función para manejar la salida (redirección en la misma página)
+  const handleExit = () => {
+    console.log('🚪 Redirigiendo a:', EXIT_URL);
+    window.location.href = EXIT_URL;
   };
 
   // 🎧 Escuchar eventos de cambio de posición del personaje
@@ -244,11 +249,51 @@ function NavigationPanel() {
             </div>
             
             {/* Botones de teletransporte */}
-            <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
+            <div style={{ maxHeight: '300px', overflowY: 'auto', marginBottom: '15px' }}>
               {renderTeleportButtons()}
             </div>
             
-           
+            {/* Separador */}
+            <div style={{
+              height: '1px',
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              margin: '15px 0'
+            }} />
+            
+            {/* 🚪 Botón Salir */}
+            <button
+              onClick={handleExit}
+              style={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                padding: '15px',
+                borderRadius: '12px',
+                border: 'none',
+                backgroundColor: 'rgba(220, 38, 38, 0.8)',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '16px',
+                fontWeight: 'bold',
+                transition: 'all 0.3s ease',
+                transform: 'translateX(0)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(220, 38, 38, 1)';
+                e.currentTarget.style.transform = 'scale(1.02)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(220, 38, 38, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(220, 38, 38, 0.8)';
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <span style={{ fontSize: '24px' }}>↩️</span>
+              <span>Salir</span>
+            </button>
           </div>
         )}
 
