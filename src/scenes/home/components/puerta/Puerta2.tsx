@@ -23,6 +23,13 @@ type InstanceData = {
   scale: [number, number, number];
 };
 
+type MarcadorData = {
+  position: [number, number, number];
+  markerOffset: [number, number, number];
+  url?: string;
+  targetPosition?: [number, number, number];
+};
+
 const instances: InstanceData[] = [
   { position: [167.089, 20, -279.414], rotation: [0, 0, 0], scale: [1, 1, 1] },
   { position: [52.9421, 20, -346.272], rotation: [0, 1.57, 0], scale: [1, 1, 1] },
@@ -34,8 +41,12 @@ const instances: InstanceData[] = [
   { position: [-62.334, 19.5, -221.824], rotation: [0, 3.14, 0], scale: [1, 1, 1] },
   { position: [-32, 20, -370], rotation: [0, 0, 0], scale: [1, 1.04, 1.08] },
   { position: [-99, 19, -506], rotation: [0, 3.14, 0], scale: [1, 1, 1.08] },
+  
+  
   { position: [30.324, 20, -71.757], rotation: [0, 0, 0], scale: [1, 1, 1] },
   { position: [30, 20, -48], rotation: [0, 0, 0], scale: [1, 1, 1.05] },
+ 
+ 
   { position: [-165, 20, -56.541], rotation: [0, -1.57, 0], scale: [1, 1, 1] },
   { position: [-179, 20, -68.5], rotation: [0, 3.14, 0], scale: [1, 1, 1.05] },
   { position: [-810.413, -7.023, 126.962], rotation: [0, 0, 0], scale: [1, 1, 1] },
@@ -46,10 +57,20 @@ const instances: InstanceData[] = [
   { position: [-713, 24.132, -835.5], rotation: [0, 3.15, 0], scale: [1, 1, 1] },
   { position: [-519, 21.658, -464], rotation: [0, 0, 0], scale: [1, 1, 1] },
   { position: [-516, 21.658, -744], rotation: [0, 0, 0], scale: [1, 1, 1] },
-  { position: [-210.704, 21.658, -716.5], rotation: [0, 0, 0], scale: [1, 1, 1] }
+  { position: [-210.704, 21.658, -716.5], rotation: [0, 0, 0], scale: [1, 1, 1] },
+
+  //nuevas
+    { position: [-779.719, 21.092, -8.607], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [-870.001, 21.092, -8.607], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [-627.473, 21.092, -8.607], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [-465.211, 21.092, -8.607], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    { position: [-445.593, 21.092, -84.581], rotation: [0, 1.571, 0], scale: [1, 1, 1] }
+  
+
+  
 ];
 
-const marcadoresPersonalizados = [
+const marcadoresPersonalizados: MarcadorData[] = [
   {
     position: [-165, 20, -56.541],
     markerOffset: [9, 3.5, 3.5],
@@ -79,6 +100,17 @@ const marcadoresPersonalizados = [
     position: [-99, 19, -506],
     markerOffset: [9, 3.5, 3.5],
     url: '#/lab1',
+  },
+  // Nuevos marcadores agregados
+  {
+    position: [30.324, 20, -71.757],
+    markerOffset: [9, 3.5, 3.5],
+    targetPosition: [50, 25, -90], // Posición donde se moverá la cámara
+  },
+  {
+    position: [30, 20, -48],
+    markerOffset: [9, 3.5, 3.5],
+    targetPosition: [10, 25, -30], // Posición donde se moverá la cámara
   }
 ];
 
